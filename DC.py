@@ -4,4 +4,11 @@ def sumDivCon(arr):
     else:
         return arr.pop(0) + sumDivCon(arr)
 
-print(sumDivCon([1,2,3,4,5,6,6,7,8,4]))            
+def countNumberInLIst(arr):
+    if (len(arr) == 1):
+        return 1
+    else:
+        arr.pop(0)
+        return 1 + countNumberInLIst(arr)
+
+print(countNumberInLIst([1,2,3,4,5,6,7,8,9]))                    
