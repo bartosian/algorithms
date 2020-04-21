@@ -11,4 +11,27 @@ def countNumberInLIst(arr):
         arr.pop(0)
         return 1 + countNumberInLIst(arr)
 
-print(countNumberInLIst([1,2,3,4,5,6,7,8,9]))                    
+def max(arr):
+    max_el = arr[0]
+    max_ind = 0
+
+    for i in range(1, len(arr)):
+        if (arr[i] > max_el):
+            max_el = arr[i]
+            max_ind = i
+    return max_el
+
+
+def quicksort(arr):
+    if (len(arr) < 2):
+        return arr
+    else:
+        pivot = arr[0]
+        less = [i for i in arr[1:] if i <= pivot]
+        greater = [i for i in arr[1:] if i > pivot]
+
+        return quicksort(less) + [pivot] + quicksort(greater)
+
+
+print(quicksort([1, 30, 2, 56, 9, 100]))
+                    
