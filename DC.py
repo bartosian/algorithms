@@ -33,5 +33,5 @@ def quicksort(arr):
         return quicksort(less) + [pivot] + quicksort(greater)
 
 
-print(quicksort([1, 30, 2, 56, 9, 100]))
+
                     
