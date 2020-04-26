@@ -33,3 +33,25 @@ function bubbleSort(arr) {
     
     return arr;
 }
+
+function selectionSort(arr) {
+    let len = arr.length;
+
+    for(let i = 0; i < len; i++) {
+        let lowest_id = i;
+
+        for(let j = i + 1; j < len; j++) { 
+            if(arr[lowest_id] > arr[j]) {
+                lowest_id = j;
+            }
+        }
+
+        if(lowest_id !== i) {
+            let tmp = arr[i];
+            arr[i] = arr[lowest_id];
+            arr[lowest_id] = tmp;
+        }
+    }
+    
+    return arr;
+}
