@@ -28,4 +28,26 @@ def binary_search(array, value)
   end
 
   return nil
-end    
+end
+
+def every_other(array)
+  new_array = []
+
+  array.each_with_index do |element, index|
+    new_array << element if index.even?
+  end  
+
+  return new_array
+end 
+
+def every_other(array)
+  new_array = []
+  index = 0
+
+  while index < array.length
+    new_array << array[index]
+    index += 2
+  end 
+  
+  return new_array
+end   
