@@ -14,4 +14,19 @@ function insertionSort(arr) {
     return arr
 }
 
-console.log(insertionSort([4, 1, 2, 7, 4, 3]))
+function intersection(arr, arr2) {
+    let result = [];
+
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr2.length; j++) {
+            if(arr[i] == arr2[j]) {
+                result.push(arr[i]);
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+
+console.log(intersection([1, 2, 3,4], [4, 3, 5, 6]));
