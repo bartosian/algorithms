@@ -51,4 +51,20 @@ class QuickSort {
     get array() {
         return this._array;
     }
+
+    quickSelect(kthLowestValue, leftPointer, rightPointer) {
+        if((rightPointer - leftPointer) <= 0) {
+            return this.array[leftPointer];
+        }
+
+        let pivot = this.partition(leftPointer, rightPointer);
+
+        if(kthLowestValue < pivot) {
+            this.quickSelect(kthLowestValue, leftPointer, pivot - 1);
+        } else if(kthLowestValue > pivot) {
+            this.quickSelect(kthLowestValue, pivot + 1, rightPointer);
+        } else {
+            return this.array[pivot];
+        }
+    }
 }

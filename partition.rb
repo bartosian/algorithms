@@ -52,4 +52,20 @@ class SortableArray
 
   end
 
+  def quickselect!(kth_lowest_value, left_index, right_index)
+    if right_index - left_index <= 0
+      return @array[left_index];
+    end
+
+    pivot_position = partition!(left_index, right_index)
+
+    if kth_lowest_value < pivot_position
+      quickselect!(kth_lowest_value, left_index, pivot_position - 1)
+    elsif kth_lowest_value > pivot_position
+      quickselect!(kth_lowest_value, pivot_position + 1, right_index)
+    else
+      return @array[pivot_position]
+    end
+  end
+
 end
