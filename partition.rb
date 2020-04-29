@@ -38,4 +38,18 @@ class SortableArray
     @array[pointer_2] = temp_value
   end
 
+  def quicksort!(left_index, right_index)
+
+    if right_index - left_index <= 0
+      return
+    end
+
+    pivot_position = partition!(left_index, right_index)
+
+    quicksort!(left_index, pivot_position - 1)
+
+    quicksort!(pivot_position + 1, right_index)
+
+  end
+
 end
