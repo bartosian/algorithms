@@ -27,6 +27,24 @@ class LinkedList {
         
         return node.data;
     }
+
+    indexOf(value) {
+        let current_index = 0,
+            node = this.head;
+
+        
+        while(node.data !== value) {
+            current_index += 1;
+            node = node.next;
+
+
+            if(!node) {
+                return null;
+            }
+        }
+
+        return current_index;
+    }
 }
 
 let node_1 = new Node("first node");

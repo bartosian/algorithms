@@ -32,4 +32,20 @@ class LinkedList
     return current_node.data
   end
 
+  def index_of(value)
+    current_node = first_node
+    current_index = 0
+
+    begin
+      if current_node.data == value
+        return current_index
+      end
+
+      current_node = current_node.next_node
+      current_index += 1
+    end while current_node
+
+    return nil
+  end
+
 end
