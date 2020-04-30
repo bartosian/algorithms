@@ -45,6 +45,26 @@ class LinkedList {
 
         return current_index;
     }
+
+    insertAtIndex(index, value) {
+        let newNode = new Node(value);
+
+        if(index == 0) {
+            newNode.next = this.head;
+            this.head = newNode;
+        } else {
+            let current_index = 0,
+                node = this.head;
+
+            while(current_index !== (index - 1)) {
+                current_index += 1;
+                node = node.next;
+            }
+            
+            newNode = node.next;
+            node.next = newNode;
+        }
+    }
 }
 
 let node_1 = new Node("first node");

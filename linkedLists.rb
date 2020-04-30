@@ -48,4 +48,24 @@ class LinkedList
     return nil
   end
 
+  def insert_at_index(index, value)
+    new_node = Node.new(value)
+
+    if index == 0
+      new_node.next_node = first_node
+      self.first_node = new_node
+    else
+      current_node = first_node
+      current_index = 0
+
+      while current_index < (index - 1) do
+        current_node = current_node.next_node
+        current_index += 1
+      end
+
+      new_node.next_node = current_node.next_node
+      current_node.next_node = new_node
+    end
+  end
+
 end
