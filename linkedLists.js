@@ -84,12 +84,63 @@ class LinkedList {
     }
 }
 
-let node_1 = new Node("first node");
-let node_2 = new Node("second node");
-let node_3 = new Node("third node");
+class DoublyNode {
+    constructor(data) {
+        this.data = data;
+        this.previousNode = undefined;
+        this.nextNode = undefined;
+    }
+}
 
-node_1.next = node_2;
-node_2.next = node_3;
-node_3.next = undefined;
+class DoublyLinkedList {
+    constructor(value) {
+        let firstNode = new DoublyNode(value);
+        this.head = firstNode;
+        this.end = firstNode;
+    }
 
-let list = new LinkedList(node_1);
+    readNodeAtStart() {
+
+        let readValue = this.head;
+
+        if(this.head !== this.end) {
+            this.head = this.head.nextNode;
+        } else {
+            this.head = this.end = undefined;
+        }
+
+        return readValue;
+    }
+
+    addToEnd(value) {
+        let newNode = new DoublyNode(value);
+
+        if(!this.firstNode) {
+            this.head = this.end = newNode;
+        } else {
+           this.end.next = newNode;
+           newNode.previousNode = this.end;
+           this.end = newNode;
+        }
+    }
+}
+
+class Queue {
+    constructor(value) {
+        this.linkedList = new DoublyLinkedList(value);
+    }
+
+    enque(value) {
+        this.linkedList.addToEnd(value);
+    }
+
+    deque() {
+        let lastNode = this.linkedList.readNodeAtStart();
+
+        return lastNode.data;
+    }
+
+    tail() {
+        return this.linkedList.end.data;
+    }
+}
