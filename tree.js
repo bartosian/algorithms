@@ -19,3 +19,19 @@ function search(value, node) {
         return search(value, leftNode);
     }
 }
+
+function insert(value, node) {
+    if(value < node.value) {
+        if(!node.leftNode) {
+            node.leftNode = new TreeNode(value);
+        } else {
+            insert(value, leftNode);
+        }
+    } else if(value > node.value) {
+        if(!node.rightNode) {
+            node.rightNode = new TreeNode(value);
+        } else {
+            insert(value, node.rightNode);
+        }
+    }
+}
