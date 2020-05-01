@@ -68,4 +68,23 @@ class LinkedList
     end
   end
 
+  def delete_at_index(index)
+    if index == 0
+      self.first_node = first_node.next_node
+    else
+      current_node = first_node
+      current_index = 0
+
+
+      while current_index < (index - 1) do
+        current_node = current_node.next_node
+        current_index += 1
+      end
+
+      node_after_deleted_node = current_node.next_node.next_node
+
+      current_node.next_node = node_after_deleted_node
+    end
+  end
+
 end

@@ -65,6 +65,23 @@ class LinkedList {
             node.next = newNode;
         }
     }
+
+    deleteAtIndex(index) {
+        if(index == 0) {
+            this.head = this.head.next;
+        } else {
+            let currentNode = this.head,
+                currentIndex = 0;
+
+            while(currentIndex < (index - 1)) {
+                currentNode = currentNode.next;
+                currentIndex += 1;
+            }    
+            
+            let nodeAfterDeleted = currentNode.next.next;
+            currentNode.next = nodeAfterDeleted;
+        }
+    }
 }
 
 let node_1 = new Node("first node");
