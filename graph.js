@@ -23,45 +23,44 @@ chicago.add_route("el_paso", 80);
 denver.add_route("chicago", 40);
 denver.add_route("el_paso", 140);
 
+
 function dijkstra(startCity, otherCities) {
-    let routesTo_cities = {};
 
-    routesTo_cities[startCity.name] = [0, startCity.name];
+    let routesFromCity = {};
 
+    routesFromCity[startCity.name] = [0, nil];
 
     for(let i = 0; i < otherCities.length; i++) {
+        let { name } = otherCities[i];
 
-        routesTo_cities[otherCities[i].name] = [Infinity, null];
+        routesFromCity[name] = [Infinity, null];
     }
 
-    visitedCities = [];
+    let visitedCities = [];
+    let currentCity = startCity;
 
-    currentCity = startCity;
 
     while(currentCity) {
         visitedCities.push(currentCity);
+        let { routes } = currentCity;
+        
+        for([name, price] of Object.items(routes)) {
+            if(routesFromCity[name][0] < price + routesFromCity[currentCity][0]) {
+                routesFromCity[name] = [price + routesFromCity[currentCity][0], currentCity];
+            }
+        }
 
-       for (let [name, price] of Object.items(currentCity)) {
-           if(routesTo_cities[name][0] < (price + routesTo_cities[currentCity])) {
-               routesTo_cities[name] = [price + routesTo_cities[currentCity], currentCity];
-           }
-       }
+        currentCity = null;
+        cheapestPrice = null;
 
-    }
-
-    currentCity = null;
-
-    cheapestRoutefromCurrentCity = null;
-
-
-    for (let [name, price] of Object.items(routesTo_cities)) {
-        if(price < cheapestRoutefromCurrentCity && !visitedCities.includes(name)) {
-            currentCity = name;
-            cheapestRoutefromCurrentCity = price;
+        for([name, price_info] of Object.items(routesFromCity)) {
+            if(price_info[0] < cheapestPrice && !visitedCities.includes(name)) {
+                cheapestPrice = price_info[0];
+                currentCity = name;
+            }
         }
     }
 
-    return routesTo_cities;
-
+    return routesFromCity;
 
 }
