@@ -101,6 +101,18 @@ function hourglassSum(arr) {
     return maxSum;
 }
 
-let ar = [[-9, -9, -9, -1, -1, -1], [0, -9, 0, -4, -3, -2], [-9, -9, -9, -1, -2, -3], [-27, -11, -2, -10, -20, -20], [-9, -9, -9, -1, -2, -3], [-27, -11, -2, -10, -20, -90]];
+function rotLeft(a, d) {
+    let rotatedArr = [];
 
-console.log(hourglassSum(ar));
+    for(let i = 0; i < a.length; i++) {
+        let newIdx = i - d;
+        if(newIdx < 0) {
+            newIdx = a.length + newIdx;
+        } 
+        rotatedArr[newIdx] = a[i]; 
+    }
+
+    return rotatedArr;
+}
+
+console.log(rotLeft([1, 2, 3, 4, 5], 3));
