@@ -75,4 +75,32 @@ function repeatedString(s, n) {
     return result;
 }
 
-console.log(repeatedString("aba", 10));
+
+// 1 1 1 0 0 0
+// 0 1 0 0 0 0
+// 1 1 1 0 0 0
+// 0 0 2 4 4 0
+// 0 0 0 2 0 0
+// 0 0 1 2 4 0
+
+function hourglassSum(arr) {
+    let maxSum = undefined;
+
+    for(let i = 0; i < 4; i++) {
+        let nextrow = arr[i];
+
+        for(let j = 0; j < 4; j++) {
+            let nextSum = nextrow[j] + nextrow[j + 1] + nextrow[j + 2] + arr[i + 1][j + 1] + arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
+            if(maxSum !== undefined && (nextSum > maxSum)) {
+                maxSum = nextSum;
+            } else if(maxSum == undefined){
+                maxSum = nextSum;
+            }
+        }
+    }
+    return maxSum;
+}
+
+let ar = [[-9, -9, -9, -1, -1, -1], [0, -9, 0, -4, -3, -2], [-9, -9, -9, -1, -2, -3], [-27, -11, -2, -10, -20, -20], [-9, -9, -9, -1, -2, -3], [-27, -11, -2, -10, -20, -90]];
+
+console.log(hourglassSum(ar));
