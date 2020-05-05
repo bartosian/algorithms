@@ -256,4 +256,43 @@ function alternatingCharacters(s) {
     console.log(delCount);
 }
 
-alternatingCharacters("ABAAAABABABBB");
+function isBalanced(s) {
+    let openBrackets = ["[", "(", "{"],
+        bracketsMap = {"]":"[", "}":"{", ")":"("},
+        arrS = s.split(""),
+        stack = [];
+
+    while(arrS.length) {
+        let currEl = arrS.shift();
+        
+        if(openBrackets.includes(currEl)) {
+            stack.push(currEl);
+        } else {
+            let prevEl = stack.pop();
+
+            if(prevEl !== bracketsMap[currEl]) {
+                return "NO";
+            }
+        }
+    }
+
+    if(!stack.length) {
+        return "YES";
+    } else {
+        return "NO";
+    }
+}
+
+function fibonacci(n) {
+    if(n === 0) {
+        return 0;
+    }
+
+    if(n === 1) {
+        return 1;
+    }
+
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+console.log(fibonacci(0));
