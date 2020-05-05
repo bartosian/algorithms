@@ -115,4 +115,117 @@ function rotLeft(a, d) {
     return rotatedArr;
 }
 
-console.log(rotLeft([1, 2, 3, 4, 5], 3));
+// 2 1 5 3 4
+// 3
+
+function minimumBribes(q) {
+    let length = q.length,
+        totalBribes = 0;
+
+    for(let i = length - 1; i >= 0; i--) {
+        let currentElement = q[i] - 1;
+
+        if(currentElement > i) {
+            let localBribes = currentElement - i;
+
+            if(localBribes > 2) {
+                console.log("Too chaotic");
+                return;
+            } else {
+                totalBribes += localBribes;
+            }
+        }
+
+    }
+
+    console.log(totalBribes);
+}
+
+function solve(meal_cost, tip_percent, tax_percent) {
+    let tip_amout = ((tip_percent / 100) * meal_cost);
+    let tax_amount = ((tax_percent / 100) * meal_cost);
+
+    return Math.round(meal_cost + tip_amout + tax_amount);
+}
+
+function checkMagazine(magazine, note) {
+    let map = {},
+        magArr = magazine.split(" "),
+        noteArr = note.split(" "),
+        maglen = magArr.length,
+        noteLen = noteArr.length;
+    
+    if(noteLen > maglen) {
+        console.log("No");
+        return;
+    }
+
+    for(let i = 0; i < maglen; i++) {
+        let nextEl = magArr[i];
+        if(map[nextEl]) {
+            map[nextEl] += 1;
+        } else {
+            map[nextEl] = 1;
+        }
+    }
+    
+    for(let j = 0; j < noteLen; j++) {
+        let nextEl = noteArr[j];
+
+        if(map[nextEl]) {
+            map[nextEl] -= 1;
+        } else {
+            console.log("No");
+            return;
+        }
+    }
+
+    console.log("Yes");
+}
+
+function twoStrings(s1, s2) {
+    for(let i = 0; i < s2.length; i++) {
+        if(s1.indexOf(s2[i]) !== -1) {
+            return "YES";
+        }
+    }
+
+    return "NO";
+
+}
+
+function sherlockAndAnagrams(s) {
+    let map = {},
+        strLen = s.length,
+        resultCount = 0;
+
+
+    for(let i = 0; i < strLen; i++) {
+        let nextEl = s[i];
+
+        for(let j = i; j < strLen; j++) {
+                let nextComb = (j === i) ? nextEl : nextEl + s[j],
+                    sortedComb = (j === i) ? nextComb : nextComb.split("").sort().join("");
+
+                nextEl = nextComb;
+
+                if(map[sortedComb]) {
+                    map[sortedComb] += 1;
+                } else {
+                    map[sortedComb] = 1;
+                }
+
+            }
+
+    }
+  map = Object.entries(map).filter(val => val[1] > 1);
+
+  for(let [_, count] of map) {
+      if(count == 2) {
+        resultCount += 1;
+      } else if(count > 2) {
+          resultCount += count * (count - 1) / 2;
+      }
+  }
+  return resultCount;  
+}
