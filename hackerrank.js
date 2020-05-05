@@ -123,23 +123,25 @@ function minimumBribes(q) {
         totalBribes = 0;
 
     for(let i = length - 1; i >= 0; i--) {
-        let currentElement = q[i] - 1;
+       if(q[i] - (i + 1) > 2) {
+           console.log("Too chaotic");
+       }
 
-        if(currentElement > i) {
-            let localBribes = currentElement - i;
-
-            if(localBribes > 2) {
-                console.log("Too chaotic");
-                return;
-            } else {
-                totalBribes += localBribes;
-            }
-        }
-
+       for(let j = Math.max(0, q[i] - 2); j < i; j++) {
+           if(q[j] > q[i]) totalBribes++;
+       }
     }
 
     console.log(totalBribes);
 }
+
+
+
+minimumBribes([2, 5, 1, 3, 4]);
+
+
+
+
 
 function solve(meal_cost, tip_percent, tax_percent) {
     let tip_amout = ((tip_percent / 100) * meal_cost);
