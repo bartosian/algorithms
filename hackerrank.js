@@ -135,14 +135,6 @@ function minimumBribes(q) {
     console.log(totalBribes);
 }
 
-
-
-minimumBribes([2, 5, 1, 3, 4]);
-
-
-
-
-
 function solve(meal_cost, tip_percent, tax_percent) {
     let tip_amout = ((tip_percent / 100) * meal_cost);
     let tax_amount = ((tax_percent / 100) * meal_cost);
@@ -231,3 +223,37 @@ function sherlockAndAnagrams(s) {
   }
   return resultCount;  
 }
+
+
+function alternatingCharacters(s) {
+    let strArr = s.split(""),
+        arrLen = strArr.length,
+        currentCh = strArr[0],
+        delCount = 0;
+
+    for(let i = 1; i < arrLen; i++) {
+        if(strArr[i] === currentCh) {
+            strArr.splice(i, 1);
+            delCount++;
+            i--;
+        } else {
+            currentCh = strArr[i];
+        }
+    }
+
+    return delCount;
+}
+
+function alternatingCharacters(s) {
+    let delCount = 0;
+
+    for(let i = 0; i < s.length; i++) {
+        if(s[i] === s[i + 1]) {
+            delCount++;
+        }
+    }
+
+    console.log(delCount);
+}
+
+alternatingCharacters("ABAAAABABABBB");
