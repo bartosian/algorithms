@@ -295,4 +295,28 @@ function fibonacci(n) {
     return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
-console.log(fibonacci(0));
+function countSwaps(a) {
+    let unsortedTil = a.length - 1
+        sorted = false,
+        swaps = 0;
+
+    while(!sorted) {
+        sorted = true;
+
+        for(let i = 0; i <= unsortedTil; i++) {
+            if(a[i] > a[i + 1]) {
+                sorted = false;
+                let temp = a[i + 1];
+                a[i + 1] = a[i];
+                a[i] = temp;
+                swaps++;
+            }
+        }
+
+        unsortedTil--;
+    }
+    
+    console.log(`Array is sorted in ${swaps} swaps.`);
+    console.log(`First Element: ${a[0]}`);
+    console.log(`Last Element: ${a[a.length - 1]}`);
+}
