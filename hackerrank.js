@@ -475,6 +475,17 @@ function processData(input) {
 
 
 
-processData(`2
-             Hacker
-             Rank`);
+function extraLongFactorials(n) {   
+    let map = {};
+
+    if(n == 1 || n == 0) {
+        return 1;
+    }
+
+    if(map[n]) return map[n];
+
+    map[n] = BigInt(extraLongFactorials(n - 1) * n);
+
+    return map[n].toString(10);
+}
+
