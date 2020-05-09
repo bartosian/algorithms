@@ -320,3 +320,161 @@ function countSwaps(a) {
     console.log(`First Element: ${a[0]}`);
     console.log(`Last Element: ${a[a.length - 1]}`);
 }
+
+class QuickSort {
+    constructor(array) {
+        this.array = array;
+    }
+
+    swap(leftPointer, rightPointer) {
+        let temp = this.array[leftPointer];
+        this.array[leftPointer] = this.array[rightPointer];
+        this.array[rightPointer] = temp;
+    }
+
+    partition(leftPointer, rightPointer) {
+        let pivotId = rightPointer,
+            pivot = this.array[rightPointer];
+
+        rightPointer -= 1;
+        
+        while(true) {
+            while(this.array[leftPointer] <= pivot) {
+                leftPointer += 1;
+            }
+
+            while(this.array[rightPointer] > pivot) {
+                rightPointer -= 1;
+            }
+
+            if(leftPointer >= rightPointer) {
+                break;
+            } else {
+                this.swap(leftPointer, rightPointer);
+            }
+        }
+
+        this.swap(leftPointer, pivotId);
+
+        return leftPointer;
+    }
+
+    run(leftPointer, rightPointer) {
+        if((rightPointer - leftPointer) <= 0) {
+            return;
+        }
+
+        let pivot = this.partition(leftPointer, rightPointer);
+
+        this.run(leftPointer, pivot - 1);
+        this.run(pivot + 1, rightPointer);
+    }
+}
+
+function maximumToys(prices, k) {
+    let priceLen = prices.length,
+        sortedArr = prices.sort((a,b) => a - b),
+        numOfToys = 0,
+        totalCost = 0;
+    
+    for(let i = 0; i < priceLen; i++) {
+        if((totalCost + sortedArr[i]) > k) {
+            break;
+        } else {
+            totalCost += sortedArr[i];
+            numOfToys++;
+        }
+    }
+
+    return numOfToys;
+
+}
+
+function main(n) {
+    for(let i = 1; i <= 10; i++) {
+        console.log(`n x ${i} = ${n * i}`);
+    }
+}
+
+function makeAnagram(a, b) {
+    let aSorted = a.split("").sort().join(""),
+        bSorted = b.split("").sort().join(""),
+        alen = a.length,
+        blen = b.length,
+        totalNum = 0,
+        lowerLen,
+        biggerLen,
+        lowerStr,
+        biggerStr;
+
+    if(alen < blen) {
+        lowerLen = alen;
+        biggerLen = blen;
+        lowerStr = aSorted;
+        biggerStr = bSorted;
+
+    } else if(alen >= blen) {
+        lowerLen = blen;
+        biggerLen = alen;
+        lowerStr = bSorted;
+        biggerStr = aSorted;
+    } 
+    
+    console.log(lowerLen);
+    console.log(biggerLen);
+    console.log(lowerStr);
+    console.log(biggerStr);
+
+    for(let i = 0; i < lowerLen; i++) {
+        let nextSubstr = lowerStr.split("").reverse().join("").substring(0, lowerLen - i),
+            nextSubLen = nextSubstr.length;
+        if(biggerStr.includes(nextSubstr)) {
+            totalNum = biggerLen + lowerLen - 2 * nextSubLen;
+            break;
+        }
+    }
+
+    console.log(totalNum);
+
+}
+
+
+function makeAnagram(a, b) { 
+    let totalNum = 0;
+
+
+}
+
+function simpleArraySum(ar) {
+    return ar.reduce((acc, nextVal) => acc + nextVal, 0);
+}
+
+function processData(input) {
+        let even = [],
+            odd = [],
+            inputArr = input.split("\n"),
+            totalNum = + inputArr[0].trim();
+
+        for(let i = 1; i < totalNum + 1; i++) {
+            let nextStr = inputArr[i].trim(),
+                strLen = nextStr.length;
+
+            for(let j = 0; j < strLen; j++) {
+                if(j == 0 || !(j % 2)) {
+                    even.push(nextStr[j]);
+                } else {
+                    odd.push(nextStr[j]);
+                }
+            }
+
+            console.log(`${even.join("")} ${odd.join("")}`);
+            even = [];
+            odd = [];
+        }
+} 
+
+
+
+processData(`2
+             Hacker
+             Rank`);
