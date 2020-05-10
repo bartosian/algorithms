@@ -541,5 +541,3 @@ function timeConversion(s) {
 
 }
 
-timeConversion("12:00:00AM");
-
