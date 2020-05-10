@@ -489,3 +489,44 @@ function extraLongFactorials(n) {
     return map[n].toString(10);
 }
 
+function aVeryBigSum(ar) {
+    let resultn = 0n;
+
+    for(let i = 0; i < ar.length; i++) {
+        resultn += BigInt(ar[i]);
+    }
+
+    return resultn.toString(10);
+}
+
+let arr = [1, 4, 3, 2];
+
+const result = arr.reverse().reduce((a, b) => {
+    return a + " " + b;
+    }, "").trim();
+
+function compareTriplets(a, b) {
+    let count = [0, 0];
+
+    for(let i = 0; i < 3; i++) {
+        if(a[i] > b[i]) {
+            count[0]++;
+        } else if(a[i] < b[i]) {
+            count[1]++;
+        }
+    }
+
+    return count;
+}
+
+function miniMaxSum(arr) {
+    let sortedArr = arr.sort((a,b) => a - b),
+        minSum = 0,
+        maxSum = 0;
+
+    minSum = sortedArr.slice(0, 4).reduce((a, b) => a + b, 0);    
+    maxSum = sortedArr.slice(1, 5).reduce((a, b) => a + b, 0); 
+
+    console.log(`${minSum} ${maxSum}`);
+}
+
