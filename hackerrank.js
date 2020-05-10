@@ -541,3 +541,29 @@ function timeConversion(s) {
 
 }
 
+function birthdayCakeCandles(arr) {  
+    let sortedArr = arr.sort((a, b) => a - b),
+        tallest = sortedArr[sortedArr.length - 1],
+        totalCount = 1;
+
+    for(let i = sortedArr.length - 2; i >= 0; i--) {
+        if(sortedArr[i] === tallest) {
+            totalCount++;
+        } else {
+            break;
+        }
+    }    
+    
+    return totalCount;
+
+}
+
+function catAndMouse(x, y, z) {
+    if(Math.abs(y - z) > Math.abs(x - z)) {
+        return "Cat A";
+    } else if(Math.abs(y - z) < Math.abs(x - z)) {
+        return "Cat B";
+    } else {
+        return "Mouse C";
+    }
+}
