@@ -530,3 +530,16 @@ function miniMaxSum(arr) {
     console.log(`${minSum} ${maxSum}`);
 }
 
+function timeConversion(s) {
+    let parsedTime = s.split(":"),
+        hours = parsedTime[0],
+        type = parsedTime[2].substring(2);
+
+    hours = type === "AM" ? hours === "12" ? "00" : hours : parseInt(hours) !== 12 ? String(12 + parseInt(hours)) : hours;
+
+    console.log(`${hours}:${parsedTime[1]}:${parsedTime[2].substring(0, 2)}`);
+
+}
+
+timeConversion("12:00:00AM");
+
