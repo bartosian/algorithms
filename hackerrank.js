@@ -591,5 +591,42 @@ function processData(input) {
     }
 } 
 
+function beautifulDays(i, j, k) {
+    let totalNum = 0;
 
+    for(let a = i; a <= j; a++) {
+        Math.abs(a - (+String(a).split("").reverse().join(""))) % k ? "" : totalNum++;
+    }
 
+    return totalNum;
+}
+
+function timeInWords(h, m) {
+    if(m === 0) {
+        return `${h} o' clock`;
+    } else if(m > 30) {
+        return `${h} o' clock`;
+    }
+}
+
+function factorial(n) {
+    let result = n <= 1 ? n : n * factorial(n - 1);
+
+    return result;
+}
+
+function pickingNumbers(a) {
+    let occur = new Array(100).fill(0),
+        resCount = 0;
+
+    for(let i = 0; i < a.length; i++) {
+        occur[a[i]]++;
+    }
+
+    return occur.reduce((max, val, index, occur) => {
+        if(max < val + occur[index + 1]) {
+            max = val + occur[index + 1];
+        }
+        return max;
+    }, 0);
+}
