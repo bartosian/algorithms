@@ -630,3 +630,13 @@ function pickingNumbers(a) {
         return max;
     }, 0);
 }
+
+function main(n) {
+    let binN = n.toString(2);
+    binN = binN.split("0").sort();
+
+    console.log(binN[binN.length - 1].length);
+        
+}
+
+console.log(main(13));
