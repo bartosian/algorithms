@@ -639,4 +639,42 @@ function main(n) {
         
 }
 
-console.log(main(13));
+function pairs(k, arr) {
+    let arrLen = arr.length,
+        count = 0,
+        i = 0,
+        j = 1;
+    
+        arr.sort((a, b) => a - b);
+        
+   while(j < arrLen) {
+       let diff = arr[j] - arr[i];
+
+       if(diff === k) {
+           count++;
+           j++;
+       } else if(diff > k) {
+           i++;
+       } else if(diff < k) {
+           j++;
+       }
+   }    
+   
+   return count;
+}
+
+function getMoneySpent(keyboards, drives, b) {
+    let total = 0;
+
+    for(let i = 0; i < keyboards.length; i++) {
+        for(let j = 0; j < drives.length; j++) {
+            let sum = keyboards[i] + drives[j];
+
+            if(sum <= b && sum > total) {
+                total = sum;
+            }
+        }
+    }
+
+    return total ? total : -1;
+}
