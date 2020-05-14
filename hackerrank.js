@@ -678,3 +678,22 @@ function getMoneySpent(keyboards, drives, b) {
 
     return total ? total : -1;
 }
+
+
+function hourglassSum2(arr) {
+    let maxSum = undefined;
+
+    for(let i = 0; i < 4; i++) {
+        let nextrow = arr[i];
+
+        for(let j = 0; j < 4; j++) {
+            let nextSum = nextrow[j] + nextrow[j + 1] + nextrow[j + 2] + arr[i + 1][j + 1] + arr[i + 2][j] + arr[i + 2][j + 1] + arr[i + 2][j + 2];
+            if(maxSum !== undefined && (nextSum > maxSum)) {
+                maxSum = nextSum;
+            } else if(maxSum == undefined){
+                maxSum = nextSum;
+            }
+        }
+    }
+    return maxSum;
+}
