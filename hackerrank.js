@@ -710,3 +710,23 @@ function diagonalDifference(arr) {
     
     return Math.abs(firstDiag - rightDiag);
 }
+
+class Student extends Person {
+    constructor(firstName, lastName, id, scores) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+        this.scores = scores;
+    }
+    
+    calculate() {
+        let avScore = Math.round(this.scores.reduce((sum, b) => sum + b, 0) / this.scores.length);
+
+        if(avScore < 40) return "T";
+        if(avScore < 55) return "D";
+        if(avScore < 70) return "P";
+        if(avScore < 80) return "A";
+        if(avScore < 90) return "E";
+        return "O";
+    }
+}
