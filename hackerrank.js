@@ -697,3 +697,16 @@ function hourglassSum2(arr) {
     }
     return maxSum;
 }
+
+function diagonalDifference(arr) {
+    let firstDiag = 0,
+        rightDiag = 0,
+        arrlen = arr.length;
+
+    for(let i = 0; i < arrlen; i++) {
+        firstDiag += arr[i][i];
+        rightDiag += arr[i][arrlen - 1 - i];
+    }
+    
+    return Math.abs(firstDiag - rightDiag);
+}
