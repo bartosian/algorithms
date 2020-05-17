@@ -711,35 +711,47 @@ function diagonalDifference(arr) {
     return Math.abs(firstDiag - rightDiag);
 }
 
-class Student extends Person {
-    constructor(firstName, lastName, id, scores) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.id = id;
-        this.scores = scores;
-    }
+// class Student extends Person {
+//     constructor(firstName, lastName, id, scores) {
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//         this.id = id;
+//         this.scores = scores;
+//     }
     
-    calculate() {
-        let avScore = Math.round(this.scores.reduce((sum, b) => sum + b, 0) / this.scores.length);
+//     calculate() {
+//         let avScore = Math.round(this.scores.reduce((sum, b) => sum + b, 0) / this.scores.length);
 
-        if(avScore < 40) return "T";
-        if(avScore < 55) return "D";
-        if(avScore < 70) return "P";
-        if(avScore < 80) return "A";
-        if(avScore < 90) return "E";
-        return "O";
-    }
+//         if(avScore < 40) return "T";
+//         if(avScore < 55) return "D";
+//         if(avScore < 70) return "P";
+//         if(avScore < 80) return "A";
+//         if(avScore < 90) return "E";
+//         return "O";
+//     }
+// }
+
+// class MyBook extends Book {
+//     constructor(title="", author="", price="") {
+//         super(title, author);
+//         this.price = price;
+//     }
+
+//     display() {
+//         console.log("Title: " + this.title);
+//         console.log("Author: " + this.author);
+//         console.log("Price: " + this.price);
+//     }
+// }
+
+function utopianTree(n) {
+    return new Array(n).fill(0).reduce((height, _, id) => {
+        if(!(id % 2)) {
+            return height * 2;
+        } else {
+            return height + 1;
+        }
+    }, 1);
 }
 
-class MyBook extends Book {
-    constructor(title="", author="", price="") {
-        super(title, author);
-        this.price = price;
-    }
-
-    display() {
-        console.log("Title: " + this.title);
-        console.log("Author: " + this.author);
-        console.log("Price: " + this.price);
-    }
-}
+console.log(utopianTree(4));
