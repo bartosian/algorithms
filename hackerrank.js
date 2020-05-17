@@ -777,3 +777,14 @@ function cutTheSticks(arr) {
 
     return result.slice(0, -1);
 }
+
+function equalizeArray(arr) {
+   let arrLen = arr.length,
+       map = new Array(101).fill(0);
+
+    for(let i = 0; i < arrLen; i++) {
+        map[arr[i]]++;
+    }   
+    return arrLen - Math.max(...map);
+}
+
