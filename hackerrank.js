@@ -754,4 +754,26 @@ function utopianTree(n) {
     }, 1);
 }
 
-console.log(utopianTree(4));
+function cutTheSticks(arr) {
+    let result = [arr.length];
+
+    arr = arr.sort((a, b) => a - b);
+
+    while(arr.length) {
+         let smallestEl = arr[0];
+
+         arr = arr.filter((el, id, arr) => {
+            
+            if(el === smallestEl) {
+                 return false;
+             } else {
+                 arr[id] -= smallestEl;
+                 return true;
+             }
+         });
+         
+         result.push(arr.length);
+    }
+
+    return result.slice(0, -1);
+}
