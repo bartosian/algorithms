@@ -788,3 +788,44 @@ function equalizeArray(arr) {
     return arrLen - Math.max(...map);
 }
 
+function minimumDistances(a) {
+    let lastseen = {};
+    let dist = -1;
+    [...a].forEach((v, i) => {
+        if (lastseen.hasOwnProperty(v)) {
+            let thisdist = i - lastseen[v];
+            dist = Math.min(thisdist, (dist === -1 ? thisdist : dist));
+        }
+        lastseen[v] = i;
+    })
+    return dist;
+}
+
+
+const insert=function(head,data){
+
+    let newNode = Node(data),
+        currNode,
+        nextNode;
+
+
+   if(head) {
+           currNode = nextNode;
+           nextNode = head.next;
+
+       while(nextNode) {
+           nextNode = nextNode.next;
+       }
+   }
+
+   if(currNode) {
+       currNode.next = newNode;
+   } else {
+       head = newNode;
+   }
+
+   process.stdout.write(`${data} `);
+
+   return head;
+   
+};
