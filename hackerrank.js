@@ -883,4 +883,21 @@ function timeInWords(h, m) {
     }    
 }
 
-console.log(timeInWords(5, 45));
+function camelcase(s) {
+    let sArr = s.split(/[A-Z]/).length;
+    
+    return sArr;
+}
+
+function processData(input) {
+    //Enter your code here
+    let linesArray = input.split("\n");
+    let line1 = linesArray[0].split(' ');
+    let numberOfInt = line1[0];
+    let numberOfRotations = line1[1];
+    let integers = linesArray[1].split(' ');
+    array1 = integers.slice(0, numberOfRotations);
+    array2 = integers.slice(numberOfRotations, numberOfInt);
+    console.log(array2.concat(array1).join(' '));
+}
+
