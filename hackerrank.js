@@ -829,3 +829,11 @@ const insert=function(head,data){
    return head;
    
 };
+
+function main(S) {
+    try {
+        let parsedInt = parseInt(S, 10);
+    } catch(err) {
+        console.log("Bad String");
+    }
+}
