@@ -833,7 +833,54 @@ const insert=function(head,data){
 function main(S) {
     try {
         let parsedInt = parseInt(S, 10);
+        console.log(parseInt);
     } catch(err) {
         console.log("Bad String");
     }
 }
+
+function timeInWords(h, m) {
+    let numberMap = ["zero", 
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five",
+                    "six",
+                    "seven",
+                    "eight",
+                    "nine",
+                    "ten",
+                    "eleven",
+                    "twelve",
+                    "thirteen",
+                    "fourteen",
+                    "fifteen",
+                    "sixteen",
+                    "seventeen",
+                    "eighteen",
+                    "nineteen",
+                    "twenty",
+                    "twenty one",
+                    "twenty two",
+                    "twenty three",
+                    "twenty four",
+                    "twenty five",
+                    "twenty six",
+                    "twenty seven",
+                    "twenty eight",
+                    "twenty nine"];
+
+    let parsedHours = m > 30 ? numberMap[h + 1] : numberMap[h];
+        parsedMinutes = m == 15 ? "quarter" : m == 30 ? "half" : m > 30 ? numberMap[60 - m] + " minutes" : m == 1 ? "one minute" : numberMap[m] + " minutes";
+
+    if(m == 0) {
+        return `${parsedHours} o' clock`;
+    } else if(m > 30) {
+        return `${parsedMinutes} to ${parsedHours}`;
+    } else {
+        return `${parsedMinutes} past ${parsedHours}`;
+    }    
+}
+
+console.log(timeInWords(5, 45));
