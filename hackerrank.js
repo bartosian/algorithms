@@ -901,3 +901,19 @@ function processData(input) {
     console.log(array2.concat(array1).join(' '));
 }
 
+class Calculator {
+    power(n, p) {
+        if(n < 0 || p < 0) throw new Error("n and p should be non-negative");
+
+        return Math.pow(n, p);
+    }
+}
+
+function matchingStrings(strings, queries) {
+    let result = [];
+    queries.forEach(query => {
+        result.push(strings.filter(string => (string === query)).length);
+    })
+    return result;
+}
+
