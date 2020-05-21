@@ -917,3 +917,25 @@ function matchingStrings(strings, queries) {
     return result;
 }
 
+class Solution {
+    constructor() {
+        this.queue = [];
+        this.stack = [];
+    }
+
+    pushCharacter(ch) {
+        this.stack.push(ch);
+    }
+    
+    enqueueCharacter(ch) {
+        this.queue.push(ch);
+    }
+
+    popCharacter() {
+        return this.stack.pop();
+    }
+
+    dequeueCharacter() {
+        return this.queue.shift();
+    } 
+}
