@@ -939,3 +939,40 @@ class Solution {
         return this.queue.shift();
     } 
 }
+
+function main() {
+    var n = parseInt(readLine());
+    a = readLine().split(' ');
+    a = a.map(Number);
+    // Write Your Code Here
+
+    let bubbleSort = (arr) => {
+        let arrLen = arr.length,
+            swapped = true;
+
+        do {
+            swapped = false;
+
+            for(let i = 0; i < arrLen; i++) {
+                if(arr[i] > arr[i + 1]) {
+                    swapped = true;
+                    swaps++;
+                    let tmp = arr[i];
+                    arr[i] = arr[i + 1];
+                    arr[i + 1] = tmp;
+                }
+            }
+        } while(swapped);
+        
+        return arr;
+    },
+        swaps = 0;
+
+    let sortedArr = bubbleSort(arr);
+
+    console.log(`Array is sorted in ${swaps} swaps.`);
+    console.log(`First Element: ${arr[0]}`);
+    console.log(`Last Element: ${arr[arrLen - 1]}`);
+
+
+}
