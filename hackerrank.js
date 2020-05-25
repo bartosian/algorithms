@@ -976,3 +976,15 @@ function main() {
 
 
 }
+
+let getHeight = function(root) {
+    if(!root) {
+        return -1;
+    }
+
+    let leftDepth = getHeight(root.left),
+        rightDepth = getHeight(root.right);
+
+     return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;   
+
+};
