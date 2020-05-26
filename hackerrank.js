@@ -988,3 +988,18 @@ let getHeight = function(root) {
      return (leftDepth > rightDepth ? leftDepth : rightDepth) + 1;   
 
 };
+
+let levelOrder = (root) => {
+    let queue = [];
+    queue.push(root.data);
+
+    while(queue.length) {
+        let curEl = queue.shift();
+
+        process.stdout.write(root.data + ' ');
+
+        if(curEl.left) queue.push(curEl.left);
+        if(curEl.right) queue.push(currEl.right);
+    }
+}; 
+
