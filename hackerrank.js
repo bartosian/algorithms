@@ -1021,3 +1021,24 @@ let removeDuplicates=function(head){
    }
    return theactualHead;
   }
+
+function processData(input) {
+    let parsedDates = input.split("\n").map(el => el.split(" ").map(el => +el)).map(el => new Date(el[2], el[1] - 1, el[0])),
+        fine = 0,
+        [returned, expected] = parsedDates;
+    
+
+    if(returned >= expected) {
+        if(returned.getFullYear() > expected.getFullYear()) {
+            fine += 10000;
+        } else {
+            if(returned.getMonth() > expected.getMonth()) {
+                fine += (returned.getMonth() - expected.getMonth()) * 500;
+            } else {
+                fine += (returned.getDate() - expected.getDate()) * 15;
+            }
+        }
+    }    
+
+    return fine;
+}    
