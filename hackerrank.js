@@ -1042,3 +1042,7 @@ function processData(input) {
 
     return fine;
 }    
+
+function reverseArray(a) {
+    return a.reverse();
+}
