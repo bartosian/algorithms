@@ -19,5 +19,14 @@ def insert(self, val):
         else:
             break                 
 
-        #Python3
-        
+def lca(root, v1, v2):
+    if root is None:
+        return None
+
+    data = root.info
+
+    if v1 > data and v2 > data:
+        return lca(root.right, v1, v2)
+    if v1 < data and v2 < data:
+        return lca(root.left, v1, v2)
+    return root            
