@@ -1046,3 +1046,35 @@ function processData(input) {
 function reverseArray(a) {
     return a.reverse();
 }
+
+function main() {
+    const N = parseInt(readLine(), 10),
+          table = [],
+          regex = /@gmail.com/;
+
+    for (let NItr = 0; NItr < N; NItr++) {
+        const firstNameEmailID = readLine().split(' ');
+
+        const firstName = firstNameEmailID[0];
+
+        const emailID = firstNameEmailID[1];
+
+        table.push([firstName, emailID]);
+    }
+
+    table.sort((a, b) => {
+        if (a[0] > b[0]) {
+            return 1;
+        }
+
+        if (a[0] < b[0]) {
+            return -1;
+        }
+
+        return 0;
+    }).forEach(value => {
+        if(value[0].match(regex)) {
+            console.log(value[0]);
+        }
+    });
+}
