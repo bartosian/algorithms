@@ -1050,7 +1050,7 @@ function reverseArray(a) {
 function main() {
     const N = parseInt(readLine(), 10),
           table = [],
-          regex = /@gmail.com/;
+          regex = "@gmail.com";
 
     for (let NItr = 0; NItr < N; NItr++) {
         const firstNameEmailID = readLine().split(' ');
@@ -1073,8 +1073,27 @@ function main() {
 
         return 0;
     }).forEach(value => {
-        if(value[0].match(regex)) {
+        if(value[0].includes(regex)) {
             console.log(value[0]);
         }
     });
 }
+
+function processData(input) {
+    let values = input.split("\n");
+    
+    loop1:
+        for(let i = 1; i < values.length; i++) {
+            let curVal = +values[i],
+                curSqrt = Math.sqrt(curVal);
+
+            for(let j = 2; j <= curSqrt; j++) {
+                if((curVal % j) === 0) {
+                    console.log("Not prime");
+                    continue loop1;
+                }
+            }
+
+            curVal > 1 ? console.log("Prime") : console.log("Not prime");
+        }
+} 
