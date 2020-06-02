@@ -1097,3 +1097,20 @@ function processData(input) {
             curVal > 1 ? console.log("Prime") : console.log("Not prime");
         }
 } 
+
+function bitwiseAND() {
+    const t = parseInt(readLine(), 10);
+
+    for (let tItr = 0; tItr < t; tItr++) {
+        const nk = readLine().split(' ');
+
+        const n = parseInt(nk[0], 10);
+
+        const k = parseInt(nk[1], 10);
+
+        const a = k - 1;
+        const b = (~a) & -(~a);
+        console.log((a|b)>n ? a-1 : a );
+
+    }
+}
