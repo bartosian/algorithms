@@ -1114,3 +1114,21 @@ function bitwiseAND() {
 
     }
 }
+
+function processData(input) {
+    const parsedInput = input.split("\n"),
+          stack = [];
+
+    for(let i = 1; i < parsedInput.length; i++) {
+        if(parsedInput[i] === "2" && stack.length) {
+            stack.pop();
+        } else if(parsedInput[i] === "3") {
+            console.log(Math.max(...stack));
+        } else {
+            let [_, newEl] = parsedInput[i].split(" ");
+            stack.push(+newEl);
+        }
+    }      
+
+
+} 
