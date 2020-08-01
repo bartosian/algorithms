@@ -52,3 +52,49 @@ class QuickUnionUF
      i
   end
 end
+
+
+class TreeSum
+  def count(arr)
+    len = arr.length
+    count = 0
+
+    (0...len).each do |i|
+      j = i + 1
+
+      (j...len).each do |j|
+        k = j + 1
+
+        (k...len).each do |k|
+          if arr[i] + arr[j] + arr[k] == 0
+            count += 1
+          end
+        end
+      end
+    end
+  end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
