@@ -77,6 +77,20 @@ end
 
 
 
+def binarySearch(arr, key)
+  low = 0
+  high = arr.length - 1
+
+  while low <= high
+    mid = low + (high - low) / 2
+
+    return mid if key == arr[mid]
+    high = mid - 1 if key < arr[mid]
+    low = mid + 1 if key > arr[mid]
+  end
+  -1
+end
+
 
 
 
