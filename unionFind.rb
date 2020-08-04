@@ -92,6 +92,36 @@ def binarySearch(arr, key)
 end
 
 
+class LinkedList
+  def initialize
+    @head = nil
+  end
+
+  def is_empty?
+    @head.nil?
+  end
+
+  def push(item)
+    old_head = @head
+    @head = Node.new
+    @head.text = item
+    @head.next = old_head
+  end
+
+  def pop
+    item = @head.text
+    @head = @head.next
+    item
+  end
+end
+
+class Node
+  def initialize(text)
+    @text = text
+    @next = nil
+  end
+end
+
 
 
 
