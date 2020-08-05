@@ -145,10 +145,26 @@ class StackArray
   end
 end
 
+class ResizingArray
+  def initialize(n)
+    @arr = Array.new n
+    @N = 0
+  end
 
+  def push(item)
+    resize(2 * s.length) if @N == @arr.length
+    @arr[@N += 1] = item
+  end
 
+  def resize(capacity)
+    copy = Array.new capacity
+    @arr.each do |item, index|
+      copy[index] = item
+    end
 
-
+    @arr = copy
+  end
+end
 
 
 
