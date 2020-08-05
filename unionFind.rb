@@ -207,7 +207,31 @@ class LinkedListQueue
   end
 end
 
+class DijkstraTwoStack
+  def self.evaluate(expr)
+    expr_arr = expr.split("")
+    ops = []
+    vals = []
 
+    until expr_arr.empty?
+      s = expr_arr.shift
+
+      if s == "("
+      elsif s == "+"
+        ops.append s
+      elsif s == "*"
+        ops.push s
+      elsif s == ")"
+        op = ops.pop
+        vals.append(vals.pop + vals.pop) if op == "+"
+        vals.append(vals.pop * vals.pop) if op == "*"
+      else
+        vals.append s.to_i
+      end
+    end
+    vals.pop
+  end
+end
 
 
 
