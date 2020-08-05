@@ -164,6 +164,18 @@ class ResizingArray
 
     @arr = copy
   end
+
+  def pop
+    item = @arr[@N]
+    @arr[@N] = nil
+    @N -= 1
+
+    if @N > 0 and @N == @arr.len / 4
+      resize(@arr.len / 2)
+    end
+
+    item
+  end
 end
 
 
