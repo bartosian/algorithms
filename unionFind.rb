@@ -123,10 +123,27 @@ class Node
 end
 
 
+class StackArray
+  def initialize(capacity)
+    @s = Array.new(capacity)
+    @n = 0
+  end
 
+  def isEmpty?
+    @n == 0
+  end
 
+  def push(item)
+    @s[@n] = item
+    @n += 1
+  end
 
-
+  def pop
+    item = @s[@n]
+    @n -= 1
+    item
+  end
+end
 
 
 
