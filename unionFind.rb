@@ -179,6 +179,34 @@ class ResizingArray
 end
 
 
+class LinkedListQueue
+  def initialize
+    @first = nil
+    @last = nil
+  end
+
+  def is_empty?
+    @first.nil?
+  end
+
+  def enqueue(item)
+    old_last = @last
+    @last = Node.new
+    @last.item = item
+    @last.next = nil
+
+    @first = @last if is_empty? else old_last.next = @last
+  end
+
+  def dequeue
+    item = @first.item
+    @first = @first.next
+
+    @last = nil if is_empty?
+    item
+  end
+end
+
 
 
 
