@@ -233,9 +233,32 @@ class DijkstraTwoStack
   end
 end
 
+def recursive_factorial(n)
+  return 1 if n <= 1
 
+  n * recursive_factorial(n - 1)
+end
 
+@cache = [0,1]
 
+def fib(n)
+  return @cache[n] if @cache[n]
 
+  @cache[n] = fib(n - 1) + fib(n - 2)
+end
+
+def merge(left_array, right_array)
+  
+end
+
+# Mergesort
+def merge_sort(unsorted_array)
+  mid = unsorted_array.length / 2
+  first_half = merge_sort(unsorted_array.slice(0...mid))
+  second_half = merge_sort(unsorted_array.slice(mid...unsorted_array.length))
+
+  print first_half
+  print second_half
+end
 
 
