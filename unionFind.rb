@@ -247,18 +247,57 @@ def fib(n)
   @cache[n] = fib(n - 1) + fib(n - 2)
 end
 
-def merge(left_array, right_array)
-  
+def merge_sort(array)
+  if array.length <= 1
+    return array
+  end
+
+  array_size = array.length
+  middle = array_size / 2
+
+  left_side = array.slice(0...middle)
+  right_side = array.slice(middle...array_size)
+
+  sorted_left = merge_sort(left_side)
+  sorted_right = merge_sort(right_side)
+
+  merge(array, sorted_left, sorted_right)
+
+  array
 end
 
-# Mergesort
-def merge_sort(unsorted_array)
-  mid = unsorted_array.length / 2
-  first_half = merge_sort(unsorted_array.slice(0...mid))
-  second_half = merge_sort(unsorted_array.slice(mid...unsorted_array.length))
+def merge(array, sorted_left, sorted_right)
+  left_size = sorted_left.length
+  right_size = sorted_right.length
 
-  print first_half
-  print second_half
+  array_pointer = 0
+  left_pointer = 0
+  right_pointer = 0
+
+  while left_pointer < left_size && right_pointer < right_size
+    if sorted_left[left_pointer] < sorted_right[right_pointer]
+      array[array_pointer] = sorted_left[left_pointer]
+      left_pointer += 1
+    else
+      array[array_pointer] = sorted_right[right_pointer]
+      right_pointer += 1
+    end
+    array_pointer += 1
+  end
+
+  while left_pointer < left_size
+    array[array_pointer] = sorted_left[left_pointer]
+    left_pointer += 1
+    array_pointer += 1
+  end
+
+  while right_pointer < right_size
+    array[array_pointer] = sorted_right[right_pointer]
+    right_pointer += 1
+    array_pointer += 1
+  end
+
+  array
 end
 
 
