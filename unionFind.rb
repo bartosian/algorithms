@@ -369,8 +369,38 @@ list.each_index  do |x|
   print "#{list[x]}"
 end
 
+begin
+  x = Math.sqrt(y / z)
 
+rescue ArgumentError
+  puts "Error taking square root."
+rescue ZeroDivisionError
+  puts "Attemted division by zero."
+else
+  puts "Another exception occured."
+end
 
+begin
+  x = Math.sqrt(y / z)
+rescue => err
+  puts err
+end
+
+begin
+  # Error-prone code...
+rescue
+  retry # Now try again
+end
+
+begin
+  # Some error-prone code...
+rescue
+  # Handel exceptions
+ensure
+  # This code is always executed
+end
+
+x = a / b rescue puts("Division by zero!")
 
 
 
