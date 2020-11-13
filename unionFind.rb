@@ -402,6 +402,56 @@ end
 
 x = a / b rescue puts("Division by zero!")
 
+class MyClass
+  NAME = "Class Name"
+  @@count = 0
+
+  def initialize
+    @@count += 1
+    @myvar = 10
+  end
+end
+
+# Examples of simple quoted strings.
+s1 = 'This is a string'
+s2 = 'Mrs. O\'Leary'
+s3 = 'Look in C:\\Temp'
+
+# Double quoted string.
+s1 = "This is a tab: (\t)"
+s2 = "Some backspaces: xyz\b\b\b"
+s3 = "This is also a tab: \011"
+s4 = "And these are both bells: \a \007"
+s5 = "This is the unicode snowman: \u2603"
+
+str = <<EOF
+First line. 
+Second line.
+Third line.
+EOF
+
+str = "Once upon\na time...\nThe End\n"
+num = 0
+
+str.each_line do |line|
+  num += 1
+  print "Line #{num}: #{line}"
+end
+
+str = "Once upon\na time...\nThe End\n"
+str.each_line.with_index do |line, num|
+  print "Line #{num + 1}: #{line}"
+end
+
+
+
+
+
+
+
+
+
+
 
 
 
