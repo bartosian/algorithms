@@ -4,5 +4,21 @@ def number_of_paths(n)
   return number_of_paths(n - 1) + number_of_paths(n - 2) + number_of_paths(n - 3)
 end
 
-result = number_of_paths(30)
-puts(result)
+
+def anagrams_of(string)
+  return [string[0]] if string.length == 1
+
+  collection = []
+
+  substring_anagrams = anagrams_of(string[1, string.length - 1])
+
+  substring_anagrams.each do |substring_anagram|
+    (0..substring_anagram.length).each do |index|
+      copy = String.new(substring_anagram)
+
+      collection << copy.insert(index, string[0])
+    end
+  end
+
+  return collection
+end
