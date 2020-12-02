@@ -19,3 +19,11 @@ function getTriangularNumber(n) {
 
   return n + getTriangularNumber(n - 1)
 }
+
+function getIndexOfChar(str, i) {
+  if ( str[i] === "x" ) {
+    return i;
+  } else {
+    return getIndexOfChar(str, i + 1)
+  }
+}
