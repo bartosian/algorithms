@@ -13,3 +13,9 @@ function getEvenNumbers(arr) {
     return getEvenNumbers(arr.slice(1))
   }
 }
+
+function getTriangularNumber(n) {
+  if ( n == 1 ) return 1
+
+  return n + getTriangularNumber(n - 1)
+}
