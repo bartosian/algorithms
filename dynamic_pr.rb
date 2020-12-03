@@ -7,3 +7,15 @@
 ​ 	​return​ array[0] + summ
 ​ end​
 end
+
+​def​ ​golomb​(n, memo={})
+​ ​return​ 1 ​if​ n == 1
+
+ if memo.has_value?(n)
+   return memo[n]
+ else
+   memo[n] = 1 + golomb(n - golomb(golomb(n - 1), memo), memo), memo)
+ end
+
+​ ​return​ memo[n];
+​end
