@@ -27,3 +27,11 @@ function getIndexOfChar(str, i) {
     return getIndexOfChar(str, i + 1)
   }
 }
+
+function getNumberOfPaths(rows, columns) {
+  if ( rows == 1 || columns == 1 ) return 1
+
+  return getNumberOfPaths(rows - 1, columns) + getNumberOfPaths(rows, columns - 1)
+}
+
+console.log(getNumberOfPaths(3, 7))
