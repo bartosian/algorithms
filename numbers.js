@@ -10,3 +10,19 @@ function isPrime(n) {
   return true
 
 }
+
+function getNumbers(arr, weight) {
+  let sumMap = {},
+      arrLength = arr.length;
+  for (var i = 0; i < arrLength; i++) {
+    sumMap[arr[i]] = i
+  }
+  console.log(sumMap);
+  for (var i = 0; i < arrLength; i++) {
+    let elIndex = sumMap[9 - arr[i]];
+    console.log(elIndex);
+    if (elIndex) return [i, elIndex];
+  }
+
+  return -1;
+}
