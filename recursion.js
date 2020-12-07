@@ -45,3 +45,13 @@ function getNthFiboBetter(n, lastlast, last) {
 
   return getNthFiboBetter(n - 1, last, lastlast + last)
 }
+
+function pascalTriangle(row, col) {
+  if (col === 0) {
+    return 1;
+  } else if (row == 0) {
+    return 0;
+  } else {
+    return pascalTriangle(row - 1, col) + pascal(row - 1, col - 1)
+  }
+}
