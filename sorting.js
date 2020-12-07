@@ -15,3 +15,22 @@ function bubbleSort(array) {
 
   return array;
 }
+
+function selectionSort(array) {
+  var len = array.length,
+      min;
+
+  for (var i = 0; i < len; i++) {
+    min = i;
+
+    for (var j = i + 1; j < len; j++) {
+      if (array[i] > array[j]) {
+        min = j;
+      }
+    }
+
+    if (min != i) swap(array, i, min);
+  }
+
+  return items;    
+}
