@@ -98,6 +98,51 @@ class SortableArray {
     this.quickSort(leftIndex, pivot - 1);
     this.quickSort(pivot + 1, rightIndex);
   }
+}
 
+function partition(leftIndex, rightIndex) {
+  let pivotIndex = rightIndex,
+      pivot = this.array[pivotIndex];
 
+  rightIndex -= 1;
+
+  while(true) {
+    while(this.array[leftIndex] < pivot) {
+      leftIndex += 1;
+    }
+
+    while(this.array[rightIndex] > pivot) {
+      rightIndex -= 1;
+    }
+
+    if (leftIndex >= rightIndex) break;
+
+    var temp = this.array[leftIndex];
+    this.array[leftIndex] = this.array[rightIndex];
+    this.array[rightIndex] = temp;
+
+    leftIndex += 1;
+  }
+
+  var temp = this.array[leftIndex];
+  this.array[leftIndex] = pivot;
+  this.array[pivotIndex] = temp;
+
+  return leftIndex;
+}
+
+function quickSelectInPlace(A, l, h, k) {
+  var p = partition(A, l, h);
+
+  if(p == (k - 1)) {
+    retun A[p];
+  } else if(p > (k - 1)) {
+    return quickSelectInPlace(A, l, p - 1, k)
+  } else {
+    return quickSelectInPlace(A, p + 1, h, k)
+  }
+}
+
+function medianQuickselect(array) {
+  return quickSelectInPlace(array, 0, array.length - 1, Math.floor(array.length/2))
 }
