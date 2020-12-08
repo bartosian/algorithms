@@ -32,5 +32,24 @@ function selectionSort(array) {
     if (min != i) swap(array, i, min);
   }
 
-  return items;    
+  return items;
+}
+
+function insertionSort(items) {
+  var len = items.length,
+      value,
+      i,
+      j;
+
+  for (i = 0; i < len; i++) {
+    value = items[i];
+
+    for (j = i - 1; j >= 0 && items[j] > value; j--) {
+      items[j + 1] = items[j]
+    }
+
+    items[j + 1] = value;
+  }
+
+  return items;
 }
