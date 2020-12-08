@@ -53,3 +53,51 @@ function insertionSort(items) {
 
   return items;
 }
+
+class SortableArray {
+  constructor(array) {
+    this.array = array
+  }
+
+  partition(leftIndex, rightIndex) {
+    let pivotIndex = rightIndex,
+        pivot = this.array[pivotIndex];
+
+    rightIndex -= 1;
+
+    while(true) {
+      while(this.array[leftIndex] < pivot) {
+        leftIndex += 1;
+      }
+
+      while(this.array[rightIndex] > pivot) {
+        rightIndex -= 1;
+      }
+
+      if (leftIndex >= rightIndex) break;
+
+      var temp = this.array[leftIndex];
+      this.array[leftIndex] = this.array[rightIndex];
+      this.array[rightIndex] = temp;
+
+      leftIndex += 1;
+    }
+
+    var temp = this.array[leftIndex];
+    this.array[leftIndex] = pivot;
+    this.array[pivotIndex] = temp;
+
+    return leftIndex;
+  }
+
+  quickSort(leftIndex, rightIndex) {
+    if ((rightIndex - leftIndex) <= 0) return;
+
+    let pivot = this.partition(leftIndex, rightIndex);
+
+    this.quickSort(leftIndex, pivot - 1);
+    this.quickSort(pivot + 1, rightIndex);
+  }
+
+
+}
