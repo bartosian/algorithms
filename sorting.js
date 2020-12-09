@@ -176,3 +176,23 @@ function mergeSort(array) {
 
   return merge(mergeSort(leftArray), mergeSort(rightArray));
 }
+
+function countSort(array) {
+  var hash = {}, resultArr = [];
+
+  for (var i = 0; i < array.length; i++) {
+    if (!hash[array[i]]) {
+      hash[array[i]] = 1;
+    } else {
+      hash[array[i]]++;
+    }
+  }
+
+  for (var key in hash) {
+    for(var i = 0; i < hash[key]; i++) {
+      resultArr.push(parseInt(key));
+    }
+  }
+
+  return resultArr;
+}
