@@ -1,5 +1,6 @@
 function binarySearch(array, n, leftIndex, rightIndex) {
-  let pivot = Math.floor(array.length / 2);
+  if (leftIndex > rightIndex) return -1;
+  let pivot = Math.floor((leftIndex + rightIndex) / 2);
 
   if (array[pivot] == n) {
     return pivot;
@@ -10,4 +11,19 @@ function binarySearch(array, n, leftIndex, rightIndex) {
   }
 
   return -1;
+}
+
+function reverseString(str) {
+  let arr = str.split(""),
+      length = str.length,
+      middle = Math.floor(length / 2);
+
+  for (let i = 0; i < middle; i++) {
+    let another = length - i - 1;
+    let temp = arr[i];
+    arr[i] = arr[another];
+    arr[another] = temp;
+  }
+
+  return arr.join("");
 }
