@@ -59,3 +59,26 @@ function fiboWithMemo(n, memo=[]) {
 
   return memo[n];
 }
+
+function findPwermutations(a, b) {
+  let aLen = a.length,
+      bLen = b.length,
+      arrA = a.split(""),
+      arrB = b.split(""),
+      bSorted = arrB.sort().join(""),
+      results = [];
+
+  if (aLen < bLen) return results;
+
+  for (let i = 0; (i < aLen) && ((aLen - i) >= bLen); i++) {
+    if (!b.includes(arrA[i])) continue;
+
+    let sortedA = arrA.slice(i, i + bLen).sort().join("");
+
+    if (sortedA == bSorted) {
+      results.push(i);
+    }
+  }
+
+  return results;
+}
