@@ -82,3 +82,29 @@ function findPwermutations(a, b) {
 
   return results;
 }
+
+function findAllPermutations(str) {
+  if (str.length == 1) return [str];
+
+  let firstEl = str[0];
+      permutations = findAllPermutations(str.substring(1)),
+      permLength = permutations.length,
+      results = [];
+
+  for (let i = 0; i < permLength; i++) {
+    let word = permutations[i],
+        arr = word.split(""),
+        wordlen = word.length;
+
+    for (let j = 0; j <= wordlen; j++) {
+      let newStr = arr.slice();
+      newStr.splice(j,0,firstEl);
+      results.push(newStr.join(""));
+    }
+  }
+
+  return results;
+
+}
+
+console.log(findAllPermutations("abcdefgrt").length)
