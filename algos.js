@@ -123,3 +123,19 @@ function elementsInCommon(arr1, arr2) {
 
   return result;
 }
+
+function urlify(str) {
+  let result = "";
+
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+
+    if (char == " ") {
+      result += "%20";
+    } else {
+      result += char;
+    }
+  }
+
+  return result;
+}
