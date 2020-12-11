@@ -124,10 +124,10 @@ function elementsInCommon(arr1, arr2) {
   return result;
 }
 
-function urlify(str) {
+function urlify(str, length) {
   let result = "";
 
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < length; i++) {
     let char = str[i];
 
     if (char == " ") {
@@ -138,4 +138,27 @@ function urlify(str) {
   }
 
   return result;
+}
+
+function palindromePermutation(str) {
+  let   cleanStr = str.toLowerCase().replace(/[\W_]/g, ''),
+        hash = {},
+        oddCount = 0;
+
+  for (let i of cleanStr) {
+    if (hash[i]) {
+      hash[i] += 1;
+    } else {
+      hash[i] = 1;
+    }
+  }
+
+  for (let key in hash) {
+    if (hash[key] % 2 != 0) oddCount += 1;
+
+    if (oddCount > 1) return false;
+  }
+
+  return true;
+
 }
