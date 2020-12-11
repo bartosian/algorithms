@@ -162,3 +162,43 @@ function palindromePermutation(str) {
   return true;
 
 }
+
+function isOneEdit(strA, strB) {
+  let lenA = strA.length,
+      lenB = strB.length,
+      pointerA = 0,
+      pointerB = 0,
+      diff = 0;
+
+  if (Math.abs(lenA - lenB) > 1) return false;
+
+  for (let i = 0; i < lenA; i++) {
+    let charA = strA[i],
+        charB = strB[i];
+
+    if (charA !== charB)
+
+  }
+
+}
+
+function isUniqueString(str) {
+  let len = str.length;
+
+  if (len > 94) return false;
+
+  let char_set = new Array(94).fill(false);
+
+  for (let char of str) {
+    let code = char.charCodeAt();
+
+    if (char_set[code]) {
+      return false;
+    } else {
+      char_set[code] = true;
+    }
+  }
+
+
+  return true;
+}
