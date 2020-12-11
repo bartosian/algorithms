@@ -107,4 +107,19 @@ function findAllPermutations(str) {
 
 }
 
-console.log(findAllPermutations("abcdefgrt").length)
+function elementsInCommon(arr1, arr2) {
+  let hash = {},
+      result = 0;
+
+  for (let i of arr1) {
+    hash[i] = true;
+  }
+
+  for (let j of arr2) {
+    if (hash[j]) {
+      result++;
+    }
+  }
+
+  return result;
+}
