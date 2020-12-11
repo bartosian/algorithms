@@ -202,3 +202,25 @@ function isUniqueString(str) {
 
   return true;
 }
+
+function checkIfPermutation(strA, strB) {
+  let lenA = strA.length,
+      lenB = strB.length,
+      charArr = new Array(94).fill(0);
+
+  if (lenA !== lenB) return false;    
+
+  for (let char of strA) {
+    let charCode = char.charCodeAt();
+    charArr[charCode]++;
+  }
+
+  for (let char of strB) {
+    let charCode = char.charCodeAt();
+    charArr[charCode]--;
+
+    if (charArr[charCode] < 0) return false;
+  }
+
+  return true;
+}
