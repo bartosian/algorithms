@@ -164,21 +164,6 @@ function palindromePermutation(str) {
 }
 
 function isOneEdit(strA, strB) {
-  let lenA = strA.length,
-      lenB = strB.length,
-      pointerA = 0,
-      pointerB = 0,
-      diff = 0;
-
-  if (Math.abs(lenA - lenB) > 1) return false;
-
-  for (let i = 0; i < lenA; i++) {
-    let charA = strA[i],
-        charB = strB[i];
-
-    if (charA !== charB)
-
-  }
 
 }
 
@@ -208,7 +193,7 @@ function checkIfPermutation(strA, strB) {
       lenB = strB.length,
       charArr = new Array(94).fill(0);
 
-  if (lenA !== lenB) return false;    
+  if (lenA !== lenB) return false;
 
   for (let char of strA) {
     let charCode = char.charCodeAt();
@@ -220,6 +205,83 @@ function checkIfPermutation(strA, strB) {
     charArr[charCode]--;
 
     if (charArr[charCode] < 0) return false;
+  }
+
+  return true;
+}
+
+function oneEditAway(strA, strB) {
+  if (strA.length === strB.length) {
+    return oneEditReplace(strA, strB);
+  } else if ((strA.length + 1) === strB.length) {
+    return oneEditInsert(strA, strB);
+  } else if ((strA.length - 1) == strB.length) {
+    return oneEditInsert(strB, strA);
+  }
+
+  return false;
+}
+
+function oneEditReplace(strA, strB) {
+  let difference = false;
+
+  for (let i = 0; i < strA.length; i++) {
+    if (strA[i] !== strB[i]) {
+      if (difference) {
+        return false;
+      } else {
+        difference = true;
+      }
+    }
+  }
+
+  return true;
+}
+
+function oneEditInsert(strA, strB) {
+  let indexA = 0,
+      indexB = 0;
+
+  while (indexA < strA.length && indexB < strB.length) {
+    if (strA[indexA] !== strB[indexB]) {
+      if (indexA !== indexB) {
+        return false;
+      }
+
+      indexB++;
+    } else {
+      indexA++:
+      indexB++;
+    }
+  }
+
+  return true;
+}
+
+function oneEditAway(strA, strB) {
+  if (Math.abs(strA.length - strB.length) > 1) return false;
+
+  let indexA = 0,
+      indexB = 0,
+      difference = false;
+
+  strA = strA.length < strB.length ? strA : strB;
+  strB = strA.length < strB.length ? strB : strA;
+
+  while (indexA < strA.length && indexB < strB.length) {
+    if (strA[indexA] !== strB[indexB]) {
+      difference && return false;
+
+      difference = true;
+
+      if (strA.length === strB.length) {
+        indexA++;
+      } 
+    } else {
+      indexA++;
+    }
+
+    indexB++;
   }
 
   return true;
