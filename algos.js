@@ -276,7 +276,7 @@ function oneEditAway(strA, strB) {
 
       if (strA.length === strB.length) {
         indexA++;
-      } 
+      }
     } else {
       indexA++;
     }
@@ -285,4 +285,21 @@ function oneEditAway(strA, strB) {
   }
 
   return true;
+}
+
+function stringCompression(str) {
+  let strLen = str.length,
+      conseqChars = 0,
+      compressedStr = "";
+
+  for (let i = 0; i < strLen; i++) {
+    conseqChars++;
+
+    if ((str[i + 1] !== str[i]) || (i + 1) >= strLen) {
+      compressedStr += `${str[i]}${conseqChars}`;
+      conseqChars = 0;
+    }
+  }
+
+  return compressedStr.length >= strLen ? str : compressedStr;    
 }
