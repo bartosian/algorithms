@@ -297,9 +297,35 @@ function stringCompression(str) {
 
     if ((str[i + 1] !== str[i]) || (i + 1) >= strLen) {
       compressedStr += `${str[i]}${conseqChars}`;
+
+      if (compressedStr.length >= strLen) return str;
       conseqChars = 0;
     }
   }
 
-  return compressedStr.length >= strLen ? str : compressedStr;    
+  return compressedStr;
+}
+
+function rotateMatrix(matrix) {
+  if (!matrix.length || matrix.length !== matrix[0].length) return false;
+
+  let n = matrix.length,
+      layers = n / 2;
+
+  for (let layer = 0; layer < layers; layer++) {
+    let first = layer,
+        last = n - 1 - layer;
+
+    for (let i = first; i < last; i++) {
+      let offset = i - first;
+
+      let top = matrix[first][i];
+      matrix[first][i] = matrix[last - offset][first];
+      matrix[last - offset][first] = matrix[last][last - offset];
+      matrix[last][last - offset] = matrix[i][last];
+      matrix[i][last] = top;
+    }
+  }
+
+  return true;
 }
