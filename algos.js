@@ -307,12 +307,11 @@ function stringCompression(str) {
 }
 
 function rotateMatrix(matrix) {
-  if (!matrix.length || matrix.length !== matrix[0].length) return false;
+  let n = matrix.length;
 
-  let n = matrix.length,
-      layers = n / 2;
+  if (n == 0 || n !== matrix[0].length) return false;
 
-  for (let layer = 0; layer < layers; layer++) {
+  for (let layer = 0; layer < n / 2; layer++) {
     let first = layer,
         last = n - 1 - layer;
 
