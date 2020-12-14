@@ -328,3 +328,63 @@ function rotateMatrix(matrix) {
 
   return true;
 }
+
+function setZeros(matrix) {
+  let firstRowHasZeros = false,
+      firstColumnHasZeros = false;
+
+  for (let i = 0; i < matrix[0].length; i++) {
+    if (matrix[0][i] === 0) {
+      firstRowHasZeros = true;
+      break;
+    }
+  }
+
+  for (let j = 0; i < matrix.length; j++) {
+    if (matrix[j][0] === 0) {
+      firstColumnHasZeros = true;
+      break;
+    }
+  }
+
+  for (let i = 1; i < matrix.length; i++) {
+    for (let j = 1; j < matrix[0].length; j++) {
+      if (matrix[i][j] === 0) {
+        matrix[i][0] = 0;
+        matrix[0][j] = 0;
+      }
+    }
+  }
+
+  for (let i = 0; i < matrix[0].length; i++) {
+    if (matrix[0][i] === 0) {
+      nullifyColumn(matrix, i);
+    }
+  }
+
+  for (let j = 0; j < matrix.length; j++) {
+    if (matrix[j][0] == 0) {
+      nullifyRow(matrix, j);
+    }
+  }
+
+  if (firstRowHasZeros) {
+    nullifyRow(matrix, 0);
+  }
+
+  if (firstColumnHasZeros) {
+    nullifyColumn(matrix, 0);
+  }
+}
+
+function nullifyRow(matrix, row) {
+  for (let i = 0; i < matrix[row].length; i++) {
+    matrix[row][i] = 0;
+  }
+}
+
+function nullifyColumn(matrix, column) {
+  for (let j = 0; j < matrix.length; j++) {
+    matrix[j][column] = 0;
+  }
+}
