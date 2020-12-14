@@ -388,3 +388,16 @@ function nullifyColumn(matrix, column) {
     matrix[j][column] = 0;
   }
 }
+
+function isRotation(s1, s2) {
+  let len1 = s1.length,
+      len2 = s2.length;
+
+  if (len1 === len2 && len1 > 0) {
+    let newSubstr = len1 + len1;
+
+    return newSubstr.includes(s2);
+  }
+
+  return false;    
+}
