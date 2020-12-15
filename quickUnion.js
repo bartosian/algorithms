@@ -72,6 +72,14 @@ class WQUPC {
     }
   }
 
+  find(i) {
+    let root = this._root(i);
+
+    if (!root) return false;
+
+    return this._groupMax[root];
+  }
+
   union(a, b) {
     let rootA = this._root(a),
         rootB = this._root(b),
@@ -91,5 +99,33 @@ class WQUPC {
 
       if (this._sizes[rootA] === this._idsList.length) this._allConnected = true;
     }
+  }
+}
+
+class Seq {
+  constructor(arr) {
+      this._hash = {};
+
+      for (let key of arr) {
+        this._hash[key] = key;
+      }
+  }
+
+  root(i) {
+    while (i !== this._hash[i]) {
+      this._hash[i] = this._hash[this._hash[i]];
+      i = this._hash[i];
+    }
+
+    return i;
+  }
+
+  remove(x) {
+    this._hash[x] = this.root(x - 1);
+  }
+
+  find(x) {
+    let root = this.root(x);
+    return root >= 0 ? root : null;
   }
 }
