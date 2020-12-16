@@ -106,7 +106,7 @@ class Seq {
   constructor(arr) {
       this._hash = {};
       this._hash['-1'] = -1;
-        
+
       for (let key of arr) {
         this._hash[key] = key;
       }
@@ -130,3 +130,5 @@ class Seq {
     return root >= 0 ? root : null;
   }
 }
+
+export { WQUPC };
