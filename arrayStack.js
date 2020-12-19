@@ -67,3 +67,5 @@ class ResizingArrayStack {
     }
   }
 }
+
+exports.ArrayStack = ArrayStack;
