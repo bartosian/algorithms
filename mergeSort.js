@@ -1,3 +1,5 @@
+const { insertionSort } = require('./insertion_sort.js');
+
 class Merge {
   constructor(list) {
     let arr = list,
@@ -29,7 +31,8 @@ class Merge {
   }
 
   _sort(arr, aux, low, high) {
-    if (high <= low) {
+    if (high <= low + 7 - 1) {
+      insertionSort(arr);
       return;
     }
 
@@ -41,3 +44,7 @@ class Merge {
     this._merge(arr, aux, low, mid, high);
   }
 }
+
+let arr = [1,5,3,9,7,2,77,32,11,2,34,67,454,2,9,55,1,2,3,4,5,6];
+let sortedArr = new Merge(arr);
+console.log(arr);

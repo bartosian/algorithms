@@ -7,7 +7,7 @@ function insertionSort(arr) {
             arr[position] = arr[position - 1]
             position -= 1
         }
-        
+
         arr[position] = tmp
     }
 
@@ -29,4 +29,4 @@ function intersection(arr, arr2) {
     return result;
 }
 
-console.log(intersection([1, 2, 3,4], [4, 3, 5, 6]));
+exports.insertionSort = insertionSort;
