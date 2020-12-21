@@ -45,4 +45,15 @@ class Merge {
 
     this._merge(arr, aux, low, mid, high);
   }
+
+  _sortBU(arr) {
+    let len = arr.length,
+        aux = new Array(len);
+
+    for (let size = 1; size < len; size += size) {
+      for (let low = 0; low < len - size; low += size + size) {
+        this._merge(arr, aux, low, low + size - 1, Math.min(low + size + size - 1, len - 1));
+      }
+    }
+  }
 }
