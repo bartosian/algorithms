@@ -2,11 +2,11 @@ const { insertionSort } = require('./insertion_sort.js');
 
 class Merge {
   constructor(list) {
-    let arr = list,
-        len = list.length,
-        auxArr = new Array(len);
-
-    this._sort(arr, auxArr, 0, len - 1);
+    // let arr = list,
+    //     len = list.length,
+    //     auxArr = new Array(len);
+    //
+    // this._sort(arr, auxArr, 0, len - 1);
   }
 
   _merge(arr, aux,low, mid, high) {
@@ -57,3 +57,9 @@ class Merge {
     }
   }
 }
+
+
+let arr = [1,4,8,2,7,4,6,9,8];
+let merge = new Merge(arr);
+merge._sortBU(arr);
+console.log(arr);
