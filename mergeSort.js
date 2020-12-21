@@ -41,10 +41,8 @@ class Merge {
     this._sort(arr, aux, low, mid);
     this._sort(arr, aux, mid + 1, high);
 
+    if (arr[mid] <= arr[mid + 1]) return;
+
     this._merge(arr, aux, low, mid, high);
   }
 }
-
-let arr = [1,5,3,9,7,2,77,32,11,2,34,67,454,2,9,55,1,2,3,4,5,6];
-let sortedArr = new Merge(arr);
-console.log(arr);
