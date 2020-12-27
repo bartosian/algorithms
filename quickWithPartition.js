@@ -14,7 +14,7 @@ class QuickSort {
             pivot = this.array[rightPointer];
 
         rightPointer -= 1;
-        
+
         while(true) {
             while(this.array[leftPointer] <= pivot) {
                 leftPointer += 1;
@@ -68,3 +68,7 @@ class QuickSort {
         }
     }
 }
+let arr = [9,1,8,3,4,2,5,6];
+let qs = new QuickSort(arr);
+qs.run(0, 7);
+console.log(qs.array);
