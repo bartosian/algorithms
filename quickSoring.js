@@ -2,8 +2,9 @@ class QuickSort {
   constructor(arr) {
     this.arr = arr;
     this.shuffle();
-    console.log(this.arr);
-    this.sort(0, this.arr.length - 1);
+
+    // this.sort(0, this.arr.length - 1);
+    this.threeWayQuickSort(0, this.arr.length - 1);
   }
 
   shuffle() {
@@ -38,7 +39,7 @@ class QuickSort {
       }
     }
 
-    return this.arr[partition];    
+    return this.arr[partition];
   }
 
   partition(leftPointer, rightPointer) {
@@ -77,9 +78,31 @@ class QuickSort {
     this.sort(left, pivot - 1);
     this.sort(pivot + 1, right);
   }
+
+  threeWayQuickSort(left, right) {
+    if (right <= left) return;
+
+    let lt = left,
+        gt = right,
+        v = this.arr[left],
+        i = left;
+
+    while (i <= right) {
+      if (this.arr[i] < v) {
+        this.swap(i++, lt++);
+      } else if (this.arr[i] > v) {
+        this.swap(i++, gt--);
+      } else {
+        i++;
+      }
+    }
+
+    this.threeWayQuickSort(left, lt - 1);
+    this.threeWayQuickSort(gt + 1, right);
+  }
 }
 
-let arr = [9,1,8,3,4,2,5,6];
+let arr = [9,1,2,4,3,2,1,4,1,9,9];
 
 let quickSort = new QuickSort(arr);
 console.log(arr);
