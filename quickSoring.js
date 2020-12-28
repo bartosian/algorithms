@@ -22,6 +22,25 @@ class QuickSort {
     this.arr[j] = temp;
   }
 
+  select(k) {
+    let left = 0,
+        right = this.arr.length - 1;
+
+    while (right > left) {
+      let partition = this.partition(left, right);
+
+      if (partition > k) {
+        right = partition - 1;
+      } else if (partition < k) {
+        left = partition + 1;
+      } else {
+        return this.arr[partition];
+      }
+    }
+
+    return this.arr[partition];    
+  }
+
   partition(leftPointer, rightPointer) {
       let pivotId = rightPointer,
           pivot = this.arr[rightPointer];
