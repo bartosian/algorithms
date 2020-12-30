@@ -43,6 +43,20 @@ class Heap {
 
   }
 
+  // when one of childs becomes larger then node key
+  swim(i) {
+    while (i > 0 && this.arr[i] > this.arr[Math.floor(i / 2)]) {
+      this.swap(i, Math.floor(i / 2));
+      i = Math.floor(i / 2);
+    }
+  }
+
+  insert(key) {
+    this.arr.push(key);
+    this.size++;
+    this.swim(this.size - 1);
+  }
+
   swap(i, j) {
     let temp = this.arr[i];
     this.arr[i] = this.arr[j];
