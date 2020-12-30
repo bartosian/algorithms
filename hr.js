@@ -131,3 +131,22 @@ function oneEdit(str1, str2) {
 
   return true;
 }
+
+function stringCompression(str) {
+  let compressedStr = "",
+      i = 0;
+
+  while (i < str.length) {
+    let char = str[i],
+        count = 0;
+
+    while (str[i] === char) {
+      count++;
+      i++;
+    }
+
+    compressedStr += char + count;
+  }
+
+  return compressedStr.length > str.length ? str : compressedStr;
+}
