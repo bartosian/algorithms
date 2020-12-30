@@ -64,4 +64,70 @@ function urlify(str, len) {
   return str.trim().split(" ").join("%20");
 }
 
-console.log(urlify("Mr John Smith      "));
+function palindromePermutation(str) {
+  let oddCount = 0,
+      len = str.length,
+      chars = {};
+
+  for (let i = 0; i < len; i++) {
+    !chars[str[i]] ? chars[str[i]] = 1 : chars[str[i]]++;
+  }
+
+  for (let key in chars) {
+    if (chars[key] % 2 !== 0) oddCount++;
+    if (oddCount > 1) return false;
+  }
+
+  if (len % 2 === 0) {
+    return oddCount === 0;
+  }
+
+  return  true;
+}
+
+function editAway(str1, str2) {
+  if (Math.abs(str1.length - str2.length) > 1) return false;
+
+  if (str1.length === str2.length) {
+    return oneReplace(str1, str2);
+  } else if (str1.length > str2.length) {
+    return oneEdit(str1, str2);
+  } else {
+    return oneEdit(str2, str1);
+  }
+}
+
+function oneReplace(str1, str2) {
+  let i = 0,
+      replaceCounts = 0;
+
+  while (i < str1.length) {
+      if (str1[i] !== str2[i]) {
+        replaceCounts++;
+        if (replaceCounts > 1) return false;
+      }
+      i++;
+  }
+
+  return true;
+}
+
+function oneEdit(str1, str2) {
+  let i = 0,
+      j = 0,
+      editCounts = 0;
+
+  while(i < str1.length && j < str2.length) {
+    if (str1[i] !== str2[j]) {
+      i++;
+      editCounts++;
+
+      if (editCounts > 1) return false;
+    } else {
+      i++;
+      j++;
+    }
+  }
+
+  return true;
+}
