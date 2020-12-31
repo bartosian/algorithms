@@ -150,3 +150,35 @@ function stringCompression(str) {
 
   return compressedStr.length > str.length ? str : compressedStr;
 }
+
+// for way edge swap
+class Matrix {
+  constructor(matrix, n) {
+    this.matrix = matrix;
+    this.rows = matrix.length;
+    this.columns = matrix[0].length;
+  }
+
+  rotate() {
+    if (this.rows !== this.columns || this.rows === 0) return false;
+
+    let layers = Math.floor(this.rows / 2);
+
+    for (let i = 0; i < layers; i++) {
+      let first = i,
+          last = this.rows - 1 - i;
+
+      for (let j = first; j < last; j++) {
+        let offset = j - first;
+
+        let top = this.matrix[first][j];
+        this.matrix[first][j] = this.matrix[first][last - offset];
+        this.matrix[first][last - offset] = this.matrix[last][last - offset];
+        this.matrix[last][last - offset] = this.matrix[i][last];
+        this.matrix[i][last] = top;
+      }
+    }
+
+    return true;
+  }
+}
