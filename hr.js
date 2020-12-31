@@ -181,6 +181,58 @@ class Matrix {
 
     return true;
   }
+
+  setZeros() {
+    let firstRowHasZero = false,
+        firstColumnHasZero = false;
+
+    for (let i = 0; i < this.columns; i++) {
+      if (this.matrix[0][i] === 0) {
+        firstRowHasZero = true;
+        break;
+      }
+    }
+
+    for (let j = 0; j < this.rows; j++) {
+      if (this.matrix[j][0] === 0) {
+        firstColumnHasZero = true;
+        break;
+      }
+    }
+
+    for (let i = 1; i < this.rows; i++) {
+      for (let j = 1; j < this.columns; j++) {
+        if (this.matrix[i][j] === 0) {
+          this.matrix[0][j] = 0;
+          this.matrix[i][0] = 0;
+        }
+      }
+    }
+
+    for (let i = 0; i < this.columns; i++) {
+      if (this.matrix[0][i] === 0) {
+        this.nullifyColumn(i);
+      }
+    }
+
+    for (let j = 0; j < this.rows; j++) {
+      if (this.matrix[j][0] === 0) {
+        this.nullifyRow(j);
+      }
+    }
+  }
+
+  nullifyColumn(k) {
+    for (let i = 0; i < this.rows; i++) {
+      this.matrix[i][k] = 0;
+    }
+  }
+
+  nullifyRow(k) {
+    for (let i = 0; i < this.columns; i++) {
+      this.matrix[k][i] = 0;
+    }
+  }
 }
 
 function isRotation(s1, s2) {
