@@ -242,3 +242,35 @@ function isRotation(s1, s2) {
 
   return (s2 + s2).includes(s1);
 }
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
+}
+
+class NodeList {
+  constructor(head) {
+    this.head = head;
+  }
+
+  deleteDups() {
+    let dataSet = new Set(),
+        n = this.head,
+        prev = null;
+
+    while (n !== null) {
+      let value = n.data;
+
+      if (dataSet.has(n.data)) {
+        prev.next = n.next;
+      } else {
+        dataSet.add(value);
+        prev = n;
+      }
+
+      n = n.next;
+    }
+  }
+}
