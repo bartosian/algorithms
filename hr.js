@@ -274,3 +274,33 @@ class NodeList {
     }
   }
 }
+
+function BFS(adjList, s) {
+  let levels = {
+    s: 0
+  };
+
+  let parents = {
+    s: null
+  };
+
+  let curLevel = 1,
+      frontier =[s];
+
+  while (frontier.length) {
+    let nextTier = [];
+
+    for (u in frontier) {
+      for (v in adjList[u]) {
+        if (!levels[v]) {
+          levels[v] = curLevel;
+          parents[v] = u;
+          nextTier.push(v);
+        }
+      }
+    }
+
+    frontier = nextTier;
+    i++;
+  }
+}
