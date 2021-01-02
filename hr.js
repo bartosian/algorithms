@@ -290,8 +290,10 @@ function BFS(adjList, s) {
   while (frontier.length) {
     let nextTier = [];
 
-    for (u in frontier) {
-      for (v in adjList[u]) {
+    for (let i = 0; i < frontier.length; i++) {
+      let u = frontier[i];
+
+      for (let v = 0; v < u.length; v++) {
         if (!levels[v]) {
           levels[v] = curLevel;
           parents[v] = u;
@@ -302,5 +304,20 @@ function BFS(adjList, s) {
 
     frontier = nextTier;
     i++;
+  }
+}
+
+let parents = {
+  s: null
+};
+
+function DFS(adjList, s) {
+  let u = adjList[s];
+
+  for (let i = 0; i < u.length; i++) {
+    if (!parents[u[i]]) {
+      parents[u[i]] = s;
+      DFS(adjList, u[i]);
+    }
   }
 }
