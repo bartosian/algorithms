@@ -407,3 +407,14 @@ function nthToLastIerative(head, k) {
 
   return p2;
 }
+
+function deleteNode(node) {
+   if (!node || !node.next) {
+     return false;
+   }
+
+   let nextNode = node.next;
+   node.data = nextNode.data;
+   node.next = nextNode.next;
+   return true;
+}
