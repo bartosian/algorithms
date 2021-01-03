@@ -389,3 +389,21 @@ function nthToLast(head, k, i) {
 
   return node;
 }
+
+// 2 pointer (runner pointer) solution
+function nthToLastIerative(head, k) {
+  let p1 = p2 = head;
+
+  for (let i = 0; i < k; i++) {
+    if (!p1) return null;
+
+    p1 = p1.next;
+  }
+
+  while (p1) {
+    p1 = p1.next;
+    p2 = p2.next;
+  }
+
+  return p2;
+}
