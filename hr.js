@@ -360,3 +360,32 @@ function removeDupsInLinkedListWithoutBuffer(head) {
     currentNode = currentNode.next;
   }
 }
+
+function kthToLastLinkedList(head, k) {
+  if (!head) {
+    return 0;
+  }
+
+  let index = kthToLastLinkedList(head.next, k) + 1;
+
+  if (index === k) {
+    console.log(head[data]);
+  }
+
+  return index;
+}
+
+function nthToLast(head, k, i) {
+  if (!head) {
+    return null;
+  }
+
+  let node = nthToLast(head.next, k, i);
+  i++;
+
+  if (i === k) {
+    return head;
+  }
+
+  return node;
+}
