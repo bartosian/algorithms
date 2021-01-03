@@ -321,3 +321,24 @@ function DFS(adjList, s) {
     }
   }
 }
+
+function removeDupsInLinkedLIst(head) {
+  let valuesSet = new Set(),
+      prevNode = null,
+      n = head;
+
+  while (n) {
+    let value = n.data;
+
+    if (valuesSet.has(value)) {
+      prevNode.next = n.next;
+    } else {
+      valuesSet.add(value);
+      prevNode = n;
+    }
+
+    n = n.next;
+  }
+
+  return head;
+}
