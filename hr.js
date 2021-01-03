@@ -342,3 +342,21 @@ function removeDupsInLinkedLIst(head) {
 
   return head;
 }
+
+function removeDupsInLinkedListWithoutBuffer(head) {
+  let currentNode = head;
+
+  while (currentNode) {
+    let runnerNode = currentNode;
+
+    while (runnerNode) {
+      if (currentNode.data === runnerNode.next.data) {
+        runnerNode.next = runnerNode.next.next;
+      } else {
+        runnerNode = runnerNode.next;
+      }
+    }
+
+    currentNode = currentNode.next;
+  }
+}
