@@ -25,5 +25,16 @@ function fiboWithMemoSec(n) {
     memo[i] = memo[i - 1] + memo[i - 2];
   }
 
-  return memo[n];    
+  return memo[n];
+}
+
+function solve(n, memo={}) {
+  if (n < 1) return 0;
+  if (n === 1) return 1;
+
+  if (!memo[n]) {
+    let result = solve(n - 3) + solve(n - 1) + solve(n - 5);
+    memo[n] = result;
+  }
+  return memo[n];
 }
