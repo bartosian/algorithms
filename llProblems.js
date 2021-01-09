@@ -53,6 +53,15 @@ class LinkedList {
       p2 = p2.next;
     }
 
-    return p2.item;    
+    return p2.item;
+  }
+
+  deleteNode(node) {
+    if (!node.next) {
+      return;
+    }
+
+    node.item = node.next.item;
+    node.next = node.next.next;
   }
 }
