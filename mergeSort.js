@@ -63,3 +63,40 @@ let arr = [1,4,8,2,7,4,6,9,8];
 let merge = new Merge(arr);
 merge._sortBU(arr);
 console.log(arr);
+
+class MergeSort {
+  constructor(arr) {
+    this.arr = arr;
+    this.size = arr.length;
+    this.aux = [];
+  }
+
+  merge(low, mid, hi) {
+    for (let i = low; i <= hi; i++) {
+      this.aux[i] = this.arr[i];
+    }
+
+    let i = low,
+        j = mid + 1;
+
+    for (let j = low; j <= hi; j++) {
+      if (i > mid) this.arr[j] = this.aux[j++];
+      if (j > hi) this.arr[j] = this.aux[i++];
+      if (this.aux[i] > this.aux[j]) {
+        this.arr[j] = this.aux[j++];
+      } else {
+        this.arr[j] = this.aux[i++];
+      }
+    }
+  }
+
+  sort(low, hi) {
+    if (low >= hi) return;
+
+    let mid = Math.floor((hi - low) / 2 + low);
+
+    sort(low, mid);
+    sort(mid + 1, hi);
+    merge(low, mid, hi);
+  }
+}

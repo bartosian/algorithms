@@ -38,3 +38,36 @@ function solve(n, memo={}) {
   }
   return memo[n];
 }
+
+class Stack {
+  constructor() {
+    let arr = [],
+        aux = [];
+  }
+
+  push(item) {
+    this.arr.push(item);
+
+    if (!this.aux.length) {
+      this.aux.push(item);
+      return;
+    }
+
+    if (item > this.aux[-1]) {
+      this.aux.push(item);
+    } else {
+      this.aux.push(this.aux[-1]);
+    }
+  }
+
+  pop() {
+    let item = this.array.pop();
+    this.aux.pop();
+
+    return item;
+  }
+
+  getMax() {
+    return this.aux[-1];
+  }
+}
