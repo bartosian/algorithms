@@ -99,4 +99,12 @@ class MergeSort {
     sort(mid + 1, hi);
     merge(low, mid, hi);
   }
+  // slower than recursive approach
+  sortInPlace() {
+    for (let size = 1; size < this.size; sz *= 2) {
+      for (let lo = 0; lo < this.size - size; lo += size * 2) {
+        this.merge(lo, lo + size - 1, Math.min(lo + size + size - 1, this.size - 1));
+      }
+    }
+  }
 }
