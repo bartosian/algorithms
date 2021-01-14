@@ -90,6 +90,29 @@ class MergeSort {
     }
   }
 
+  mergeWithLessAux(low, mid, hi) {
+    let auxSize = Math.ceil(this.size / 2),
+        i = 0,
+        j = auxSize,
+        k = 0;
+
+    for (let i = 0; i < auxSize; i++ ) {
+      this.aux[i] = this.arr[i];
+    }
+
+    while (k < this.size) {
+      if (i > auxSize) {
+        this.arr[k++] = this.arr[j++];
+      } else if (j > this.size) {
+        this.arr[k++] = this.aux[i++];
+      } else if (this.arr[j] < this.aux[i]) {
+        this.arr[k++] = this.arr[j++];
+      } else {
+        this.arr[k++] = this.aux[i++];
+      }
+    }
+  }
+
   sort(low, hi) {
     if (low >= hi) return;
 
