@@ -131,3 +131,50 @@ class MergeSort {
     }
   }
 }
+
+class Inversions {
+  constructor(arr) {
+    this.size = arr.length;
+    this.aux = [];
+  }
+
+  merge(lo, mid, hi) {
+    let inversions = 0;
+
+    for (let i = lo; i <= hi; i++) {
+      this.aux[i] = this.arr[i];
+    }
+
+    let i = lo,
+        j = mid;
+
+    for (let k = low; k <= hi; k++) {
+      if (i > mid) {
+        this.arr[k] = this.aux[j++];
+      } else if (j > hi) {
+        this.arr[k] = this.aux[j++];
+      } else if (this.aux[i] > this.aux[j]) {
+        this.arr[k] = this.aux[i++];
+        inversions += mid - i;
+      } else {
+        this.arr[k] = this.aux[j++];
+      }
+    }
+
+    return inversions;
+  }
+
+  count(lo, hi) {
+    if (lo >= hi) return;
+
+    let invesrions = 0;
+
+    let mid = Math.floor((hi - lo) / 2 + lo);
+
+    invesrions += count(lo, mid);
+    inversions += count(mid + 1, hi);
+    inversions += merge(lo, mid, hi);
+
+    return inversions;
+  }
+}
