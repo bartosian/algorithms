@@ -200,3 +200,39 @@ function isPalindrome(l1) {
 
   return true;
 }
+
+class Result {
+  constructor(node, result) {
+    this.node = node;
+    this.result = result;
+  }
+}
+
+function lengthOfList(head) {
+  let size = 0;
+
+  while (head) {
+    size++:
+    head = head.next;
+  }
+}
+
+function isPlalindromeRecurse(head, length) {
+  if (!head || length === 0) {
+    return new Result(head, true);
+  } else if (length === 1) {
+    return new Result(head.next, true);
+  }
+
+  let result = isPlalindromeRecurse(head.next, length - 2);
+
+  if (!result.result || !result.node) {
+    return result;
+  }
+
+  result.result = (head.data === result.node.data);
+  result.node = result.node.next;
+
+  return result;
+
+}
