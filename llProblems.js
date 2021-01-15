@@ -125,3 +125,54 @@ class LinkedList {
     return head;
   }
 }
+
+var addTwoNumbers = function(l1, l2) {
+  let head = new ListNode(0),
+      current = head,
+      sum = 0;
+
+  while (l1 || l2) {
+    if (l1) {
+      sum += l1.val;
+      l1 = l1.next;
+    }
+
+    if (l2) {
+      sum += l2.val;
+      l2 = l2.next;
+    }
+
+    current.next = new ListNode(sum % 10);
+    current = current.next;
+
+    sum > 9 ? sum = 1 : sum = 0;
+  }
+
+  if (sum) {
+    current.next = new ListNode(sum);
+  }
+
+  return head.next;
+};
+
+
+var lengthOfLongestSubstring = function(s) {
+    let strList = [],
+        maxStr = 0;
+
+
+    for (let i = 0; i < s.length; i++) {
+      let char = s.charAt(i),
+          indexOfChar = strList.indexOf(char);
+
+      if (indexOfChar) {
+        strList = strList.slice(indexOfChar);
+      }
+
+      strList.push(char);
+
+      maxStr = Math.max(maxStr, strList.length);
+    }
+
+    return maxStr;    
+};
