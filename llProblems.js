@@ -174,5 +174,29 @@ var lengthOfLongestSubstring = function(s) {
       maxStr = Math.max(maxStr, strList.length);
     }
 
-    return maxStr;    
+    return maxStr;
 };
+
+function isPalindrome(l1) {
+  let fast = slow = l1;
+  let stack = [];
+
+  while (fast && fast.next) {
+    stack.push(slow.data);
+    slow = slow.next;
+    fast = fast.next.next;
+  }
+
+  if (fast) {
+    slow = slow.next;
+  }
+
+  while (slow) {
+    let el = stack.pop();
+
+    if (slow.data !== el) return false;
+    slow = slow.next;
+  }
+
+  return true;
+}
