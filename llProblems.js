@@ -236,3 +236,55 @@ function isPlalindromeRecurse(head, length) {
   return result;
 
 }
+
+class Result {
+  constructor(node, result) {
+    this.node = node;
+    this.result = result;
+  }
+}
+
+
+class LinkedListPalindrome {
+  constructor(head) {
+    this.head = head;
+    this.length = this.getListLength(this.head);
+    { result, node } = this.isPlalindromeRecurse(this.head, this.length);
+
+    return result;
+  }
+  isPalindromeRecurse(head, length) {
+    if (!length || !head) {
+      return new Result(head, true);
+    } else if (length === 1) {
+      return new Result(head.next, true;);
+    }
+
+    let res = this.isPalindromeRecurse(head.next, length - 2);
+
+    if (!res.result || !res.node) {
+      return res;
+    }
+
+    if (res.node.data === head.data) {
+      res.node = res.node.next;
+      res.result = true;
+    } else {
+      res.result = false;
+    }
+
+    return res;
+  }
+
+  getListLength(head) {
+    let node = head,
+        size = 0;
+
+    while (node) {
+      size++;
+      node = node.next;
+    }
+
+    return size;
+  }
+}
