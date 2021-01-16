@@ -288,3 +288,61 @@ class LinkedListPalindrome {
     return size;
   }
 }
+
+class LinkedListIntersection {
+  constructor(headA, headB) {
+    this.headA = headA;
+    this.headB = headB;
+
+    let result = this.findIntersection(this.headA, this.headB);
+  }
+
+  findIntersection(headA, headB) {
+    let resultA = this.getLengthAndTail(headA),
+        resultB = this.getLengthAndTail(headB);
+
+    if (!resultA || !resultB) return null;
+
+    if (!Object.is(resultA[0], resultB[0])) {
+      return null;
+    }
+
+    let shorter = resultA[1] < resultB[1] ? headA : headB,
+        longer = resultA[1] < resultB[1] ? headB : headA;
+
+    longer = this.getKthNode(longer, Math.abs(resultA[1] - resultB[1]));
+
+    while (shorter) {
+      if (Object.is(shorter, longer)) return shorter;
+
+      shorter = shorter.next;
+      longer = longer.longer;
+    }
+  }
+
+  getLengthAndTail(head) {
+    if (!head) return null;
+
+    let size = 1,
+        current = head;
+
+    while (current.next) {
+      size++;
+      current = current.next;
+    }
+
+    return [current, length];
+  }
+
+  getKthNode(head, k) {
+    let current = head,
+        counter = k;
+
+    while(counter && current) {
+      current = current.next;
+      counter--;
+    }
+
+    return current;
+  }
+}
