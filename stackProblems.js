@@ -53,3 +53,50 @@ class FixedMultiStack {
     return index;
   }
 }
+
+class StackWithMin {
+  constructor() {
+    this.stack = [];
+    this.size = 0;
+    this.min = [];
+  }
+
+  push(value) {
+    this.stack.push(value);
+    this.size++;
+
+    if (!this.min.length) {
+      this.min.push(value);
+    } else {
+      if (value <= this.min[this.size - 1]) {
+        this.min.push(value);
+      }
+    }
+  }
+
+  pop() {
+    if (this.size) {
+      let el = this.stack.pop();
+
+      if (el === this.min[this.size - 1]) {
+        this.min.pop();
+      }
+
+      return this.stack.pop();
+    } else {
+      throw new StackUnderflowError();
+    }
+  }
+
+  peek() {
+    if (this.size) {
+      return this.stack[this.size - 1];
+    } else {
+      throw new StackUnderflowError();
+    }
+  }
+
+  min() {
+    return this.min[this.size - 1];
+  }
+}
