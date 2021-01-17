@@ -161,4 +161,23 @@ class QuickSort {
     arr[i] = arr[j];
     arr[j] = temp;
   }
+
+  quickSelect(arr, k) {
+    let lo = 0,
+        hi = arr.length - 1;
+
+    while (hi > lo) {
+      let pivot = Math.floor((hi - lo) / 2 + lo);
+
+      if (pivot > k) {
+        lo = pivot + 1;
+      }
+
+      if (pivot < k) {
+        hi = pivot - 1;
+      }
+
+      if (pivot === k) return arr[pivot];
+    }
+  }
 }
