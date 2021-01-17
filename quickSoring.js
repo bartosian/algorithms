@@ -106,3 +106,59 @@ let arr = [9,1,2,4,3,2,1,4,1,9,9];
 
 let quickSort = new QuickSort(arr);
 console.log(arr);
+
+
+class QuickSort {
+  constructor(arr) {
+    this.arr = arr;
+    this.shuffle(this.arr);
+    this.sort(this.arr, 0, this.arr.length - 1);
+  }
+
+  sort(arr, lo, hi) {
+    if (lo >= hi) {
+      return;
+    }
+
+    let pivot = this.partition(arr, lo, hi);
+    this.sort(arr, lo, pivot - 1);
+    this.sort(arr, pivot + 1, hi);
+  }
+
+  partition(arr, lo, hi) {
+    let pivotId = Math.floor((hi - lo) / 2 + lo),
+        pivot = arr[pivotId];
+
+    while(true) {
+      while (arr[lo] <= pivot) {
+        lo++;
+      }
+
+      while (arr[hi] > pivot) {
+        hi--;
+      }
+
+      if (hi <= lo) break;
+
+      this.swap(arr, lo, hi);
+    }
+
+    this.swap(lo, pivotId);
+
+    return lo;
+  }
+
+  shuffle(arr) {
+    for (let i = 0; i < arr.length &&  i > 0; i++) {
+      let rand = Math.floor(Math.random() * (i + 1));
+
+      this.swap(arr, rand, i);
+    }
+  }
+
+  swap(arr, i, j) {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}
