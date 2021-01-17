@@ -230,4 +230,22 @@ class QueueOfStacks {
       return this.stack2.pop();
     }
   }
+
+  sort(stack) {
+    let aux = new Stack();
+
+    while (!s.isEmpty()) {
+      let tmp = s.pop();
+
+      while (!aux.isEmpty && aux.peek() > tmp) {
+        stack.push(aux.pop());
+      }
+
+      aux.push(tmp);
+    }
+
+    while (!aux.empty()) {
+      stack.push(ayx.pop());
+    }
+  }
 }
