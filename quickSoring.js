@@ -180,4 +180,24 @@ class QuickSort {
       if (pivot === k) return arr[pivot];
     }
   }
+
+  dijkstra3WayPartitioning(arr, lo, hi) {
+    let lt = lo,
+        gt = hi,
+        v = lo,
+        i = lo;
+
+    while (i <= hi) {
+      if (arr[i] < arr[v]) {
+        this.swap(arr, i++, lt++);
+      } else if (arr[i] > arr[v]) {
+        this.swap(arr, i++, gt--);
+      } else {
+        i++;
+      }
+    }
+
+    this.dijkstra3WayPartitioning(arr, lo, lt - 1);
+    this.dijkstra3WayPartitioning(arr, gt + 1, hi);    
+  }
 }
