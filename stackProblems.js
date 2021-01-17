@@ -197,3 +197,37 @@ clas Stack {
     this.size++;
   }
 }
+
+class QueueOfStacks {
+  constructor() {
+    this.stack1  = new Stack();
+    this.stack2 = new Stack();
+    this.size = 0;
+  }
+
+  enqueue(value) {
+    this.stack1.push(value);
+
+    this.size++;
+  }
+
+  dequeue() {
+    if (!this.size) {
+      throw new EmptyQueueError();
+    }
+
+    if (!this.stack2.isEmpty) {
+      this.size--;
+      return this.stack2.pop();
+    } else {
+      let stackSize = this.stack1.size();
+
+      for (let i = 0; i < stackSize; i++)  {
+        this.stack2.push(this.stack1.pop());
+      }
+
+      this.size--;
+      return this.stack2.pop();
+    }
+  }
+}
