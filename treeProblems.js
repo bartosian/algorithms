@@ -39,3 +39,17 @@ function BFS(graph, start, end) {
 
   return false;
 }
+
+function createMinimalBST(array, left, right) {
+  if (right < left) {
+    return null;
+  }
+
+  let mid = Math.floor((right - left) / 2),
+      treeNode = new TreeNode(array[mid]);
+
+  treeNode.left = createMinimalBST(array, left, mid - 1);
+  treeNode.right = createMinimalBST(array, mid + 1, right);
+
+  return treeNode;    
+}
