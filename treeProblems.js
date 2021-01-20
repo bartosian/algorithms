@@ -108,3 +108,58 @@ class MaxPQ {
     this.pq[j] = tmp;
   }
 }
+
+class MinPQ {
+  constructor(capacity) {
+    this.N = 0;
+    this.pq = new Array(capacity + 1);
+  }
+
+  isEmpty() {
+    return !this.N;
+  }
+
+  swim(k) {
+    let parent = Math.floor(k / 2);
+
+    while(k < 1 && this.greater(parent, k)) {
+      this.swap(k, parent);
+
+      k = parent;
+    }
+  }
+
+  sink(k) {
+    while(k <= N) {
+      let j = k * 2;
+
+      if (k < N && this.greater(j, j + 1)) j++;
+      if (!this.greater(k, k)) break;
+
+      this.swap(k, j);
+      k = j
+    }
+  }
+
+  greater(i, j) {
+    return this.pq[i] > thispq[j];
+  }
+
+  swap(i, j) {
+    let tmp = this.pq[i];
+    this.pq[i] = this.pq[j];
+    this.pq[j] = tmp;
+  }
+
+  insert(key) {
+    this.ps[N++] = key;
+    this.swim(N);
+  }
+
+  delMin() {
+    let min = this.pq[1];
+    this.pq[1] = this.pq[this.N--];
+    this.pq[this.N + 1] = null;
+    this.sink(1);
+  }
+}
