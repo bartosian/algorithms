@@ -51,5 +51,60 @@ function createMinimalBST(array, left, right) {
   treeNode.left = createMinimalBST(array, left, mid - 1);
   treeNode.right = createMinimalBST(array, mid + 1, right);
 
-  return treeNode;    
+  return treeNode;
+}
+
+
+class MaxPQ {
+  constructor(size) {
+    this.pq = new Array(size + 1);
+    this.N = 0;
+  }
+
+  insert(key) {
+    this.pq[++this.N] = val;
+    this.swim(this.N);
+  }
+
+  isEmpty() {
+    return !this.N;
+  }
+
+  delmax() {
+    let max = this.pq[1];
+
+    this.pq[1] = this.pq[N--];
+    this.pq[N + 1] = null;
+    this.sink(1);
+  }
+
+  swim(k) {
+    let parent = Math.max(k / 2);
+
+    while (k > 1 && this.less(parent, k)) {
+      this.swap(k, parent);
+      k = parent;
+    }
+  }
+
+  sink(k) {
+    while ((2 * k) <= N) {
+      let j = 2 * k;
+
+      if (j < this.N && this.less(j, j + 1)) j++;
+      if (!this.less(k, j)) break;
+      this.swap(k, j);
+    }
+  }
+
+  less(i, j) {
+    return this.pq[i] < this.pq[j];
+  }
+
+  swap(i, j) {
+    let tmp = this.pq[i];
+
+    this.pq[i] = this.pq[j];
+    this.pq[j] = tmp;
+  }
 }
