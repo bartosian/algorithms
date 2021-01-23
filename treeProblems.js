@@ -213,3 +213,14 @@ function search(graph, start, end) {
 
   return false;
 }
+
+function minimalBST(arr, left, right) {
+  if (right < left) return null;
+
+  let mid = Math.floor((right - left) / 2),
+      node = new Node(mid);
+  node.left = minimalBST(arr, left, mid - 1);
+  node.right = minimalBST(arr, mid + 1, right);
+
+  return node; 
+}
