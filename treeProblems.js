@@ -287,3 +287,29 @@ function getHeightOf(root) {
 function ifBalanced(root) {
   return getHeightOf(root) !== Number.MIN_SAFE_INTEGER;
 }
+
+let lastNode = null;
+
+function checkBST(root) {
+  if (!root) return true;
+
+  if (!checkBST(root.left)) return false;
+
+  if (lastNode && root.data <= lastNode) {
+    return false;
+  } else {
+    lastNode = root.data;
+  }
+
+  if (!checkBST(root.right)) return false;
+
+  return true;
+}
+
+function checkBSTSec(root, min, max) {
+  if ((min && root.data <= min) || (max && root.data > max)) return false;
+
+  if (!checkBSTSec(root.left, min, root.data) || !checkBSTSec(root.right, root.data, max)) return false;
+
+  return true;
+}
