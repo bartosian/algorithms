@@ -241,3 +241,49 @@ function createLevelLinkedList(root, lists, level) {
   createLevelLinkedList(root.left, lists, level + 1);
   createLevelLinkedList(root.right, lists, level + 1);
 }
+
+function getHeight(root) {
+  if (!root) return -1;
+
+  return Math.max(getHeight(root.left), getheight(root.right)) + 1;
+}
+
+function isBalanced(root) {
+  if (!root) return true;
+
+  let heightDiff = getHeight(root.left) - getHeight(root.right);
+
+  if (Math.abs(heightDiff) > 1) {
+    return false;
+  } else {
+    return isBalanced(root.left) && isBalanced(root.right);
+  }
+}
+
+function getHeightOf(root) {
+  if (!root) return -1;
+
+  let leftHeight = getHeightOf(root.left);
+
+  if (leftHeight === Integer.MIN_SAFE_INTEGER) {
+    return Integer.MIN_SAFE_INTEGER;
+  }
+
+  let rightHeight = getHeightOf(root.right);
+
+  if (rightHeight === Integer.MIN_SAFE_INTEGER) {
+    return Integer.MIN_SAFE_INTEGER;
+  }
+
+  let diff = leftHeight - rightHeight;
+
+  if (Math.abs(diff) > 1) {
+    return Integer.MIN_SAFE_INTEGER;
+  } else {
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
+}
+
+function ifBalanced(root) {
+  return getHeightOf(root) !== Number.MIN_SAFE_INTEGER;
+}
