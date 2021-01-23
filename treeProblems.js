@@ -222,5 +222,22 @@ function minimalBST(arr, left, right) {
   node.left = minimalBST(arr, left, mid - 1);
   node.right = minimalBST(arr, mid + 1, right);
 
-  return node; 
+  return node;
+}
+
+function createLevelLinkedList(root, lists, level) {
+  if (!root) return;
+
+  let level;
+
+  if (lists.size() === level) {
+    level = new List();
+  } else {
+    level = lists.get(level);
+  }
+
+  level.add(root);
+
+  createLevelLinkedList(root.left, lists, level + 1);
+  createLevelLinkedList(root.right, lists, level + 1);
 }
