@@ -313,3 +313,48 @@ function checkBSTSec(root, min, max) {
 
   return true;
 }
+
+class Node {
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BST {
+  constructor(node) {
+    this.root = node;
+  }
+
+  get(key) {
+    let node = this.root;
+
+    while (node) {
+      if (key < node.key) {
+        node = node.left;
+      } else  if (key > node.key) {
+        node = node.right;
+      } else {
+        return node.value;
+      }
+    }
+
+    return null;
+  }
+
+  insert(node, key, value) {
+    if (!node) return new Node(key, value);
+
+    if (key < node.key) {
+      return this.insert(node.left, key, value);
+    } else if (key > node.key) {
+      return this.insert(node.right, key, value);
+    } else {
+      node.value = value;
+    }
+
+    return node;
+  }
+}
