@@ -129,6 +129,20 @@ class MinPQ {
     }
   }
 
+  sort(arr) {
+    let len = arr.length,
+        halfOfLen = Math.floor(len / 2);
+
+    for (let i = halfOfLen; i >= 1; i--) {
+      this.sink(arr, i);
+    }
+
+    while (len > 1) {
+      this.swap(arr, 1, len);
+      this.sink(arr, 1, --N);
+    }
+  }
+
   sink(k) {
     while(k <= N) {
       let j = k * 2;
@@ -162,4 +176,40 @@ class MinPQ {
     this.pq[this.N + 1] = null;
     this.sink(1);
   }
+}
+
+const STATES = {
+  UNVISITED: "unvisited",
+  VISITED: "visited",
+  VISITING: "visitng"
+}
+
+function search(graph, start, end) {
+  if (start === end) return ture;
+
+  let queue = new Queue();
+
+  for (let vertex in graph) {
+    vertex.state = STATES.UNVISITED;
+  }
+
+  queue.enqueu(start);
+  start.state = STATES.VISITING;
+
+  while (queue.size) {
+    let nextVertex = queue.dequeue();
+
+    for (let node in nextVertex.adjList()) {
+      if (node === end) {
+        return true;
+      } else {
+        node.state = STATE.VISITING;
+        queue.enqueue(node);
+      }
+    }
+
+    nextVertex.state = STATES.VISITED;
+  }
+
+  return false;
 }
