@@ -361,7 +361,7 @@ class BST {
 
 function inOrderSuccessor(root, node) {
   if (!node) return null;
-   
+
   if (!node.right) {
     return getMin(node.right);
   }
@@ -386,3 +386,53 @@ function minValue(root) {
 
   return current;
 }
+
+class Graph {
+  constructor(vertices) {
+    this.vertices = vertices;
+    this.graph = {};
+  }
+
+  addEdge(u, v) {
+    if (this.graph[u]) {
+      this.graph[u].append(v);
+    } else {
+      this.graph[u] = [v];
+    }
+  }
+
+  topologicalSortUtil(v, visited, stack) {
+    visited[v] = true;
+
+    let adjList = this.graph[v];
+
+    for (let i = 0; i < adjList.length; i++) {
+      let adjVertex = adjList[i];
+
+      if (!visited[adjList]) {
+        this.topologicalSortUtil(adjList, visited, stack);
+      }
+    }
+
+    stack.push(v);
+  }
+
+  topologocalSort() {
+    let stack = [],
+        visited = new Array(this.vertices).fill(false);
+
+    for (let i = 0; i < this.vertices; i++) {
+      if (!visited[i]) {
+        this.topologicalSortUtil(i, visited, stack);
+      }
+    }
+
+    return stack.reverse();
+  }
+}
+
+let G = new Graph(6);
+g.addEdge(5, 2);
+g.addEdge(5, 0);
+
+g.topologocalSort();
