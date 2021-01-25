@@ -358,3 +358,31 @@ class BST {
     return node;
   }
 }
+
+function inOrderSuccessor(root, node) {
+  if (!node) return null;
+   
+  if (!node.right) {
+    return getMin(node.right);
+  }
+
+  let parent = node.parent;
+
+  while(parent) {
+    if (node !== parent.right) break;
+    parent = parent.parent;
+    node = parent;
+  }
+
+  return parent;
+}
+
+function minValue(root) {
+  let current = root;
+
+  while (current.left) {
+    current = current.left;
+  }
+
+  return current;
+}
