@@ -219,3 +219,15 @@ function isBST(node) {
 
   return true;
 }
+
+function isBst(root, min, max) {
+  if (!root) return true;
+
+  if ((min && root.value < min) || (max && root.value > max)) {
+    return false;
+  }
+
+  return isBst(root.left, min, root.value) && isBst(root.right, root.value, max);
+}
+
+isBst(root, null, null);
