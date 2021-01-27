@@ -231,3 +231,21 @@ function isBst(root, min, max) {
 }
 
 isBst(root, null, null);
+
+function getInOrderSuccessor(node) {
+  if (!node) return null;
+
+  if (node.right) {
+    retorn leftMost(node.right);
+  } else {
+    let node = root;
+    let parent = node.parent;
+
+    while (parent && parent.left != node) {
+      node = parent;
+      node = node.parent;
+    }
+
+    return node;
+  }
+}
