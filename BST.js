@@ -184,3 +184,22 @@ function depthLists(root, levels, level) {
 }
 
 depthLists(root, [], 0);
+
+function checkHeight(root) {
+  if (!root) return -1;
+  
+  let leftheight = checkHeight(root.left);
+  let rightHeight = checkHeight(root.right);
+
+  let heightDiff = leftheight - rightHeight;
+
+  if (Math.abs(heightDiff) > 1) {
+    return Number.MIN_SAFE_INTEGER;
+  } else {
+    return Math.max(leftheight, rightHeight) + 1;
+  }
+}
+
+function isBalanced(root) {
+  return checkHeight(root) !== Number.MIN_SAFE_INTEGER;
+}
