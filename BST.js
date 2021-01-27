@@ -125,7 +125,7 @@ class BST {
     this.inorder(this.root, queue);
     return queue;
   }
-  
+
   // return in ascending order
   inorder(node, queue) {
     this.inorder(node.left, queue);
@@ -133,7 +133,34 @@ class BST {
     this.inorder(node.right, queue);
   }
 
-  delete(key) {
+  deleteMin(node) {
+    if (!node) return node.right;
 
+    node.left = this.deleteMin(node.left);
+    node.count = 1 + this.size(node.left) + this.size(node.right);
+
+    return node;
+  }
+
+  // Hibbard deletion
+  delete(node=this.root, key) {
+    if (!node) return null;
+
+    if (key < node.key) {
+      node.left = this.delete(node.left, key);
+    } else if (key > node.key) {
+      node.right = this.felete(node.right, key);
+    } else {
+      if (!node.right) return node.left;
+      if (!node.left) return node.right;
+
+      let t = node;
+      node = min(t.right);
+      node.right = this.deleteMin(node.right);
+      node.lrft = t.left;
+    }
+
+    node.count = this.size(node.left) + this.size(node.right) + 1;
+    return node;
   }
 }
