@@ -187,7 +187,7 @@ depthLists(root, [], 0);
 
 function checkHeight(root) {
   if (!root) return -1;
-  
+
   let leftheight = checkHeight(root.left);
   let rightHeight = checkHeight(root.right);
 
@@ -202,4 +202,20 @@ function checkHeight(root) {
 
 function isBalanced(root) {
   return checkHeight(root) !== Number.MIN_SAFE_INTEGER;
+}
+
+let lastPrinted = null;
+
+function isBST(node) {
+  if (!isBST(node.left)) return false;
+
+  if (lastPrinted && node.value < lastPrinted) {
+    return false;
+  }
+
+  lastPrinted = node.value;
+
+  if (!isBST(node.right)) return false;
+
+  return true;
 }
