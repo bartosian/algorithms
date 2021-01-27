@@ -164,3 +164,23 @@ class BST {
     return node;
   }
 }
+
+function depthLists(root, levels, level) {
+  if (!root) return;
+
+  let level = null;
+
+  if (levels.size() === level) {
+    level = new List();
+    levels.add(level);
+  } else {
+    level = levels.get(level);
+  }
+
+  level.add(root);
+
+  depthLists(root.left, levels, level + 1);
+  depthLists(root.right, levels, level + 1);
+}
+
+depthLists(root, [], 0);
