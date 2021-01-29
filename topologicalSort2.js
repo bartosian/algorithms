@@ -103,7 +103,7 @@ class BuildOrder {
       }
     }
 
-    return stack;
+    return order;
   }
 
   doDFS(node, order) {
