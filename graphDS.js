@@ -90,3 +90,31 @@ class DepthFirstPaths {
     }
   }
 }
+
+class BreadthFirstPaths {
+  constructor(graph, root) {
+    this.graph = graph;
+    this.node = root;
+    this.marked = [];
+    this.edgeTo = [];
+  }
+
+  bfs(node) {
+    let queue = new Queue();
+    queue.enqueue(node);
+    this.marked[node] = true;
+
+    while (queue.size()) {
+      let currentVertex = queue.dequeue(),
+          adj = this.graph.adj(currentVertex);
+
+      for (let i = 0; i < adj.length; i++) {
+        if (!this.marked[adj[i]]) {
+          queue.enqueue(adj[i]);
+          this.marked[adj[i]] = true;
+          this.edgeTo[adj[i]] = currentVertex;
+        }
+      }
+    }
+  }
+}
