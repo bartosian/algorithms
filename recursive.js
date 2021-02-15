@@ -92,7 +92,8 @@ class MagicIndex {
       return -1;
     }
 
-    let mid = Math.floor((end + start) / 2);
+    let mid = Math.floor((end + start) / 2),
+        midValue = this.arr[mid];
 
     if (this.arr[mid] === mid) {
       return mid;
@@ -101,5 +102,30 @@ class MagicIndex {
     } else {
       this.magicFast(start, mid - 1)
     }
+  }
+
+  magicFastNonDistinct(start, end) {
+    if (end < start) {
+      return -1;
+    }
+
+    let midIndex = Math.floor((start + end) / 2),
+        midValue = this.arr[midIndex];
+
+    if (midIndex === midValue) {
+      return midIndex;
+    }
+
+    let leftIndex = Math.min(midIndex - 1, midValue),
+        left = this.magicFastNonDistinct(start, leftIndex);
+
+    if (left >= 0) {
+      return left;
+    }
+
+    let rightIndex = Math.max(midIndex + 1, midValue),
+        right = this.magicFastNonDistinct(rightIndex, end);
+
+    return right;    
   }
 }
