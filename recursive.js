@@ -159,3 +159,22 @@ class Subsets {
     return allSubsets;
   }
 }
+
+function powerSet(str) {
+  const results = [],
+        setSize = (1 << str.length);
+
+  for (let i = 0; i < setSize; i++) {
+    let subset = "";
+
+    for (let j = 0; j < str.length; j++) {
+      let bitMap = (1 << j);
+
+      if (i & bitMap) {
+        subset += str[j];
+      }
+    }
+    results.push(subset);
+  }
+  return results;
+}
