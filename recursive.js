@@ -36,35 +36,43 @@ class WaysCounter {
   }
 }
 
+
 class Path {
   constructor(maze) {
     this.maze = maze;
 
     if (!this.maze || !this.maze.length) return null;
 
-    let path = [];
+    let path = [],
+        failedPoints = new Set();
 
-    if (this.getPath(this.maze.length - 1, this.maze[0].length - 1, path)) {
+    if (this.getPath(this.maze.length - 1, this.maze[0].length - 1)) {
       return path;
     }
 
     return null;
   }
 
-  getPath(row, col, path) {
+  getPath(row, col) {
     if (row < 0 || col < 0 || !this.maze[row][col]) {
+      return false;
+    }
+
+    let point = new Point(row, col);
+
+    if (this.failedPoints.has(point)) {
       return false;
     }
 
     let isOrigin = (row === 0) && (col === 0);
 
-    if (isOrigin || this.getPath(row, col - 1, path) || this.getPath(row - 1, col, path)) {
-      let point = new Point(row, col);
-      path.push(point);
+    if (isOrigin || this.getPath(row, col - 1) || this.getPath(row - 1, col)) {
+      this.path.push(point);
 
       return true;
     }
 
+    this.failedPoints.add(point);
     return false;
   }
 }
