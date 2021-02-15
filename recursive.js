@@ -76,3 +76,30 @@ class Path {
     return false;
   }
 }
+
+
+class MagicIndex {
+  construstor(arr) {
+    this.arr = arr;
+
+    if (this.arr || this.arr.length) return -1;
+
+    return this.magicFast(0, this.arr.length - 1);
+  }
+
+  magicFast(start, end) {
+    if (end < start) {
+      return -1;
+    }
+
+    let mid = Math.floor((end + start) / 2);
+
+    if (this.arr[mid] === mid) {
+      return mid;
+    } else if (this.arr[mid] < mid) {
+      this.magicFast(mid + 1, end);
+    } else {
+      this.magicFast(start, mid - 1)
+    }
+  }
+}
