@@ -126,6 +126,36 @@ class MagicIndex {
     let rightIndex = Math.max(midIndex + 1, midValue),
         right = this.magicFastNonDistinct(rightIndex, end);
 
-    return right;    
+    return right;
+  }
+}
+
+class Subsets {
+  constructor(set) {
+    this.set = set;
+
+    let subsets = this.getSubsets(this.set, 0);
+    return subsets;
+  }
+
+  getSubsets(set, index) {
+    if (set.length === index) {
+      let allSubsets = [];
+      allSubsets.push([]);
+    } else {
+      let allSubsets = this.getSubsets(set, index + 1),
+          item = set[index],
+          moreSubsets = [];
+
+      for (let subset of allSubsets) {
+        let newSubset = [];
+        newSubset.addAll(subset);
+        newSubset.add(item);
+        moreSubsets.add(newSubset);
+      }
+
+      allSubsets.addAll(moreSubsets);
+    }
+    return allSubsets;
   }
 }
