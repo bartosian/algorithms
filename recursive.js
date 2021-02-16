@@ -185,7 +185,7 @@ function putCharAt(word, firstChar, j) {
   let firstPart = word.substring(0, j),
       secondPart = word.substring(j);
 
-  return firstPart + firstChar + secondPart;    
+  return firstPart + firstChar + secondPart;
 }
 
 function getPerms(str) {
@@ -212,4 +212,48 @@ function getPerms(str) {
   }
 
   return permutations;
+}
+
+class PermutationsWithDups {
+  constructor(str) {
+    this.str = str;
+
+    const result = [],
+          map = this.buildFreqtable(str);
+
+    this.printPerms(map, "", str.length, result);
+
+    return result;
+  }
+
+  buildFreqtable(str) {
+    let map = {};
+
+    for (let char of str) {
+      if (!map[char]) {
+        map[char] = 1;
+      } else {
+        map[char] = map[char] + 1;
+      }
+    }
+
+    return map;
+  }
+
+  printPerms(map, prefix, remaining, result) {
+    if (remaining) {
+      result.add(prefix);
+      return;
+    }
+
+    for (let key in map) {
+      let count = map[key];
+
+      if (count > 0) {
+        map[key] = map[key]--;
+        this.printPerms(map, prefix + key, remaining - 1, result);
+        map[key] = count;
+      }
+    }
+  }
 }
