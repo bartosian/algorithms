@@ -10,6 +10,8 @@ function countWays(n) {
   }
 }
 
+
+
 class WaysCounter {
   constructor(stairs) {
     this.stairs = stairs;
@@ -177,4 +179,37 @@ function powerSet(str) {
     results.push(subset);
   }
   return results;
+}
+
+function putCharAt(word, firstChar, j) {
+  let firstPart = word.substring(0, j),
+      secondPart = word.substring(j);
+
+  return firstPart + firstChar + secondPart;    
+}
+
+function getPerms(str) {
+  if (!str) {
+      return null;
+  }
+
+  let permutations = [];
+
+  if (str === "") {
+    permutations.push("");
+    return permutations;
+  }
+
+  let firstChar = str[0],
+      reminder = str.substring(1),
+      words = getPerms(reminder);
+
+  for (let word of words) {
+    for (let j = 0; j < word.length; j++) {
+      let newString = putCharAt(word, firstChar, j);
+      permutations.push(newString);
+    }
+  }
+
+  return permutations;
 }
