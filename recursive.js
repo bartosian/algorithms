@@ -312,3 +312,26 @@ function generateParens(count) {
 
   return listStr;
 }
+
+function paintFill(screen, row, col, ncolor) {
+  if (screen[row][col] === ncolor) return false;
+
+  paintFillHelper(screen, row, col, ncolor);
+}
+
+function paintillHelper(screen, row, col, ncolor) {
+  if (row < 0 || row > screen.length || col < 0 || col > screen[0].length) {
+    return false;
+  }
+
+  if (screen[row][col] == ocolor) {
+    screen[row][col] = ncolor;
+
+    paintFillHelper(screen, row - 1, col, ncolor);
+    paintFillHelper(screen, row + 1, col, ncolor);
+    paintFillHelper(screen, row, col - 1, ncolor);
+    paintFillHelper(screen, row, col + 1, ncolor);
+  }
+
+  return true;
+}
