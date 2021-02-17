@@ -288,3 +288,27 @@ function insertInside(str, i) {
 
   return leftPart + "()" + rightPart;
 }
+
+function addParen(list, leftRem, rightRem, str, index) {
+  if (leftRem < 0 || (leftRem > rightRem)) return;
+
+  if (!leftRem && !rightRem) {
+    list.push(str.join(""));
+  } else {
+    str[index] = "(";
+    addParen(list, leftRem - 1, rightRem, str, index + 1);
+
+    str[index] = ")";
+    addParen(list, leftRem, rightRem - 1, str, index + 1);
+  }
+}
+
+
+function generateParens(count) {
+  let str = new Array(count * 2),
+      listStr = [];
+
+  addParen(listStr, count, count, str, 0);
+
+  return listStr;
+}
