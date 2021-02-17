@@ -257,3 +257,34 @@ class PermutationsWithDups {
     }
   }
 }
+
+function generateParens(n) {
+  let strSet = new Set();
+
+  if (!n) {
+    return strSet.add("");
+  }
+
+  let prevParens = generateParens(n - 1);
+
+  for (let str of prevParens) {
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === "(") {
+        let newstr = insertInside(str, i);
+        strSet.has(newStr)? strSet.add(newStr) : false;
+      }
+    }
+    let newStr = "()" + str;
+
+    strSet.has(newStr)? strSet.add(newStr) : false;
+  }
+
+  return strSet;
+}
+
+function insertInside(str, i) {
+  let leftPart = str.substring(0, i + 1),
+      rightPart = str.substring(i + 1);
+
+  return leftPart + "()" + rightPart;
+}
