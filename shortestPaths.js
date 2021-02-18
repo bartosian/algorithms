@@ -72,3 +72,49 @@ class SP {
     }
   }
 }
+
+class DijkstraSP {
+  constructor(graph, source) {
+    this.graph = graph;
+    this.vertices = this.graph.vertices();
+    this.source = source;
+    this.edgeTo = new Array(this.vertices);
+    this.distTo = new Array(this.vertices);
+
+    this.pq = new MinPq(this.vertices);
+
+    for (let i = 0; i < this.vertices; i++) {
+      this.distTo[i] = Infinity;
+    }
+
+    this.buildSPT();
+  }
+
+  buildSPT() {
+    this.pq.insert(this.source, 0.0);
+
+    while (!this.pq.size()) {
+      let v = pq.delMin();
+
+      for (let edge of this.graph.adj(v)) {
+        this.relax(e);
+      }
+    }
+  }
+
+  relax(e) {
+    let v = e.from(),
+        w = e.to();
+
+    if (this.distTo[w] < this.dist[v] + e.weight()) {
+       this.dist[w] = this.dist[v] + e.weight();
+       this.edgeTo[w] = e;
+
+       if (this.pq.contains(w)) {
+         this.pq.decreaseKey(w, distTo[w]);
+       } else {
+         this.pq.inser(w, distTo[w]);
+       }
+     }
+  }
+}
