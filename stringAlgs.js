@@ -110,7 +110,7 @@ class MSDRadix {
   sort(arr, aux, lo, hi, d) {
     if (hi <= lo) return;
 
-    let count = new Array(this.radix + 2);
+    let count = new Array(this.radix + 2).fill(0);
 
     for (let i = lo, i <= hi; i++) {
       count[arr[i].charCodeAt(d) + 2] += 1;
@@ -132,4 +132,74 @@ class MSDRadix {
       this.sort(arr, aux, lo + count[r], lo + count[r + 1] - 1, d + 1);
     }
   }
+}
+
+class ThreeWayQuickSort {
+  constructor(arr) {
+    this.arr = arr;
+    this.len = arr.length;
+
+    this.sort(this.arr, 0, this.arr.length - 1, 0);
+  }
+
+  sort(arr, lo, hi, d) {
+    if (hi <= lo) return;
+
+    let lt = lo,
+        gt = hi,
+        v = arr[lo].charAt(d),
+        i = lo + 1;
+
+    while (i <= gt) {
+      let t = arr[i].charAt(d);
+
+      if (t < v) {
+        this.swap(arr, lt++, i++);
+      } else if (t > v) {
+        this.swap(arr, i, gt--);
+      } else {
+        i++;
+      }
+    }
+
+    this.sort(arr, lo, lt - 1, d);
+    if (v >= 0) this.sort(arr, lt, gt, d + 1);
+    this.sort(arr, gt + 1, hi, d);
+  }
+}
+
+function lcp(s, t) {
+  let len = Math.min(s.length, t.length);
+
+  for (let i = 0; i < len; i++) {
+    if (s[i] !== t[i]) return i;
+  }
+
+  return len;
+}
+
+function lrs(str) {
+  let len = str.length,
+      suffixes = new Array(len);
+
+  for (let i = 0; i < len; i++) {
+    suffixes[i] = str.substring(i);
+  }
+  console.log(suffixes);
+  suffixes.sort();
+
+  console.log(suffixes);
+
+  let lrs = "";
+
+  for (let i = 0; i < len - 1; i++) {
+    let len = lcp(suffixes[i], suffixes[i + 1]);
+
+    if (len > lrs.length) {
+      lrs = suffixes[i].substr(0, len);
+    }
+  }
+
+
+  return lrs;
 }
