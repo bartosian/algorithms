@@ -60,3 +60,37 @@ function keyIndexedCount(arr, radix) {
 
   console.log(arr);
 }
+
+class LSDRadix {
+  constructor(arr) {
+    this.radix = radix;
+    this.strlen = arr[0].length;
+    this.arr = arr;
+    this.len = arr.length;
+    rhis.aux = new Array(this.len);
+
+    return this.sort(arr);
+  }
+
+  sort(arr) {
+    for (let l = this.strlen - 1; l >= 0; l--) {
+      let count = new Array(this.radix + 1);
+
+      for (let j = 0; j < this.len; j++) {
+        this.count[this.arr[j].charAt(l) + 1]++;
+      }
+
+      for (let k = 0; k < this.radix; k++) {
+        count[k + 1] += count[k];
+      }
+
+      for (let i = 0; i < this.len; i++) {
+        this.aux[count[this.arr[i].charAt(l)]++] = this.arr[i];
+      }
+
+      for (let d = 0; d < this.len; d++) {
+        this.arr[d] = this.aux[d];
+      }
+    }
+  }
+}
