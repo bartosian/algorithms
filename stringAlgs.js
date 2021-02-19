@@ -63,21 +63,21 @@ function keyIndexedCount(arr, radix) {
 
 class LSDRadix {
   constructor(arr) {
-    this.radix = radix;
+    this.radix = 256;
     this.strlen = arr[0].length;
     this.arr = arr;
     this.len = arr.length;
-    rhis.aux = new Array(this.len);
+    this.aux = new Array(this.len);
 
-    return this.sort(arr);
+    this.sort(arr);
   }
 
   sort(arr) {
     for (let l = this.strlen - 1; l >= 0; l--) {
-      let count = new Array(this.radix + 1);
+      let count = new Array(this.radix + 1).fill(0);
 
       for (let j = 0; j < this.len; j++) {
-        this.count[this.arr[j].charAt(l) + 1]++;
+        count[this.arr[j].charCodeAt(l) + 1] += 1;
       }
 
       for (let k = 0; k < this.radix; k++) {
@@ -85,12 +85,51 @@ class LSDRadix {
       }
 
       for (let i = 0; i < this.len; i++) {
-        this.aux[count[this.arr[i].charAt(l)]++] = this.arr[i];
+        this.aux[count[this.arr[i].charCodeAt(l)]++] = this.arr[i];
       }
 
       for (let d = 0; d < this.len; d++) {
         this.arr[d] = this.aux[d];
       }
+    }
+
+    return this.arr;
+  }
+}
+
+class MSDRadix {
+  constructor(arr) {
+    this.radix = 256;
+    this.arr = arr;
+    this.len = this.arr.length;
+    this.aux = new Array(this.len);
+
+    this.sort(this.arr, this.aux, 0, this.len - 1, 0);
+  }
+
+  sort(arr, aux, lo, hi, d) {
+    if (hi <= lo) return;
+
+    let count = new Array(this.radix + 2);
+
+    for (let i = lo, i <= hi; i++) {
+      count[arr[i].charCodeAt(d) + 2] += 1;
+    }
+
+    for (let r = 0; r < R + 1; r++) {
+      count[r + 1] += count[r];
+    }
+
+    for (let i = lo; i <= hi; i++) {
+      aux[count[arr[i].charCodeAt(d) + 1]++] = arr[i];
+    }
+
+    for (let i = lo; i<= hi; i++) {
+      arr[i] = aux[i - lo];
+    }
+
+    for (let r = 0; r < this.radix; r++) {
+      this.sort(arr, aux, lo + count[r], lo + count[r + 1] - 1, d + 1);
     }
   }
 }
