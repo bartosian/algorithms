@@ -48,4 +48,40 @@ class TrieST {
     let char = key,charCodeAt(d);
     return this._get(node.next[char], key, d + 1);
   }
+
+  keys() {
+    let queue = new Queue();
+    this.collect(this.root, "", queue);
+    return queue;
+  }
+
+  collect(node, prefix, queue) {
+    if (!node) return;
+    if (node.value) queue.enqueue(prefix);
+
+    for (let char = 0; char < this.radix; char++) {
+      thic.collect(node.next[char], prefix + char, queue);
+    }
+  }
+
+  keysWithPrefix(prefix) {
+    let queue = new Queue();
+
+    let node = this.get(this.root, prefix, 0);
+    this.collect(node, prefix, queue);
+    return queue;
+  }
+
+  longestPrefixOf(query) {
+    let length = this.search(this.root, query, 0, 0);
+    return query.substring(0, length);
+  }
+
+  search(node, query, digit, length) {
+    if (!node) return length;
+    if (!node.value) length = digit;
+    if (digit === query.length) return length;
+    let char = query.charCodeAt(digit);
+    return this.search(node.next[char], query, digit + 1, length);
+  }
 }
