@@ -33,3 +33,56 @@ var mergeTwoLists = function(l1, l2) {
 
     return newHead.next;
 };
+
+var trap = function(height) {
+    if (!height.length) return 0;
+
+    let left = leftMax = rightMax = ans = 0,
+        right = height.length - 1;
+
+    while (left < right) {
+        if (height[left] > leftMax) leftMax = height[left];
+        if (height[right] > rightMax) rightMax = height[right];
+
+        if (leftMax < rightMax) {
+            ans += leftMax - height[left];
+            left++;
+        } else {
+            ans += rightMax - height[right];
+            right--;
+        }
+    }
+
+    return ans;
+};
+
+function DFS(node, level, results) {
+    let levelResults;
+
+    if (level >= results.length) {
+        levelResults = [];
+        levelResults.push(node.val);
+        results.push(levelResults);
+    } else {
+        levelResults = results[level];
+
+        if (level % 2 === 0) {
+            levelResults.push(node.val);
+        } else {
+            levelResults.unshift(node.val);
+        }
+    }
+
+    if (node.left) DFS(node.left, level + 1, results);
+    if (node.right) DFS(node.right, level + 1, results);
+}
+
+var zigzagLevelOrder = function(root) {
+    let results = new Array();
+
+    if (root) {
+        DFS(root, 0, results);
+    }
+
+    return results;
+};
