@@ -86,3 +86,44 @@ var zigzagLevelOrder = function(root) {
 
     return results;
 };
+
+var ladderLength = function(beginWord, endWord, wordList) {
+  let wordSet = new Set(wordList),
+      queue = [];
+
+  queue.push(beginWord);
+  let count = 1;
+
+  while (queue.length) {
+    let queueSize = queue.length;
+
+    for (let i = 0; i < queueSize; i++) {
+      let currentWord = queue.shift().split("");
+
+      for (let j = 0; j < currentWord.length; j++) {
+        let tmpChar = currentWord[j];
+
+        for (let char = 96; char < 123; char++) {
+          let newChar = String.fromCharCode(char);
+          currentWord[j] = newChar;
+          let newWord = currentWord.join("");
+
+          if (wordSet.has(newWord)) {
+            if (newWord === endWord) {
+              return ++count;
+            }
+
+            queue.push(newWord);
+            wordSet.delete(newWord);
+          }
+        }
+
+        currentWord[j] = tmpChar;
+      }
+    }
+
+    count++;
+  }
+
+  return 0;
+};
