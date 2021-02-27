@@ -206,3 +206,94 @@ class LRUCache {
       }
   }
 }
+
+class NumberOfIslandsDFS {
+  constructor(grid) {
+    this.grid = grid;
+    this.count = 0;
+
+    if (!this.grid || !this.grid.length) return 0;
+
+    this.rows = grid.length;
+    this.columns = grid[0].length;
+
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        if (this.grid[r][c] == "1") {
+          this.count++;
+          this.DFS(r, c);
+        }
+      }
+    }
+  }
+
+  getCount() {
+    return this.count;
+  }
+
+  DFS(row, column) {
+    if (row < 0 || row >= this.rows || column < 0 || column >= this.columns || this.grid[row][column] === "0") return;
+
+    this.grid[row][column] = "0";
+
+    this.DFS(row - 1, column);
+    this.DFS(row + 1, column);
+    this.DFS(row, column - 1);
+    this.DFS(row, column + 1);
+  }
+
+}
+
+class NumberOfIslandsBFS {
+  constructor(grid) {
+    this.grid = grid;
+    this.count = 0;
+
+    if (!this.grid || !this.grid.length) return 0;
+
+    this.rows = grid.length;
+    this.columns = grid[0].length;
+
+    for (let r = 0; r < this.rows; r++) {
+      for (let c = 0; c < this.columns; c++) {
+        if (this.grid[r][c] == "1") {
+          this.count++;
+          this.grid[r][c] == "0";
+
+          let queue = [];
+          queue.push(r * this.columns + c);
+
+          while(queue.length) {
+            let id = queue.shift(),
+                r = Math.floor(id / this.columns),
+                c = id % this.columns;
+
+            if (r - 1 >= 0 && this.grid[r - 1][c] === "1") {
+              queue.push((r - 1) * this.columns + c);
+              this.grid[r - 1][c] = "0";
+            }
+
+            if (r + 1 < this.rows && this.grid[r + 1][c] === "1") {
+              queue.push((r + 1) * this.columns + c);
+              this.grid[r + 1][c] = "0";
+            }
+
+            if (c - 1 >= 0 && this.grid[r][c - 1] === "1") {
+              queue.push(r * this.columns + c - 1);
+              this.grid[r][c - 1] = "0";
+            }
+
+            if (c + 1 >= 0 && this.grid[r][c + 1] === "1") {
+              queue.push(r * this.columns + c + 1);
+              this.grid[r][c + 1] = "0";
+            }
+          }
+        }
+      }
+    }
+  }
+
+  getCount() {
+    return this.count;
+  }
+}
