@@ -127,3 +127,82 @@ var ladderLength = function(beginWord, endWord, wordList) {
 
   return 0;
 };
+
+class LinkedNode {
+  constructor(key=null, value=null) {
+    this.key = key;
+    this.value = value;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
+class LRUCache {
+  constructor(capacity) {
+    this.size = 0;
+    this.capacity = capacity;
+    this.head = new LinkedNode();
+    this.tail = new LinkedNode();
+    this.cache = {};
+
+    head.next = this.tail;
+    tails.prev = this.head;
+  }
+
+  addNode(node) {
+    node.prev = head;
+    node.next = head.next;
+
+    head.next.prev = node;
+    head.next = node;
+  }
+
+  removeNode(node) {
+    let prev = node.prev,
+        next = node.next;
+
+    prev.next = next;
+    next.prev = prev;
+  }
+
+  moveToHead(node) {
+    this.removeNode(node);
+    this.addNode(node);
+  }
+
+  popTail() {
+    let res = this.tail.prev;
+    this.removeNode(res);
+    return res;
+  }
+
+  get(key) {
+    let node = this.cache[key];
+
+    if (!node) return -1;
+
+    this.moveToHead(node);
+    return node.value;
+  }
+
+  put(key, value) {
+      let node = this.cache[key];
+
+      if (!node) {
+        let newNode = new LinkedNode(key, value);
+        this.cache[key] = newNode;
+        this.addNode(newNode);
+
+        ++size;
+
+        if (this.size > this.capacity) {
+          let tail = this.popTail();
+          delete this.cache[tail.key];
+          --size;
+        }
+      } else {
+        node.value = value;
+        this.moveToHead(node);
+      }
+  }
+}
