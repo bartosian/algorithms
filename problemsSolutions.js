@@ -302,16 +302,51 @@ var maximalSquare = function(matrix) {
     let rows = matrix.length,
         columns = matrix[0] ? matrix[0].length : 0,
         maxSide = 0,
-        aux = new Array(rows + 1).fill(0).map(row => new Array(columns + 1).fill(0));
+        prev = 0,
+        aux = new Array(columns + 1).fill(0);
 
     for (let i = 1; i <= rows; i++) {
         for (let j = 1; j <= columns; j++) {
+            let temp = aux[j];
             if (matrix[i - 1][j - 1] === "1") {
-                aux[i][j] = Math.min(Math.min(aux[i][j - 1], aux[i - 1][j]), aux[i - 1][j - 1]) + 1;
-                maxSide = Math.max(maxSide, aux[i][j]);
+                aux[j] = Math.min(Math.min(aux[j - 1], prev), aux[j]) + 1;
+                maxSide = Math.max(maxSide, aux[j]);
+        } else {
+          aux[j] = 0;
         }
+
+        prev = temp;
     }
   }
 
     return maxSide * maxSide;
 };
+
+var minMeetingRooms = function(intervals) {
+    if (!intervals || !intervals.length) return 0;
+
+
+    let intervalsCount = intervals.length,
+        startTimes = new Array(intervalsCount),
+        endTimes = new Array(intervalsCount),
+        roomsCount = 0,
+        endIndex = 0;
+
+    for (let i = 0; i < intervalsCount; i++) {
+        startTimes[i] = intervals[i][0];
+        endTimes[i] = intervals[i][1]
+    }
+
+    startTimes.sort((a, b) => a - b);
+    endTimes.sort((a, b) => a - b);
+
+    for (let i = 0; i < startTimes.length; i++) {
+        if (startTimes[i] < endTimes[endIndex]) {
+            roomsCount++;
+        } else {
+            endIndex++;
+        }
+    }
+
+    return roomsCount;
+};   
