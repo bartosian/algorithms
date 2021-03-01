@@ -349,4 +349,139 @@ var minMeetingRooms = function(intervals) {
     }
 
     return roomsCount;
-};   
+};
+
+const ONE = {
+   1: "One",
+   2: "Two",
+   3: "Three",
+   4: "Four",
+   5: "Five",
+   6: "Six",
+   7: "Seven",
+   8: "Eight",
+   9: "Nine"
+}
+
+const TWO = {
+    10: "Ten",
+    11: "Eleven",
+    12: "Twelve",
+    13: "Thirteen",
+    14: "Fourteen",
+    15: "Fifteen",
+    16: "Sixteen",
+    17: "Seventeen",
+    18: "Eighteen",
+    19: "Nineteen"
+}
+
+const TEN = {
+    2: "Twenty",
+    3: "Thirty",
+    4: "Forty",
+    5: "Fifty",
+    6: "Sixty",
+    7: "Seventy",
+    8: "Eighty",
+    9: "Ninety"
+}
+
+const DIGITS = {
+    ONE: ONE,
+    TWO: TWO,
+    TEN: TEN
+}
+
+class Solution {
+    constructor(num) {
+        this.num = num;
+        this.stringNum = this.numberToWords(num);
+    }
+
+    getStrNum() {
+        return this.stringNum;
+    }
+
+    numberToWords(num) {
+        if (!num) return "Zero";
+
+        let billions = Math.floor(num / 1000000000),
+            millions = Math.floor((num - billions * 1000000000) / 1000000),
+            thousands = Math.floor((num - billions * 1000000000 - millions * 1000000) / 1000),
+            rest = num - billions * 1000000000 - millions * 1000000 - thousands * 1000;
+
+        let result = "";
+
+        if (billions) {
+            result = this.three(billions) + " Billion";
+        }
+
+        if (millions) {
+            if (result !== "") result += " ";
+
+            result += this.three(millions) + " Million";
+        }
+        if (thousands) {
+            if (result !== "") result += " ";
+
+            result += this.three(thousands) + " Thousand";
+        }
+        if (rest) {
+            if (result !== "") result += " ";
+
+            result += this.three(rest);
+        }
+
+        return result;
+    }
+
+    getNumber(num, digits=DIGITS.ONE) {
+       let number = digits[num];
+
+       return number ? number : "";
+    }
+
+    three(num) {
+        let hundred = Math.floor(num / 100),
+            rest = num - hundred * 100;
+
+        let result = "";
+
+        if (hundred && rest) {
+            result = this.getNumber(hundred) + " Hundred " + this.two(rest);
+        } else if (rest) {
+            result = this.two(rest);
+        } else if (hundred) {
+            result = this.getNumber(hundred) + " Hundred";
+        }
+
+        return result;
+    }
+
+    two(num) {
+        if (!num) {
+            return "";
+        } else if (num < 10) {
+            return this.getNumber(num);
+        } else if (num < 20) {
+            return this.getNumber(num, DIGITS.TWO);
+        } else {
+            let tens = Math.floor(num / 10),
+                rest = num - tens * 10;
+
+            if (rest) {
+                return this.getNumber(tens, DIGITS.TEN) + " " + this.getNumber(rest);
+            } else {
+                return this.getNumber(tens, DIGITS.TEN);
+            }
+        }
+    }
+
+}
+
+var numberToWords = function(num) {
+    let solution = new Solution(num).getStrNum();
+
+    return solution;
+};
