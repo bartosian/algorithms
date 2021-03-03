@@ -485,3 +485,115 @@ var numberToWords = function(num) {
 
     return solution;
 };
+
+// Word break recursive solution
+function wordBreakOne(word) {
+  let wordLen = word.length;
+
+  if (wordLen) return true;
+
+  for (let i = 1; i <= wordLen; i++) {
+    if (dictionary.has(word.substr(0, i)) && wordBreak(word.substr(i, wordLen))) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+let dictionary = new Set(["mobile","samsung","sam","sung",
+                            "man","mango","icecream","and",
+                            "go","i","like","ice","cream"]);
+
+// Dynamic solution with O(n*s), where s - length of largest string in dict, n - length of the given string
+function dictionaryContains(word) {
+  return dictionary.has(word);
+}
+
+function wordBreakTwo(word) {
+  let wordLen = word.length;
+
+  if (!wordLen) return true;
+
+  let dp = new Array[wordLen + 1].fill(0),
+      matchedIdx = [-1];
+
+  for (let i = 0; i < wordLen; i++) {
+    let flag = 0,
+        matchedSize = matchedIdx.length;
+
+    for (let j = matchedSize - 1; j >= 0; j--) {
+      let sb = word.substr(matchedIdx[j] + 1, i - matchedIdx[j]);
+
+      if (dictionaryContains(sb)) {
+        flag = 1;
+        break;
+      }
+    }
+
+    if (flag) {
+      dp[i] = 1;
+      matchedIdx.push(i);
+    }
+  }
+
+  return !!dp[wordLen - 1];
+}
+
+function wordBreak(str, wordDict) {
+  let dp = {},
+      wordSet = new Set(wordDict);
+
+  return wordBreakUtil(str, dp, wordSet);
+}
+
+function combine(prev, word) {
+  for (let i = 0; i < prev.length; i++) {
+    prev[i] += " " + word;
+  }
+
+  return prev;
+}
+
+function wordBreakUtil(s, dict, memo={}) {
+  if (memo[s]) return memo[s];
+
+  let result = [],
+      strlen = s.length;
+
+  if (dict.has(s)) {
+    result.push(s);
+  }
+
+  for (let i = 1; i < strlen; i++) {
+    let word = s.substring(i);
+
+    if (dict.has(word)) {
+      let remStr = s.substring(0, i);
+      let prev = combine(wordBreakUtil(remStr, dict, memo), word);
+
+      for (let i of prev) {
+        result.push(i);
+      }
+    }
+  }
+
+  memo[s] = result;
+  return result;
+}
+
+let topKFrequent = function(words, k) {
+  let map = {};
+
+  words.forEach(word => {
+    map[word] ? map[word]++ : map[word] = 1;
+  });
+
+  let sortedMap = Object.entries(map).sort((a, b) => {
+    if (a[1] < b[1]) return 1;
+    if (a[1] > b[1]) return -1;
+    return a[0].localeCompare(b[0]);
+  }).slice(0, k).map(a => a[0]);
+
+  return sortedMap;
+}
