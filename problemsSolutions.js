@@ -597,3 +597,41 @@ let topKFrequent = function(words, k) {
 
   return sortedMap;
 }
+
+
+class RandomizedSet {
+    constructor() {
+        this.map = {};
+        this.arr = [];
+    }
+
+    insert(value) {
+        if (this.map[value] || this.map[value] === 0) return false;
+
+        this.map[value] = this.arr.length;
+        this.arr.push(value);
+
+        return true;
+    }
+
+    remove(value) {
+        if (!this.map[value] && this.map[value] !== 0) return false;
+
+        let lastElement = this.arr.pop(),
+            idxOfLast = this.map[value];
+
+        if (this.arr.length) {
+            this.arr[idxOfLast] = lastElement;
+            this.map[lastElement] = idxOfLast;
+        }
+
+        this.map[lastElement] = idxOfLast;
+        delete this.map[value];
+
+        return true;
+    }
+
+    getRandom() {
+        return this.arr[Math.floor(Math.random() * this.arr.length)];
+    }
+}
