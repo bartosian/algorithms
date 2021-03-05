@@ -635,3 +635,171 @@ class RandomizedSet {
         return this.arr[Math.floor(Math.random() * this.arr.length)];
     }
 }
+
+class BinaryHeap {
+  constructor(comparator) {
+    this.heap = [];
+    this.comparator = comparator;
+  }
+
+  size() {
+    return this.heap.length;
+  }
+
+  getLeftIndex(index) {
+    return 2 * index + 1;
+  }
+
+  getRightIndex(index) {
+    return 2 * index + 2;
+  }
+
+  getParentIndex(index) {
+    return Math.floor((index - 1) / 2);
+  }
+
+  insert(data) {
+    if (data === undefined || data === null) return false;
+
+    this.heap.push(data);
+    this.bubbleUp(this.heap.length - 1);
+
+    return true;
+  }
+
+  bubbleUp(index) {
+    while (index > 0) {
+      let parentIndex = this.getParentIndex(index),
+          parentEl = this.heap[parentIndex],
+          compareRes = this.comparator(parentEl, this.heap[index]);
+
+      if (compareRes <= 0) break;
+
+      this.swap(index, parentIndex);
+      index = parentIndex;
+    }
+  }
+
+  swap(a, b) {
+    [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
+  }
+
+  peak() {
+    return (this.size() > 0) ? this.heap[0] : undefined;
+  }
+
+  extract() {
+    if (!this.size()) return undefined;
+
+    if (this.size() === 1) {
+      return this.heap.shift();
+    }
+
+    let el = this.heap[0];
+    this.heap[0] = this.heap.pop();
+
+    this.sinkDown(0);
+    return el;
+  }
+
+  sinkDown(index) {
+    let left = this.getLeftIndex(index),
+        right = this.getRightIndex(index),
+        parent = index;
+
+    if (left < this.size() && this.comparator(this.heap[left], this.heap[parent]) < 0) {
+      parent = left;
+    }
+
+    if (right < this.size() && this.comparator(this.heap[right], this.heap[parent]) < 0) {
+      parent = right;
+    }
+
+    if (parent !== index) {
+      this.swap(parent, index);
+      this.sinkDown(parent);
+    }
+  }
+}
+
+class Key {
+  constructor(freq, char) {
+    this.freq = freq;
+    this.char = char;
+  }
+}
+
+class Solution2 {
+  constructor(str) {
+    this.str = str;
+    this.len = str.length;
+
+    this.result = this.rearrangeString(str);
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  rearrangeString(str) {
+    let strlen = str.length,
+        count = new Array(26).fill(0);
+
+    for (let i = 0; i < strlen; i++) {
+      count[str.charCodeAt(i) - 97]++;
+    }
+
+    let pq = new BinaryHeap((a, b) => {
+      return a.freq > b.freq ? -1 : (a.freq === b.freq ? 0 : 1);
+    });
+
+    for (let char = 97; char < 123; char++) {
+      let index = char - 97;
+
+      if (count[index]) {
+        pq.insert(new Key(count[index], String.fromCharCode(char)));
+      }
+    }
+
+    let result = "",
+        prev = new Key(-1, "#");
+
+    while (pq.size() !== 0) {
+      let top = pq.peak();
+
+      pq.extract();
+      result += top.char;
+
+      if (prev.freq > 0) {
+        pq.insert(prev);
+      }
+
+      top.freq--;
+      prev = top;
+    }
+
+    if (strlen != result.length) {
+      return "";
+    } else {
+      return result;
+    }
+  }
+}
+
+var maximumUnits = function(boxTypes, truckSize) {
+    let sortedBoxes = boxTypes.sort((a, b) => b[1] - a[1]),
+        units= 0;
+
+    for (let box of sortedBoxes) {
+      console.log(box);
+        let boxCount = Math.min(box[0], truckSize);
+        units += box[0] * boxCount;
+        truckSize -= boxCount;
+
+        if (!truckSize) break;
+    }
+
+    return units;
+};
+
+console.log(maximumUnits([[1,3],[2,2],[3,1]], 4));
