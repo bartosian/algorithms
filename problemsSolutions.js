@@ -844,3 +844,100 @@ class Quick {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
+function swap(arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+}
+
+function less(elA, elB) {
+  console.log(elA, elB);
+  if (elA[1] < elB[1]) {
+    return true;
+  } else if (elA[1] > elB[1]) {
+    return false;
+  } else {
+    return (elA[0].localeCompare(elB[0]) < 0) ? true : false;
+  }
+}
+
+function partition(arr, lo, hi) {
+  let i = lo,
+      j = hi + 1;
+
+  while (true) {
+    while (less(arr[++i], arr[lo])) {
+      console.log("IT IS LESS");
+      if (i === hi) {
+        break;
+      }
+    }
+
+    while (less(arr[lo], arr[--j])) {
+      console.log("IT IS HIGHER");
+      if (j === lo) {
+        break;
+      }
+    }
+
+    if (i >= j) break;
+    swap(arr, i, j);
+  }
+
+  swap(arr, lo, j);
+  return j;
+}
+
+function topKFrequent2(words, k) {
+  let map = {};
+
+  words.forEach(word => {
+    map[word] ? map[word]++ : map[word] = 1;
+  });
+
+  let mapArr = Object.entries(map),
+      result = [];
+
+  let lo = 0,
+      hi = mapArr.length - 1;
+
+  while(hi > lo) {
+    let pivot = partition(mapArr, lo, hi);
+
+    if (pivot > k - 1) {
+      hi = pivot - 1;
+    } else if (pivot < k - 1) {
+      lo = pivot + 1;
+    } else {
+      result.push(mapArr[pivot]);
+      console.log(result);
+    }
+  }
+
+  return result.reverse();
+}
+
+function topKFrequent3(words, k) {
+  let map = {};
+
+  words.forEach(word => {
+    map[word] ? map[word]++ : map[word] = 1;
+  });
+
+  let mapArr = Object.entries(map);
+  let heap = new BinaryHeap((a, b) => {
+    return a[1] > b[1] ? -1 : (a[1] === b[1] ? 0 : 1);
+  });
+
+  for (let i = 0; i < mapArr.length; i++) {
+    heap.insert(mapArr[i]);
+  }
+
+  let result = [];
+
+  while (k) {
+    result.push(heap.extract()[0]);
+    k--;
+  }
+
+  return result;
+}
