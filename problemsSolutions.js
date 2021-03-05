@@ -802,4 +802,45 @@ var maximumUnits = function(boxTypes, truckSize) {
     return units;
 };
 
-console.log(maximumUnits([[1,3],[2,2],[3,1]], 4));
+class Quick {
+  constructor(arr) {
+    this.arr = arr;
+  }
+
+  partition(arr, lo, hi) {
+    let i = lo,
+        j = hi + 1;
+
+    while (true) {
+      while (this.less(arr[++i], arr[lo])) {
+        if (i >= hi) {
+          break;
+        }
+      }
+
+      while (this.less(arr[lo], arr[--j])) {
+        if (j <= lo) {
+          break;
+        }
+      }
+
+      if (i >= j) break;
+      this.swap(arr, i, j);
+    }
+
+    this.swap(arr, lo, j);
+    return j;
+  }
+
+  sort(arr, lo, hi) {
+    if (lo >= hi) return;
+
+    let pivot = this.partition(arr, lo, hi);
+    this.merge(arr, lo, pivot - 1);
+    this.merge(arr, pivot + 1, hi);
+  }
+
+  swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
