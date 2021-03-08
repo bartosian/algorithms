@@ -941,3 +941,74 @@ function topKFrequent3(words, k) {
 
   return result;
 }
+
+function maxSquare(grid) {
+  let rows = grid.length,
+      columns = grid[0].length,
+      auxGrid = new Array(columns + 1).fill(0),
+      maxSide = 0,
+      prev = 0;
+
+  console.log(auxGrid);
+
+  for (let i = 1; i <= rows; i++) {
+    for (let j = 1; j <= columns; j++) {
+      let temp = auxGrid[j];
+      if (grid[i - 1][j - 1]) {
+        auxGrid[j] = Math.min(Math.min(auxGrid[j - 1], prev), auxGrid[j]) + 1;
+        maxSide = Math.max(maxSide, auxGrid[j]);
+      }
+      prev = temp;
+    }
+  }
+
+  return maxSide * maxSide;
+
+}
+
+class LongestPalSubstr {
+  constructor(str) {
+    this.str = str;
+    this.result = this.getLongestSubstr(str);
+  }
+
+  getLongestSubstr(str) {
+    let len = str.length,
+        palTable = new Array(len).fill(0),
+        maxLen = 1;
+
+    palTable = palTable.map(a => new Array(len).fill(false));
+
+    for (let i = 0; i < len; i++) {
+      palTable[i][i] = true;
+    }
+
+    let start = 0;
+
+    for (let i = 0; i < len - 1; i++) {
+      if (str[i] === str[i + 1]) {
+        palTable[i][i + 1] = true;
+        start = i;
+        maxLen = 2;
+      }
+    }
+
+    for (let k = 3; k <= len; k++) {
+      for (let i = 0; i < len - k + 1; i++) {
+        let j = i + k - 1;
+
+        if (palTable[i + 1][j - 1] && str[i] === str[j]) {
+          palTable[i][j] = true;
+
+          if (k > maxLen) {
+            start = i;
+            maxLen = k;
+          }
+        }
+      }
+    }
+    return maxLen;
+  }
+}
+
+let sol = new LongestPalSubstr("forgeeksskeegfor");
