@@ -966,6 +966,51 @@ function maxSquare(grid) {
 
 }
 
+// class LongestPalSubstr {
+//   constructor(str) {
+//     this.str = str;
+//     this.result = this.getLongestSubstr(str);
+//   }
+//
+//   getLongestSubstr(str) {
+//     let len = str.length,
+//         palTable = new Array(len).fill(0),
+//         maxLen = 1;
+//
+//     palTable = palTable.map(a => new Array(len).fill(false));
+//
+//     for (let i = 0; i < len; i++) {
+//       palTable[i][i] = true;
+//     }
+//
+//     let start = 0;
+//
+//     for (let i = 0; i < len - 1; i++) {
+//       if (str[i] === str[i + 1]) {
+//         palTable[i][i + 1] = true;
+//         start = i;
+//         maxLen = 2;
+//       }
+//     }
+//
+//     for (let k = 3; k <= len; k++) {
+//       for (let i = 0; i < len - k + 1; i++) {
+//         let j = i + k - 1;
+//
+//         if (palTable[i + 1][j - 1] && str[i] === str[j]) {
+//           palTable[i][j] = true;
+//
+//           if (k > maxLen) {
+//             start = i;
+//             maxLen = k;
+//           }
+//         }
+//       }
+//     }
+//     return maxLen;
+//   }
+// }
+
 class LongestPalSubstr {
   constructor(str) {
     this.str = str;
@@ -973,42 +1018,38 @@ class LongestPalSubstr {
   }
 
   getLongestSubstr(str) {
-    let len = str.length,
-        palTable = new Array(len).fill(0),
-        maxLen = 1;
+    if (!str || !str.length) return "";
 
-    palTable = palTable.map(a => new Array(len).fill(false));
+    let len = str.length,
+        start = 0,
+        end = 0;
 
     for (let i = 0; i < len; i++) {
-      palTable[i][i] = true;
-    }
+      let len1 = this.exapndAroundCenter(str, i, i),
+          len2 = this.exapndAroundCenter(str, i, i + 1),
+          lenMax = Math.max(len1, len2);
 
-    let start = 0;
-
-    for (let i = 0; i < len - 1; i++) {
-      if (str[i] === str[i + 1]) {
-        palTable[i][i + 1] = true;
-        start = i;
-        maxLen = 2;
+      if (lenMax > (end - start)) {
+        start = i - Math.floor((lenMax - 1) / 2),
+        end = i + Math.floor(lenMax / 2);
       }
     }
 
-    for (let k = 3; k <= len; k++) {
-      for (let i = 0; i < len - k + 1; i++) {
-        let j = i + k - 1;
+    return str.substring(start, end + 1);
+  }
 
-        if (palTable[i + 1][j - 1] && str[i] === str[j]) {
-          palTable[i][j] = true;
+  exapndAroundCenter(str, left, right) {
+    let L = left,
+        R = right;
 
-          if (k > maxLen) {
-            start = i;
-            maxLen = k;
-          }
-        }
-      }
+    while (L >= 0 && R < str.length && str[L] === str[R]) {
+      L--;
+      R++;
     }
-    return maxLen;
+
+    return R - L - 1;
   }
 }
 
 let sol = new LongestPalSubstr("forgeeksskeegfor");
+console.log(sol.result);
