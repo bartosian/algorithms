@@ -393,7 +393,7 @@ const DIGITS = {
     TEN: TEN
 }
 
-class Solution {
+class Solution1 {
     constructor(num) {
         this.num = num;
         this.stringNum = this.numberToWords(num);
@@ -1051,5 +1051,124 @@ class LongestPalSubstr {
   }
 }
 
-let sol = new LongestPalSubstr("forgeeksskeegfor");
-console.log(sol.result);
+class SolutionA {
+  minDifficulty(jobs, days) {
+    if (days > jobs.length) {
+      return -1;
+    }
+
+    let cache = Array.from({length: days + 1}, day => Array.from({length: jobs.length}, job => -1));
+
+    return this.dfs(days, jobs, cache, 0);
+  }
+
+  dfs(days, jobs, cache, pos) {
+    if (days === 1) {
+      let max = 0;
+
+      while (pos < jobs.length) {
+        max = Math.max(max, jobs[pos++]);
+      }
+
+      return max;
+    }
+
+    if (cache[days][pos] !== -1) {
+      return cache[days][pos];
+    }
+
+    let result = Number.MAX_SAFE_INTEGER,
+        max = Number.MIN_SAFE_INTEGER;
+
+    for (let i = pos; i < jobs.length - days + 1; i++) {
+      max = Math.max(max, jobs[i]),
+      result = Math.min(result, max + this.dfs(days - 1, jobs, cache, pos + 1));
+    }
+
+    return cache[days][pos] = result;
+  }
+}
+
+const STATES = {
+  NOTPROCESSED: "0",
+  PROCESSED: "-1",
+  PROCESING: "1"
+};
+
+class Solution {
+  constructor(courses, prereq) {
+    this.is_possible = true;
+    this.adjList = {};
+    this.states = Array.from({length: courses}, state => STATES.NOTPROCESSED);
+    this.order = [];
+
+    this.buildGraph(prereq, courses);
+  }
+
+  buildGraph(prereq, courses) {
+    for (let req of prereq) {
+      let start = req[1],
+          end = req[0],
+          adj = this.adjList[start] || [];
+
+      adj.push(end);
+      this.adjList[start] = adj;
+    }
+  }
+
+  getOrder(courses) {
+    for (let course = 0; course < courses; course++) {
+      if (this.states[course] === STATES.NOTPROCESSED) {
+        this.dfs(course);
+      }
+    }
+
+    if (this.is_possible) {
+      return this.order.reverse();
+    } else {
+      return [];
+    }
+  }
+
+  dfs(course) {
+    if (!this.is_possible) {
+      return;
+    }
+
+    this.states[course] = STATES.PROCESING;
+
+    let adj = this.adjList[course];
+
+    if (adj) {
+      for (let req of adj) {
+        if (this.states[req] === STATES.NOTPROCESSED) {
+          this.dfs(req);
+        } else if (this.states[req] === STATES.PROCESING) {
+          this.is_possible = false;
+        }
+      }
+    }
+
+    this.states[course] = STATES.PROCESSED;
+    this.order.push(course);
+  }
+}
+
+var mostCommonWord = function(paragraph, banned) {
+    let wordsMap = {},
+        bannedSet = new Set(banned),
+        wordsArr = paragraph.replace(/[^0-9a-zA-Z]/g, ' ').toLowerCase().split(/\s*[\s,]\s*/);
+        console.log(wordsArr);
+    for (let i = 0; i < wordsArr.length; i++) {
+        let currentWord = wordsArr[i];
+
+        if (!bannedSet.has(currentWord)) {
+            wordsMap[currentWord] = wordsMap[currentWord] ? ++wordsMap[currentWord] : 1;
+        }
+    }
+
+    let sortedArr = Object.entries(wordsMap).sort((a, b) => b[1] - a[1]);
+    return sortedArr[0][0];
+};
+
+console.log(mostCommonWord("Bob. hIt, baLl", ["bob", "hit"]));
