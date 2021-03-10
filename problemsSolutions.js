@@ -1095,7 +1095,7 @@ const STATES = {
   PROCESING: "1"
 };
 
-class Solution {
+class SolutionB {
   constructor(courses, prereq) {
     this.is_possible = true;
     this.adjList = {};
@@ -1171,4 +1171,60 @@ var mostCommonWord = function(paragraph, banned) {
     return sortedArr[0][0];
 };
 
-console.log(mostCommonWord("Bob. hIt, baLl", ["bob", "hit"]));
+class Solution {
+  distanceK(root, target, k) {
+    if (!root) return [];
+
+    let adjList = {};
+
+    this.dfs(root, -1, adjList);
+
+    if (!adjList[target.val]) return [];
+
+    let result = [],
+        visited = new Set(),
+        queue = [[target.value, 0]];
+
+    while (queue.length) {
+      let head, steps = queue.shift();
+
+      if (visited.has(head)) contniue;
+      visited.add(head);
+
+      if (steps === k && head > -1) {
+        result.push(head);
+      } else if (steps < k) {
+        if (adjList[head]) {
+          let children = adjList[head];
+
+          for (let i = 0; i < children.length; i++) {
+            queue.push([children[i], steps + 1]);
+          }
+        }
+      }
+    }
+
+    return result;
+  }
+
+  dfs(node, parent, adjList) {
+    if (!node) return;
+
+    let arr = [parent, -1, -1];
+
+    if (node.left) {
+      arr[1] = node.left.val;
+      this.dfs(node.left, node.val, adjList);
+    }
+
+    if (node.right) {
+      arr[2] = node.right.val;
+      this.dfs(node.right, node.val, adjList);
+    }
+
+    adjList[node.val] = arr;
+  }
+}
+
+let solution = new Solution();
+console.log(solution.distanceK([3,5,1,6,2,0,8,null,null,7,4], 5, 2));
