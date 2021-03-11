@@ -289,3 +289,32 @@ var findCircleNum = function(isConnected) {
 
     return count;
 };
+
+class IsSubtree {
+  constructor(tree1, tree2) {
+    this.tree1 = tree1;
+    this.tree2 = tree2;
+    this._result = this.dfs(tree1);
+  }
+
+  getResult() {
+    return this._result;
+  }
+
+  isSame(nodeA, nodeB) {
+    if (!nodeA && !nodeB) return true;
+    if (!nodeA || !nodeB || nodeA.val !== nodeB.val) return false;
+
+    return this.isSame(nodeA.left, nodeN.left) && this.isSame(nodeA.right, nodeB.right);
+  }
+
+  dfs(node) {
+    if (!node) return false;
+
+    if (node.val === this.tree2.val && this.isSame(node, this.tree2) {
+      return true;
+    }
+
+    return this.dfs(node.left) || this.dfs(node.right);
+  }
+}
