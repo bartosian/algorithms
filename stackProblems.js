@@ -265,3 +265,27 @@ function check(str, bracketsConfig) {
 
   return !stack.length;
 }
+
+function dfs(row, grid, visited) {
+    visited.add(row);
+
+    for (let i = 0; i < grid.length; i++) {
+        !visited.has(i) && grid[row][i] && dfs(i, grid, visited);
+    }
+}
+
+
+var findCircleNum = function(isConnected) {
+    let visited = new Set(),
+        count = 0,
+        citiesCount = isConnected.length;
+
+    for (let i = 0; i < citiesCount; i++) {
+        if (!visited.has(i)) {
+            dfs(i, isConnected, visited);
+            count++;
+        }
+    }
+
+    return count;
+};
