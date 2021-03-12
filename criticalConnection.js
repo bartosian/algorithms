@@ -93,5 +93,51 @@ function numPairsDivisibleBy60(time) {
     remMap[rem] += 1;
   }
 
-  return count;    
+  return count;
+}
+
+class KClosest {
+  constructor(points, K) {
+    this.points = points;
+    this.count = K;
+
+    this.solution = this.getPoints(points, K);
+  }
+
+  compare(pointA, pointB) {
+    return (Math.pow(pointA[0], 2) + Math.pow(pointA[1], 2)) - (Math.pow(pointB[0], 2) + Math.pow(pointB[1], 2));
+  }
+
+  getPoints(points, count) {
+    let lo = 0,
+        hi = points.length - 1;
+
+    while (lo <= hi) {
+      let pivot = this.partition(points, lo, hi);
+
+      if (pivot === count) {
+        break;
+      } else if (pivot < count) {
+        lo = pivot + 1;
+      } else {
+        hi = pivot - 1;
+      }
+    }
+
+    return points.slice(0, count);
+  }
+
+  partition(points, lo, hi) {
+    let pivot = points[lo];
+
+    while (lo < hi) {
+      while (this.compare(points[hi], pivot) >= 0) hi--;
+      points[lo] = points[hi];
+      while (this.compare(points[lo], pivot) <= 0) lo++;
+      points[hi] = points[lo];
+    }
+
+    points[lo] = pivot;
+    return lo;
+  }
 }
