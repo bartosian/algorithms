@@ -79,5 +79,19 @@ function isRobotBounded(instructions) {
     }
   }
 
-  return (x === 0 && y === 0) || idx !== 0;    
+  return (x === 0 && y === 0) || idx !== 0;
+}
+
+function numPairsDivisibleBy60(time) {
+  let remMap = new Array(60).fill(0),
+      count = 0;
+
+  for (let i = 0; i < time.length; i++) {
+    let rem = time[i] % 60;
+    count += remMap[(60 - rem) % 60];
+
+    remMap[rem] += 1;
+  }
+
+  return count;    
 }
