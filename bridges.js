@@ -57,3 +57,46 @@ class CriticalConnections {
     return this.bridges;
   }
 }
+
+class MinDifficulty {
+  constructor(days, difficulties) {
+    this.days = days;
+    this.difficulties = difficulties;
+
+    this.minDifficulty = this.minDifficulty(days, difficulties);
+  }
+
+  minDifficulty(days, difficulties) {
+    if (days > difficulties.length) {
+      return -1;
+    }
+
+    let cache = new Array({length: days + 1, day => new Array({length: difficulties.length}, diff => -1)});
+
+    return this.dfs(days, difficulties, cache, 0);
+  }
+
+  dfs(days, jobs, cache, pos) {
+    if (days === 1) {
+      let max = Number.MIN_SAFE_INTEGER;
+
+      while (pos < jobs.length) {
+        max = Math.max(max, jobs[pos++]);
+      }
+
+      return max;
+    }
+
+    if (cache[days][pos]) return cache[days][pos];
+
+    let max = Number.MIN_SAFE_INTEGER,
+        result = Number.MAX_SAFE_INTEGER;
+
+    for (let i = pos; i < jobs.length - days + 1; i++) {
+      max = Math.max(jobs[i]);
+      result = Math.min(result, max + this.dfs(days - 1, jobs, cache, i + 1));
+    }
+
+    return cache[days][pos] = result;
+  }
+}
