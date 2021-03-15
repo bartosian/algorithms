@@ -84,3 +84,50 @@ var climbStairs = function(n) {
 
   return second;
 };
+
+
+function wordBreak(s, wordDict) {
+  let wordSet = new Set(wordDict),
+      results = [];
+
+  return getWords(s, wordSet, results);
+}
+
+function getWords(str, dict, results) {
+  let result = [];
+
+  if (dict.has(str)) result.push(str);
+
+  for (let i = 0; i < str.length; i++) {
+    let curSub = str.substr(0, i);
+
+    if (dict.has(curSub)) {
+      let remResults = getWords(str.substr(i + 1), dict, results),
+          mergedResults = remResults.map(result => curSub + " " + result);
+
+      results = [...results, ...mergedResults];
+    }
+  }
+
+  return
+}
+
+var productExceptSelf = function(nums) {
+    let length = nums.length,
+        result = new Array(length);
+
+    result[0] = 1;
+
+    for (let i = 1; i < length; i++) {
+      result[i] = nums[i - 1] * result[i - 1];
+    }
+
+    let right = 1;
+
+    for (let j = length - 1; j >= 0; j--) {
+      result[j] = right * result[j];
+      right *= nums[j];
+    }
+
+    return result;
+}
