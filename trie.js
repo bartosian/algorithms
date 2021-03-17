@@ -1,3 +1,5 @@
+const util = require('util')
+
 class TrieNode {
   constructor() {
     this.RADIX = 26;
@@ -145,10 +147,7 @@ class Solution {
         let letter = this.board[row][col],
             currNode = parent[letter];
 
-        console.log(letter);
-        console.log(currNode);
-        console.log(currNode.word);
-        if (currNode.word) {
+        if (currNode.word !== undefined) {
             this.result.push(currNode.word);
             currNode.word = null;
         }
@@ -161,10 +160,14 @@ class Solution {
         for (let i = 0; i < 4; i++) {
             let newRow = row + rowOffset[i],
                 newCol = col + colOffset[i];
+            console.log(util.inspect(this.board, {showHidden: false, depth: null}))
+            console.log(newRow)
+            console.log(newCol)
+
 
             if (newRow < 0 || newRow >= this.board.length || newCol < 0 || newCol >= this.board[0].length) continue;
-
-            if (currNode[this.board[row][col]]) this.backtracking(newRow, newCol, currNode);
+            console.log(currNode[this.board[row][col]]);
+            if (currNode[this.board[newRow][newCol]]) this.backtracking(newRow, newCol, currNode);
         }
 
         this.board[row][col] = letter;
