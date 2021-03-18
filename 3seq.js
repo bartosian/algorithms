@@ -36,3 +36,35 @@ var mostVisitedPattern = function(username, timestamp, website) {
 
       return max[0].split("|");
 };
+
+let logs = ["dig1 8 1 5 1","let1 art can","dig2 3 6","let2 own kit dig","let3 art zero"];
+
+var reorderLogFiles = function(logs) {
+    let letterLogs = [],
+        digitLogs = [];
+
+    logs.forEach(log => {
+      if (isNaN(+log[log.length - 1])) {
+        letterLogs.push(log);
+      } else {
+        digitLogs.push(log);
+      }
+    });
+
+    letterLogs.sort((a, b) => {
+      let aIdent = a.indexOf(" "),
+          bIdent = b.indexOf(" "),
+          aSubstr = a.substring(aIdent + 1),
+          bSusbtr = b.substring(bIdent + 1);
+
+    let compareResult = aSubstr.localeCompare(bSusbtr);
+
+      if (compareResult) {
+        return compareResult;
+      } else {
+        return a.substring(0, aIdent).localeCompare(b.substring(0, bIdent));
+      }
+    });
+
+    return [...letterLogs, ...digitLogs];
+}
