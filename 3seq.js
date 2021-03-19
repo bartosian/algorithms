@@ -68,3 +68,25 @@ var reorderLogFiles = function(logs) {
 
     return [...letterLogs, ...digitLogs];
 }
+
+function countKsubArr(nums, k) {
+  let len = nums.length,
+      count = 0;
+
+  for (let i = 0; i < len; i++) {
+    if (nums[i] % k === 0) count++;
+    let iterSum = nums[i];
+
+    for (let j = i + 1; j < len; j++) {
+      iterSum += nums[j];
+
+      if (iterSum % k === 0) {
+        count++;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return count;
+}
