@@ -72,3 +72,36 @@ class Insertion {
     [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
   }
 }
+
+
+class Shell {
+  sort(arr) {
+    let len = arr.length,
+        h = 1;
+
+    // interval sequence
+    while(h < Math.floor(len / 3)) {
+      h = 3 * h + 1;
+    }
+
+    while (h >= 1) {
+      for (let i = h; h < len; i++) {
+        for (let j = i; j >= h && this.less(arr, j, j - h); j -= h) {
+          this.swap(arr, j, j - h);
+        }
+      }
+
+      h = Math.floor(h / 3);
+    }
+
+    return arr;
+  }
+
+  less(arr, idA, idB) {
+    return arr[idA] < arr[idB];
+  }
+
+  swap(arr, idA, idB) {
+    [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
+  }
+}
