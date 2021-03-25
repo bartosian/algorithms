@@ -20,3 +20,29 @@ function binarySearch(key, array, lo, hi) {
     return array[mid];
   }
 }
+
+class Selection {
+  sort(arr) {
+    let len = arr.length;
+
+    for (let i = 0; i < len; i++) {
+      let min = i;
+
+      for (let j = i + 1; j < len; j++) {
+        if (this.less(arr, j, min)) {
+          min = j;
+        }
+      }
+
+      if (min !== i) {
+        this.swap(arr, min, i);
+      }
+    }
+
+    return arr;
+  }
+
+  less(arr, idA, idB) {
+    return arr[idA] < arr[idB];
+  }
+}
