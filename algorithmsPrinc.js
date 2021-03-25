@@ -45,4 +45,30 @@ class Selection {
   less(arr, idA, idB) {
     return arr[idA] < arr[idB];
   }
+
+  swap(arr, idA, idB) {
+    [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
+  }
+}
+
+class Insertion {
+  sort(arr) {
+    let len = arr.length;
+
+    for (let i = 1; i < len; i++) {
+      for (let j = i; j > 0 && this.less(arr, j, j - 1); j--) {
+        this.swap(arr, j, j - 1);
+      }
+    }
+
+    return arr;
+  }
+
+  less(arr, idA, idB) {
+    return arr[idA] < arr[idB];
+  }
+
+  swap(arr, idA, idB) {
+    [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
+  }
 }
