@@ -105,3 +105,26 @@ class Shell {
     [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
   }
 }
+
+function validAnagram(strA, strB){
+    let lenA = strA.length,
+        lenB = strB.length;
+
+    if (lenA !== lenB) return false;
+
+    let counter = {};
+
+    for (let char of strA) {
+        counter[char] = (counter[char] || 0) + 1;
+    }
+
+    for (let char of strB) {
+        if (!counter[char] || counter[char] === 0) {
+          console.log(false);
+          return false;
+        }
+        counter[char] -= 1;
+    }
+    console.log(true);
+    return true;
+}
