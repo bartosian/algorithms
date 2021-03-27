@@ -206,3 +206,46 @@ function maxSubarraySum(arr, num){
 
     return max;
 }
+
+function minSubArrayLen(num, sum) {
+  let start = 0,
+      end = 0,
+      total = 0,
+      min = Number.MAX_SAFE_INTEGER;
+
+  while (start < num.length) {
+    if (total < sum && end < num.length) {
+      total += num[end];
+      end++;
+    } else if (total >= sum) {
+      min = Math.min(min, end - start);
+      total -= num[start];
+      start++;
+    } else {
+      break;
+    }
+  }
+
+  return min ===  Number.MAX_SAFE_INTEGER ? 0 : min;
+}
+
+function findLongestSubstring(str){
+    if (str === "" || str === " ") return 0;
+
+    let start = 0,
+        end = 0,
+        map = new Set(),
+        max = Number.MIN_SAFE_INTEGER;
+
+    while (end < str.length) {
+        if (!map.has(str[end])) {
+            map.add(str[end]);
+            end++;
+            max = Math.max(max, end - start);
+        } else if (map.has(str[end]) && start < end) {
+            map.delete(str[start++]);
+        }
+    }
+
+    return max;
+}
