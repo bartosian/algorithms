@@ -331,3 +331,22 @@ function collectStrings(obj) {
 
     return result;
 }
+
+function binarySearch(arr, el){
+    let left = 0,
+        right = arr.length - 1;
+
+    while (left <= right) {
+        let mid = Math.floor(left + (right - left) / 2),
+            midVal = arr[mid];
+
+        if (midVal === el) return mid;
+        if (midVal > el) {
+            right = mid - 1;
+        } else {
+            left = mid + 1;
+        }
+    }
+
+    return -1;
+}
