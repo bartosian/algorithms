@@ -239,13 +239,38 @@ function findLongestSubstring(str){
 
     while (end < str.length) {
         if (!map.has(str[end])) {
-            map.add(str[end]);
-            end++;
+            map.add(str[end++]);
             max = Math.max(max, end - start);
-        } else if (map.has(str[end]) && start < end) {
+        } else if (map.has(str[end])) {
             map.delete(str[start++]);
         }
     }
 
     return max;
+}
+
+function isPalindrome(str){
+    if (str.length === 2) return str[0] === str[1];
+    if (str.length <= 1) return true;
+
+    return str[0] === str[str.length - 1] && isPalindrome(str.substring(1, str.length - 1));
+}
+
+function someRecursive(arr, cb){
+    if (arr.length === 1) return cb(arr[0]);
+    return cb(arr[0]) || someRecursive(arr.slice(1), cb);
+}
+
+function flatten(arr) {
+    let result = [];
+
+    if(!arr.length) return result;
+
+    if(Array.isArray(arr[0])) {
+        result = [...flatten(arr[0])];
+    } else {
+        result.push(arr[0]);
+    }
+
+    return [...result, ...flatten(arr.slice(1))];
 }
