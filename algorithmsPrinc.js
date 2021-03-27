@@ -274,3 +274,30 @@ function flatten(arr) {
 
     return [...result, ...flatten(arr.slice(1))];
 }
+
+function capitalizeFirst (arr) {
+    if (!arr.length) return [];
+    return [arr[0][0].toUpperCase() + arr[0].slice(1), ...capitalizeFirst(arr.slice(1))];
+}
+
+function nestedEvenSum (obj) {
+    let sum = 0;
+
+    function isEven(val) {
+        return val % 2 === 0;
+    }
+
+    function traverseObj(obj) {
+        for (const key in obj) {
+            if (obj[key] instanceof Object) {
+                traverseObj(obj[key]);
+            } else if (Number.isInteger(obj[key]) && isEven(obj[key])) {
+                sum += obj[key];
+            }
+        }
+    }
+
+    traverseObj(obj);
+
+    return sum;
+}
