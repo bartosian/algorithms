@@ -189,4 +189,20 @@ function areThereDuplicates(...args) {
     return counter.size !== args.length;
 }
 
-console.log(areThereDuplicates('a', 'b', 'd', 'e', 'e'));
+function maxSubarraySum(arr, num){
+    let temp = 0,
+        max = Number.MIN_SAFE_INTEGER;
+
+    for (let i = 0; i < num; i++) {
+        temp += arr[i];
+    }
+
+    max = temp;
+
+    for (let i = num; i < arr.length; i++) {
+        let sum = temp - arr[i - 1] + arr[i];
+        max = math.max(sum, max);
+    }
+
+    return max;
+}
