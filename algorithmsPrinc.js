@@ -301,3 +301,33 @@ function nestedEvenSum (obj) {
 
     return sum;
 }
+
+function stringifyNumbers(obj) {
+    function traverseObj(obj) {
+        for (const key in obj) {
+            if (obj[key] instanceof Object && !Array.isArray(obj[key])) {
+                traverseObj(obj[key]);
+            } else if (typeof obj[key] === 'number') {
+                obj[key] = obj[key].toString();
+            }
+        }
+    }
+
+    traverseObj(obj);
+
+    return obj;
+}
+
+function collectStrings(obj) {
+    let result = [];
+
+    for (const key in obj) {
+        if (typeof obj[key] === 'string') {
+            result.push(obj[key]);
+        } else if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
+            result = [...result, ...collectStrings(obj[key])];
+        }
+    }
+
+    return result;
+}
