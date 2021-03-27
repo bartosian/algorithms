@@ -128,3 +128,65 @@ function validAnagram(strA, strB){
     console.log(true);
     return true;
 }
+
+function countUniqueValues2(arr) {
+  let left = 0,
+      right = 1,
+      count = 0;
+
+  while (left < arr.length) {
+    count++;
+
+    while(right < arr.length && arr[right] === arr[left]) {
+      right++;
+    }
+
+    left = right;
+  }
+
+  return count;
+}
+
+function countUniqueValues(arr) {
+  let i = !arr.length ? -1 : 0;
+
+  for (let j = 1; j < arr.length; j++) {
+    if (arr[i] !== arr[j]) {
+      i++;
+      arr[i] = arr[j];
+    }
+  }
+
+  return ++i;
+}
+
+function sameFrequency(numA, numB){
+    let strA = "" + numA,
+        strB = "" + numB;
+
+    if (strA.length !== strB.length) return false;
+
+    let counter = {};
+
+    for (let char of strA) {
+        counter[char] = (counter[char] || 0) + 1;
+    }
+
+    for (let char of strB) {
+        if (!counter[char]) return false;
+
+        counter[char] -= 1;
+    }
+
+    return true;
+}
+
+function areThereDuplicates(...args) {
+    if (!args.length) return false;
+
+    let counter = new Set(args);
+
+    return counter.size !== args.length;
+}
+
+console.log(areThereDuplicates('a', 'b', 'd', 'e', 'e'));
