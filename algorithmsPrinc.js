@@ -373,3 +373,34 @@ function bubbleSort(arr) {
 
   return arr;
 }
+
+function merge(arr, aux, left, mid, right) {
+  let  i = left,
+       j = mid + 1;
+
+  for (let k = left; k <= right; k++) {
+    aux[k] = arr[k];
+  }
+
+  for (let k = left; k <= right; k++) {
+    if (i > mid) {
+      arr[k] = aux[j++]
+    } else if (j > right) {
+      arr[k] = aux[i++];
+    } else if (aux[j] < aux[i]) {
+      arr[k] = aux[j++];
+    } else {
+      arr[k] = aux[i++];
+    }
+  }
+}
+
+function mergeSort(arr, aux=[], left, right) {
+  if (right <= left) return;
+
+
+  let mid = Math.floor(left + (right - left) / 2);
+  mergeSort(arr, aux,  left, mid);
+  mergeSort(arr, aux,  mid + 1, right);
+  merge(arr, aux, left, mid, right);
+}
