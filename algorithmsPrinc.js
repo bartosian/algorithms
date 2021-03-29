@@ -404,3 +404,37 @@ function mergeSort(arr, aux=[], left, right) {
   mergeSort(arr, aux,  mid + 1, right);
   merge(arr, aux, left, mid, right);
 }
+
+class Quick {
+  sort(arr) {
+    this.sortHelper(arr, 0, arr.length - 1);
+  }
+
+  sortHelper(arr, left, right) {
+    if (right <= left) return;
+    let pivot = this.partition(arr, left, right);
+    this.sortHelper(arr, left, pivot - 1);
+    this.sortHelper(arr, pivot + 1, right);
+  }
+
+  partition(arr, left, right) {
+    let i = left,
+        j = right + 1;
+
+    while (true) {
+      while (arr[++i] <= arr[left]) {
+        if (i >= right) break;
+      }
+
+      while (arr[left] < arr[--j]) {
+        if (j <= left) break;
+      }
+
+      if (i >= j) break;
+      swap(arr, i, j);
+    }
+
+    swap(arr, j, left);
+    return j;
+  }
+}
