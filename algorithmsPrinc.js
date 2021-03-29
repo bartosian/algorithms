@@ -359,11 +359,16 @@ function bubbleSort(arr) {
   let right = arr.length - 1;
 
   for (let i = right; i >= 0; i--) {
+    let swaps = false;
+
     for (let j = 0; j < i; j++) {
       if (arr[j] > arr[j + 1]) {
         swap(arr, j, j + 1);
+        swaps = true;
       }
     }
+
+    if (!swaps) break;
   }
 
   return arr;
