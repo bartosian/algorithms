@@ -438,3 +438,51 @@ class Quick {
     return j;
   }
 }
+
+class Radix {
+  getDigit(num, i) {
+    return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
+  }
+
+  digitCount(num) {
+    if (num === 0) return 1;
+
+    return Math.floor(Math.log10(Math.abs(num))) + 1;
+  }
+
+  mostDigits(nums) {
+    let maxDigits = 0;
+
+    for (let num of nums) {
+      maxDigits = Math.max(maxDigits, this.digitCount(num));
+    }
+
+    return maxDigits;
+  }
+
+  createBuckets() {
+    return Array.from({length: 10}, el => []);
+  }
+
+  sort(nums) {
+    let buckets = this.createBuckets(),
+        cycles = this.mostDigits(nums);
+
+    for (let i = 0; i < buckets.length; i++) {
+      buckets[i] = [];
+    }
+
+    for (let i = 0; i < cycles; i++) {
+      for (let j = 0; j < nums.length; j++) {
+        buckets[this.getDigit(nums[j], i)].push(nums[j]);
+      }
+
+      nums = buckets.reduce((acc, bucket) => acc.concat(bucket), []);
+      buckets = this.createBuckets();
+    }
+
+    return nums;
+  }
+}
+
+console.log((new Radix()).sort([1, 5, 7, 89, 34, 51, 678, 3421]));
