@@ -350,3 +350,21 @@ function binarySearch(arr, el){
 
     return -1;
 }
+
+function swap(arr, idA, idB) {
+  [arr[idA], arr[idB]] = [arr[idB], arr[idA]];
+}
+
+function bubbleSort(arr) {
+  let right = arr.length - 1;
+
+  for (let i = right; i >= 0; i--) {
+    for (let j = 0; j < i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+      }
+    }
+  }
+
+  return arr;
+}
