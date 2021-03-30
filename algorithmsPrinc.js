@@ -546,6 +546,80 @@ class SinglyLinkedList {
       this.tail = this.head = null;
     }
 
-    return node; 
+    return node;
+  }
+
+  unshift(val) {
+    let node = new Node(val);
+
+    if (!this.head) {
+      this.head = this.tail = node;
+    } else {
+      node.next = this.head;
+      this.head = node;
+    }
+
+    this.size++;
+    return node;
+  }
+
+  get(idx) {
+    if (idx < 0 || idx >= this.size) return undefined;
+
+    let counter = 0,
+        currNode = this.head;
+
+    while (counter != idx) {
+      currNode = currNode.next;
+      counter++;
+    }
+
+    return currNode;
+  }
+
+  set(idx, value) {
+    let node = this.get(idx);
+
+    if (node) {
+      node.value = value;
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  insert(idx, value) {
+    if (idx < 0 || idx > this.size) return false;
+
+    let result = true;
+
+    if (idx === 0) {
+      result = !!this.unshift(value);
+    } else if (idx === this.size) {
+      result = !!this.push(value);
+    } else {
+      let prevNode = this.get(idx - 1);
+      let newNode = new Node(value);
+      newNode.next = prevNode.next;
+      prevNode.next = newNode;
+    }
+
+    this.size++;
+    return result;
+  }
+
+  remove(idx) {
+    if (idx < 0 || idx > (this.size - 1)) return false;
+    if (idx === 0) {
+      return !!this.shift()
+    } else if (idx === this.size - 1) {
+      return !!this.pop();
+    } else {
+      let prevNode = this.get(idx - 1);
+
+      prevNode.next = prevNode.next.next;
+      this.size--;
+      return true;
+    }
   }
 }
