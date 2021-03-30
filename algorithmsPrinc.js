@@ -477,7 +477,7 @@ class Radix {
         buckets[this.getDigit(nums[j], i)].push(nums[j]);
       }
 
-      nums = buckets.reduce((acc, bucket) => acc.concat(bucket), []);
+      nums = [].concat(...buckets);
       buckets = this.createBuckets();
     }
 
@@ -485,4 +485,30 @@ class Radix {
   }
 }
 
-console.log((new Radix()).sort([1, 5, 7, 89, 34, 51, 678, 3421]));
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+  }
+
+  push(val) {
+    let newNode = new Node(val);
+
+    if (!this.head) {
+      this.head = this.tail = newNode;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
+
+    this.size += 1;
+  }
+}
