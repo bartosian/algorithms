@@ -534,4 +534,18 @@ class SinglyLinkedList {
 
     return current;
   }
+
+  shift() {
+    if (!this.head) return undefined;
+
+    let node = this.head;
+    this.head = this.head.next;
+    this.size--;
+
+    if (!this.size) {
+      this.tail = this.head = null;
+    }
+
+    return node; 
+  }
 }
