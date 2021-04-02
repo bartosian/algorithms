@@ -34,6 +34,38 @@ class HashTable {
     let chain = this.keyMap[idx],
         element = chain.find(el => el[0] === key);
 
-    return element ? element[1] : null;    
+    return element ? element[1] : null;
+  }
+
+  keys() {
+    let result = [];
+
+    for (let chain of this.keyMap) {
+      if (!chain) continue;
+
+      chain.forEach((el) => {
+        result.push(el[0]);
+      });
+    }
+
+    return result;
+  }
+
+  values() {
+    let result = [],
+        valueSet = {};
+
+    for (let chain of this.keyMap) {
+      if (!chain) continue;
+
+      chain.forEach((el) => {
+        if (!valueSet.has(el[1])) {
+          result.push(el[1]);
+          valueSet.add(el[1]);
+        }
+      });
+    }
+
+    return result;
   }
 }
