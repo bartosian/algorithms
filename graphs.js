@@ -94,3 +94,65 @@ class Graph {
     return result;
   }
 }
+
+class WeightedGraph {
+  constructor() {
+    this.adjList = {};
+  }
+
+  addVertex(key) {
+    this.adjList[key] = this.adjList[key] || [];
+  }
+
+  addEdge(v1, v2, weight) {
+    this.adjList[v1].push({node: v2, weight});
+    this.adjList[v2].push({node: v1, weight});
+  }
+}
+
+class Dijkstra {
+  constructor(graph) {
+      this.graph = graph;
+      this.verteces = Object.keys(graph);
+  }
+
+  shortestPath(start, end) {
+    if (!this.grah[start] || !this.graph[end]) return false;
+
+    let distances = {},
+        parents = {},
+        pq = new PQ((a, b) => a - b);
+
+    for (let vertex of this.verteces) {
+      if (vertex === start) {
+        distances[vertex] = 0;
+        pq.enqueue({node: vertex, priority: 0});
+      } else {
+        distances[vertex] = Infinity;
+        pq.enqueue({node: vertex, priority: Infinity});
+      }
+
+      parents[vertex] = null;
+    }
+
+    while (pq.size()) {
+      let minVertex = pq.dequeue();
+
+      if (minVertex.node === end) return;
+
+      let adj = this.grap[minVertex.node];
+
+      for (let vertex of adj) {
+        let dist = distances[minVertex.node] + vertex.weight;
+
+        if (dist < distances[vertex.node]) {
+          distances[vertex.node] = dist;
+          parents[vertex.node] = minVertex.node;
+
+          pq.enqueu(vertex);
+        }
+      }
+    }
+
+  }
+}
