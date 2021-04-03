@@ -25,7 +25,7 @@ class Graph {
     delete this.adjList[v];
   }
 
-  dfs(node) {
+  dfsRecursive(node) {
     let result = [],
         visited = new Set().
         self = this;
@@ -42,6 +42,30 @@ class Graph {
         !visited.has(vertex) && traverse(vertex);
       }
     })(node);
+
+    return result;
+  }
+
+  dfsIterative(node) {
+    let result = [],
+        stack = [],
+        visited = new Set();
+
+    stack.push(node);
+
+    while(stack.length) {
+      let vertex = stack.pop();
+      visited.add(vertex);
+      result.push(vertex);
+
+      let adjList = this.adjList[vertex];
+
+      for(let v of agjList) {
+        if (!visited.has(v)) {
+          stack.push(v);
+        }
+      }
+    }
 
     return result;
   }
