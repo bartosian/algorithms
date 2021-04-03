@@ -24,4 +24,25 @@ class Graph {
 
     delete this.adjList[v];
   }
+
+  dfs(node) {
+    let result = [],
+        visited = new Set().
+        self = this;
+
+    (function traverse(node) {
+      if (!node) return;
+
+      visited.add(node);
+      result.push(node);
+
+      let adjList = self.adjList[node];
+
+      for (let vertex of adjList) {
+        !visited.has(vertex) && traverse(vertex);
+      }
+    })(node);
+
+    return result;
+  }
 }
