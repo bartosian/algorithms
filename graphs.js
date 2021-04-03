@@ -69,4 +69,28 @@ class Graph {
 
     return result;
   }
+
+  bfs(node) {
+    let result = [],
+        queue = [],
+        visited = new Set();
+
+    stack.push(node);
+
+    while(stack.length) {
+      let vertex = stack.shift();
+      visited.add(vertex);
+      result.push(vertex);
+
+      let adjList = this.adjList[vertex];
+
+      for(let v of agjList) {
+        if (!visited.has(v)) {
+          stack.push(v);
+        }
+      }
+    }
+
+    return result;
+  }
 }
