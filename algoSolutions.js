@@ -182,3 +182,22 @@ function trapWater(heightMap) {
 
   return water;
 }
+
+function mergeIntervals(intervals) {
+  if (!intervals || !intervals.length) return null;
+
+  let size = intervals.length,
+      results = [];
+
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  for (let int of intervals) {
+    if (!results.length || int[0] > results[results.length - 1][1]) {
+      results.push(int);
+    } else {
+      results[results.length - 1][1] = Math.max(int[1], results[results.length - 1][1]);
+    }
+  }
+
+  return results;    
+}
