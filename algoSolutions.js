@@ -244,3 +244,24 @@ var zigzagLevelOrder = function(root) {
 
     return results;
 }
+
+let boxTypes = [[1,3],[2,2],[3,1]],
+    truckSize = 4;
+
+var maximumUnits = function(boxTypes, truckSize) {
+  boxTypes.sort((a,b) => b[1] - a[1]);
+
+  let units = 0,
+      boxLength = boxTypes.length;
+
+  for (let box of boxTypes) {
+    let boxCount = Math.min(truckSize, box[0]);
+
+    units += boxCount * box[1];
+    truckSize -= boxCount;
+
+    if (!truckSize) break;
+  }
+
+  return units;
+}
