@@ -212,4 +212,35 @@ var canAttendMeetings = function(intervals) {
     }
 
     return true;
-};
+}
+
+function dfs(node, results, level) {
+  let levelresult;
+
+  if (level >= results.length) {
+    levelresult = [];
+    levelresult.push(node.val);
+    results.push(levelresult);
+  } else {
+    levelresult = results[level];
+
+    if (!(level % 2)) {
+      levelresult.push(node.val);
+    } else {
+      levelresult.unshift(node.val);
+    }
+  }
+
+  if (node.left) dfs(node.left, results, level + 1);
+  if (node.right) dfs(node.right, results, level + 1);
+}
+
+var zigzagLevelOrder = function(root) {
+    let results = [];
+
+    if (root) {
+      dfs(root, results, 0);
+    }
+
+    return results;
+}
