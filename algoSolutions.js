@@ -416,3 +416,18 @@ function isRobotBounded(instructions) {
 
   return idx != 0 || (!x && !y);
 }
+
+
+function numPairsDivisibleBy60(times) {
+    let rem = new Array(60).fill(0),
+        count = 0;
+
+    for (let i = 0; i < times.length; i++) {
+      let remVal = times[i] % 60;
+
+      count += rem[(60 - remVal) % 60];
+      rem[remVal] += 1;
+    }
+
+    return count;    
+}
