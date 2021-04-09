@@ -328,3 +328,27 @@ class SolutionSchedule {
     return cache[days][position] = result;
   }
 }
+
+function minDifficulty(jobs, days) {
+  let size = jobs.length,
+      max;
+
+  if (size < days) return -1;
+
+  let dp = new Array(size + 1).fill(Infinity);
+  dp[size] = 0;
+
+  for (let day = 1; day <= days; day++) {
+    for (let i = 0; i <= size - day; i++) {
+      max = 0,
+      dp[i] = Infinity;
+
+      for (let j = i; j <= size - day; j++) {
+        max = Math.max(max, jobs[j]);
+        dp[i] = Math.min(dp[i], max + dp[j + 1]);
+      }
+    }
+  }
+
+  return dp[0];    
+}
