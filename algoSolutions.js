@@ -245,9 +245,6 @@ var zigzagLevelOrder = function(root) {
     return results;
 }
 
-let boxTypes = [[1,3],[2,2],[3,1]],
-    truckSize = 4;
-
 var maximumUnits = function(boxTypes, truckSize) {
   boxTypes.sort((a,b) => b[1] - a[1]);
 
@@ -264,4 +261,70 @@ var maximumUnits = function(boxTypes, truckSize) {
   }
 
   return units;
+}
+
+let height = 5,
+    width= 4,
+    horizontalCuts = [1,2,4],
+    verticalCuts = [1,3];
+
+class MaxArea {
+  constructor() {
+    this.MODULO = 1000000007;
+  }
+
+  getMax(height, width, horizontalCuts, verticalCuts) {
+    horizontalCuts.sort((a, b) => a - b);
+    verticalCuts.sort((a, b) => a - b);
+
+    horizontalCuts = [0, ...horizontalCuts, height];
+    verticalCuts = [0, ...verticalCuts, width];
+
+    let maxHor = 0,
+        maxVert = 0;
+
+    for (let i = 1; i < horizontalCuts.length; i++) {
+      maxHor = Math.max(maxHor, horizontalCuts[i] - horizontalCuts[i - 1]);
+    }
+
+    for (let i = 1; i < verticalCuts.length; i++) {
+      maxVert = Math.max(maxVert, verticalCuts[i] - verticalCuts[i - 1]);
+    }
+
+    return (maxHor * maxVert) % this.MODULO;
+  }
+}
+
+class SolutionSchedule {
+  minDifficulty(jobs, days) {
+    if (jobs.length < days) return -1;
+
+    let cache = Array.from({length: days}, day => (new Array(jobs.length)).fill(-1));
+
+    return this.dfs(days, jobs, 0, cache);
+  }
+
+  dfs(days, jobs, position, cache) {
+    if (days === 1) {
+        let max = Number.MIN_SAFE_INTEGER;
+
+        while(position < jobs.length) {
+          max = Math.max(max, jobs[position++]);
+        }
+
+        return max;
+    }
+
+    if (cache[days][position] > -1) return cache[days[position]];
+
+    let max = Number.MIN_SAFE_INTEGER,
+        result = Number.MAX_SAFE_INTEGER;
+
+    for (let i = position; i < jobs.length - days + 1; i++) {
+      max = Math.max(max, jobs[i]);
+      result = Math.min(result, max + this.dfs(days - 1, jobs, i + 1, cache));
+    }
+
+    return cache[days][position] = result;
+  }
 }
