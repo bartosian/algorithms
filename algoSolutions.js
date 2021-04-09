@@ -395,3 +395,24 @@ function mostVisitedPattern(username, timestamp, website) {
   return max[0].split("|");
 
 }
+
+function isRobotBounded(instructions) {
+  let dirs = [[0, 1], [1, 0],[0, -1],[-1, 0]],
+      idx = 0,
+      x = 0,
+      y = 0;
+
+
+  for (let char of instructions) {
+    if (char === "L") {
+      idx = (dx + 3) % 4;
+    } else if (char === "R") {
+      idx = (dx + 1) % 4;
+    } else {
+      x += dirs[idx][0];
+      y += dirs[idx][1];
+    }
+  }
+
+  return idx != 0 || (!x && !y);
+}
