@@ -350,5 +350,48 @@ function minDifficulty(jobs, days) {
     }
   }
 
-  return dp[0];    
+  return dp[0];
+}
+
+function mostVisitedPattern(username, timestamp, website) {
+  let visitEntities = timestamp.map((_, idx) => [username[idx], timestamp[idx], website[idx]])
+                               .sort((a, b) => a[1] - b[1]);
+
+  let userVisits = {};
+
+  visitEntities.forEach(([username, _, website], i) => {
+    userVisits[username] = (userVisits[username] || []).push(website);
+  });
+
+  let userSeq = {},
+      max = ["", 0];
+
+  Object.values(userVisits).forEach((visits, i) => {
+    let seqByUser = {};
+
+    for (let i = 0; i < visits.length - 2; i++) {
+      for (let j = i + 1; j < visits.length - 1; j++) {
+        for (let k = j + 1; k < visits.length; k++) {
+          let seqKey = `${visits[i]}|${visits[j]}|${visits[k]}`;
+
+          if (!seqByUser[seqKey]) seqByUser[seqKey] = 1;
+        }
+      }
+    }
+
+    Object.keys(seqByUser).forEach(seq, i) => {
+      if (!userSeq[seq]) userSeq[seq] = 0;
+
+      userSeq[seq] += 1;
+
+      if (userSeq[seq] > max[1] || userSeq[seq] < max[0] && userSeq[seq] === max[1]) {
+        max[0] = seq;
+        max[1] = userSeq[seq];
+      }
+    });
+
+  });
+
+  return max[0].split("|");
+
 }
