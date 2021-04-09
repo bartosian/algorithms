@@ -429,5 +429,51 @@ function numPairsDivisibleBy60(times) {
       rem[remVal] += 1;
     }
 
-    return count;    
+    return count;
+}
+
+function orangesRotting(grid) {
+  if (!grid.length || !grid[0].length) return -1;
+
+  let rows = grid.length,
+      cols = grid[0].length,
+      queue = [],
+      minutes = 0,
+      freshCount = 0,
+      dirs = [[0, 1], [1, 0], [-1, 0], [0, -1]];
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      grid[rows][cols] === 1 && freshCount++;
+      grid[rows][cols] === 2 && queue.push([rows, cols]);
+    }
+  }
+
+  while (queue.length && freshCount) {
+    let next = [];
+
+    while (queue.length) {
+      let currentRotten = queue.pop();
+
+      for (let dir of dirs) {
+        let newDr = currentRotten[0] + dir[0],
+            newDc = currentRotten[1] + dir[1];
+
+        if (newDc >= 0 && newDr >= 0 && newDc < cols && newDr < rows) {
+          if (grid[newDr][newDc] === 1) {
+            grid[newDr][newDc] = 2;
+            freshCount--;
+
+            next.push([newDr, newDc]);
+          }
+        }
+      }
+    }
+
+    minutes++;
+    queue = next;
+
+  }
+
+  return !!freshCount ? minutes : -1;
 }
