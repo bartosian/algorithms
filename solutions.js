@@ -54,3 +54,31 @@ class DFSPaths {
         return path;
     }
 }
+
+class BFSPaths {
+    constructor(graph, s) {
+        this.startVertex = s;
+        this.graph = graph;
+        this.marked = new Array(graph.vertices);
+        this.edgeTo = new Array(graph.vertices);
+
+        this.bfs(s);
+    }
+
+    bfs(s) {
+        let queue = [];
+
+        queue.push(s);
+        this.marked[s] = true;
+
+        while (queue.length) {
+            let vertex = queue.shift();
+
+            if (!this.marked[vertex]) {
+                queue.push(vertex);
+                this.marked[vertex] = true;
+                this.edgeTo[vertex] = s;
+            }
+        }
+    }
+}
