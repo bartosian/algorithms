@@ -186,3 +186,37 @@ class WebCrawler {
         }
     }
 }
+
+class TopologicalSort {
+    constructor(graph) {
+        this.graph = graph;
+        this.order = [];
+        this.marked = new Array(graph.vertices);
+
+        let vertices = graph.vertices;
+
+        for (let vertex of vertices) {
+            if (!this.marked[vertex]) {
+                this.dfs(vertex);
+            }
+        }
+    }
+
+    dfs(vertex) {
+        this.marked[vertex] = true;
+
+        let adjList = this.graph.adj(vertex);
+
+        for (let vertex of adjList) {
+            if (!this.marked[vertex]) {
+                this.dfs(vertex);
+            }
+        }
+
+        this.order.push(vertex);
+    }
+
+    getOrder() {
+        return this.order;
+    }
+}
