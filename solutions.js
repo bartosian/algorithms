@@ -82,3 +82,34 @@ class BFSPaths {
         }
     }
 }
+
+class ConnectedComponents {
+    constructor(graph) {
+        this.graph = graph;
+        this.id = new Array(graph.vertices);
+        this.marked = new Array(graph.vertices);
+        this.count = 0;
+
+        let vertices = graph.vertices;
+
+        for (let i = 0; i <= vertices; i++) {
+            if (!this.marked[i]) {
+                this.dfs(vertices[i]);
+                this.count++;
+            }
+        }
+    }
+
+    dfs(vertex) {
+        this.marked[vertex] = true;
+        this.id[vertex] = this.count;
+
+        let adjList = this.graph.adj(vertex);
+
+        for (let vertex of adjList) {
+            if (!this.marked[vertex]) {
+                this.dfs(vertex);
+            }
+        }
+    }
+}
