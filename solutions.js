@@ -113,3 +113,18 @@ class ConnectedComponents {
         }
     }
 }
+
+class Digraph {
+    constructor(vertices) {
+        this.vertices = vertices;
+        this.graph =  Array.from({length: vertices}, vertex => new Array());
+    }
+
+    addEdge(v, w) {
+        this.graph[v].push(w);
+    }
+
+    adj(vertex) {
+        return this.graph[vertex];
+    }
+}
