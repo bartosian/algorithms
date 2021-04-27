@@ -128,3 +128,61 @@ class Digraph {
         return this.graph[vertex];
     }
 }
+
+class DiDFSPAths {
+    constructor(graph, vertex) {
+        this.graph = graph;
+        this.startVertex = vertex;
+        this.marked = new Array(graph.vertices);
+
+        this.dfs(vertex);
+    }
+
+    dfs(vertex) {
+        this.marked[vertex] = true;
+
+        let adjList = this.graph.adj[vertex];
+
+        for (let vert of adjList) {
+            if (!this.marked[vert]) {
+                this.dfs(vert);
+            } 
+        }
+    }
+
+    hasPathTo(vertex) {
+        return this.marked[vertex];
+    }
+}
+
+class WebCrawler {
+    SITE_REGEXP = "http://(\\w+\\.)*(\\w+)";
+
+    constructor(startSite) {
+        this.root = startSite;
+        this.marked = new Set();
+
+        this.dfs(this.root);
+    }
+
+    dfs(webSite) {
+        let queue = [];
+        this.marked.add(webSite);
+
+        queue.push(webSite);
+
+        while (!queue.length) {
+            let nextSite = queue.shift(),
+                siteContent = getContent(nextSite);
+
+            while (matcher.find(this.SITE_REGEXP)) {
+                let nextMatch = matcher.group();
+
+                if (!this.marked.has(nextMatch)) {
+                    this.marked.add(nextMatch);
+                    queue.push(nextMatch);
+                }
+            }    
+        }
+    }
+}
