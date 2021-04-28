@@ -220,3 +220,38 @@ class TopologicalSort {
         return this.order;
     }
 }
+
+class StrongCC {
+    constructor(graph) {
+        this.count = 0;
+        this.id = new Array(graph.vertices);
+        this.marked = new Array(graph.vertices);
+        this.graph = graph;
+
+        let postOrder = new TopologicalSort(graph).getOrder();
+
+        for (let vertex of postOrder) {
+            if (!this.marked[vertex]) {
+                this.dfs(vertex);
+                count++;
+            }
+        }
+    }
+
+    dfs(vertex) {
+        this.marked[vertex] = true;
+        this.id[vertex] = this.count;
+
+        let adj = this.graph.adj[vertex];
+
+        for (let adjVrtex of adj) {
+            if (!this.marked[adjVrtex]) {
+                this.dfs(adjVrtex);
+            }
+        }
+    }
+
+    areStronglyConnected(v, w) {
+        return this.id[v] === this.id[w];
+    }
+}
