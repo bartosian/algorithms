@@ -255,3 +255,49 @@ class StrongCC {
         return this.id[v] === this.id[w];
     }
 }
+
+class Edge {
+    constructor(v, w, weight) {
+        this.v = v;
+        this.w = w;
+        this.weight = weight;
+    }
+
+    either() {
+        return this.v;
+    }
+
+    other(vertex) {
+        return vertex === this.v ? this.w : this.v;
+    }
+
+    compareTo(edge) {
+        if (this.weight < edge.weight) {
+            return -1;
+        } else if (this.weight > edge.weight) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}
+
+class EdgeWeightedGraph {
+    constructor(vertices) {
+        this.vertices = vertices;
+        this.graph = Array.from({length: vertices}, vertex => new Array());
+    }
+
+    addEdge(edge) {
+        let v = edge.either(),
+            w = edge.other(v);
+
+        this.graph[v].push(edge);
+        this.graph[w].push(edge);    
+    }
+
+    adj(vertex) {
+        return graph[vertex];
+    }
+}
+
