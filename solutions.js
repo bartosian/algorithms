@@ -299,5 +299,44 @@ class EdgeWeightedGraph {
     adj(vertex) {
         return graph[vertex];
     }
+
+    edges() {
+        return this.graph.reduce((result, adj) => {
+            return [...result, ...adj];
+        }, []);
+    }
 }
 
+// Kruskal's algortihm
+class KruskalMST {
+    constructor(graph) {
+        this.graph = graph;
+        this.pq = new PQ();
+        this.mst = [];
+        this.union = new UF(graph.vertices);
+        this.vertices = graph.vertices;
+
+        for (let edge of graph.edges()) {
+            this.pq.insert(edge);
+        }
+
+        this.getMST();
+    }
+
+    getMST() {
+        while (this.pq.size() && this.getMST.length < this.vertices - 1) {
+            let minEdge = this.pq.extract(),
+                v = minEdge.either(),
+                w = minEdge.other(v);
+
+            if (!this.UF.connected(v, w)) {
+                this.UF.union(v, w);
+                this.mst.push(minEdge);
+            }    
+        }
+    }
+
+    edges() {
+        return this.mst;
+    }
+}
