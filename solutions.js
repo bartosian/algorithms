@@ -340,3 +340,43 @@ class KruskalMST {
         return this.mst;
     }
 }
+
+class LazyPrimsMST {
+    constructor(graph) {
+        this.graph = graph;
+        this.vertices = graph.vertices;
+        this.mst = [];
+        this.pq = new PQ();
+        this.marked = new Array(this.vertices).fill(false);
+
+        this.visit(0);
+    }
+
+    getMst() {
+        while(this.pq.size() && this.mst.length < this.vertices - 1) {
+            let minEdge = this.pq.extract(),
+                v = minEdge.either(),
+                w = minEdge.other();
+
+            if (this.marked[v] && this.marked[w]) continue;
+            this.mst.push(minEdge);
+            this.marked[v] ? this.visit(w) : this.visit(v);    
+        }
+    }
+
+    visit(vertex) {
+        this.marked[vertex] = true;
+
+        let adj = this.graph.adj(vertex);
+
+        for (let edge of adj) {
+            let w = edge.other(vertex);
+
+            !this.marked[w] && this.pq.insert(edge); 
+        }
+    }
+
+    mst() {
+        return this.mst;
+    }
+}
