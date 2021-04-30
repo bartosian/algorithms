@@ -380,3 +380,39 @@ class LazyPrimsMST {
         return this.mst;
     }
 }
+
+class DirectedEdge {
+    constructor(v, w, weight) {
+        this.v = v;
+        this.w = w;
+        this.weight = weight;
+    }
+
+    from() {
+        return this.v;
+    }
+
+    to() {
+        return this.w;
+    }
+
+    weight() {
+        return this.weight;
+    }
+}
+
+class EdgeWeightedDigraph {
+    constructor(vertices) {
+        this.vertices = vertices;
+        this.adjList = Array.from({length: vertices}, vertex => new Array());
+    }
+
+    addEdge(edge) {
+        let v = edge.from();
+        this.adjList[v].push(edge);
+    }
+
+    adj(vertex) {
+        return this.adjList[vertex];
+    }
+}
