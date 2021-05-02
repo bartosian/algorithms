@@ -500,3 +500,40 @@ class Dijkstra {
         return this.path;
     }
 }
+
+class ShortestPathDAG {
+    constructor(graph, start) {
+        this.graph = graph;
+        this.start = start;
+        this.vertices = this.graph.vertices;
+        this.path = [];
+        this.distTo = Array.from({length: this.vertices}, vertex => {
+            if (vertex === start) {
+                return 0;
+            } else {
+                return Infinity;
+            }
+        });
+        this.edgeTo = new Array(this.vertices).fill(null);
+
+        let TopologicalOrder = new TopologicalSort().getOrder();
+
+        for (let vertex of TopologicalOrder) {
+            let adj = this.graph.adj(vertex);
+
+            for (let edge of adj) {
+                this.relax(edge);
+            }
+        }
+    }
+
+    relax(edge) {
+        let from = edge.from(),
+            to = edge.to();
+
+        if (this.distTo[to] < this.distTo[from] + edge.weight) {
+            this.distTo[to] = this.distTo[from] + edge.weight;
+            this.edgeTo = edge;
+        }    
+    }
+}
