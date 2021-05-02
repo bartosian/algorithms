@@ -442,3 +442,61 @@ class ShortestPath {
         }    
     }
 }
+
+class Dijkstra {
+    constructor(graph, start) {
+        this.graph = graph;
+        this.vertices = graph.vertices;
+        this.start = start;
+        this.distTo = Array.from({length: this.vertices}, vertex => {
+            if (vertex === start) {
+                return 0;
+            } else {
+                return Infinity;
+            }
+        });
+        this.edgeTo = new Array(this.vertices).fill(null);
+        this.path = [];
+        this.pq = new IndexMinPQ();
+
+        this.pq.insert([this.start, 0]);
+
+        while (this.pq.size()) {
+            let minVertex = this.pq.extract();
+
+            for (let edge of this.graph.adj[minVertex]) {
+                this.relax(edge);
+            }
+        }
+    }
+
+    relax(edge) {
+        let from = edge.from(),
+            to = edge.to();
+
+        if (this.distTo[to] < this.distTo[from] + edge.weight) {
+            this.distTo[to] = this.distTo[from] + edge.weight;
+            this.edgeTo[to] = edge;
+
+            if (this.pq.contains(to)) {
+                this.pq.decreaseKey([to, this.distTo[to]]);
+            } else {
+                this.pq.insert([to, this.diustTo[to]]);
+            }
+        }    
+    }
+
+    distTo(vertex) {
+        return this.pathTo[vertex];
+    }
+
+    pathTo(vertex) {
+        this.path = [];
+
+        for (let edge = this.edgeTo[vertex]; !!edge; edge = this.edgeTo[edge.from()]) {
+            this.path.push(edge);
+        }
+
+        return this.path;
+    }
+}
