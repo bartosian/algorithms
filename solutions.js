@@ -537,3 +537,42 @@ class ShortestPathDAG {
         }    
     }
 }
+
+class BellmanFord {
+    constructor(graph, start) {
+        this.start = start;
+        this.graph = graph;
+        this.vertices = this.graph.vertices;
+        this.distTo = Array.from({length: this.vertices}, vertex => {
+            if (vertex === start) {
+                return 0;
+            } else {
+                return Infinity;
+            }
+        });
+        this.edgeTo = new Array(this.vertices).fill(null);
+
+        let cycle = this.vertices;
+
+        while (cycle) {
+            for (let vertex of vertices) {
+                let adj = this.ghraph.adj(vertex);
+
+                for (let edge of adj) {
+                    this.relax(edge);
+                }
+            }
+            cycle--;
+        }
+    }
+
+    relax(edge) {
+        let from = edge.from(),
+            to = edge.to();
+
+        if (this.distTo[to] > this.distTo[from] + edge.weight) {
+            this.diustTo[to] = this.distTo[from] + edge.weight;
+            this.edgeTo[to] = edge;
+        }    
+    }
+}
