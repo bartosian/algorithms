@@ -416,3 +416,29 @@ class EdgeWeightedDigraph {
         return this.adjList[vertex];
     }
 }
+
+class ShortestPath {
+    distTo(v) {
+        return this.distTo[v];
+    }
+
+    pathTo(v) {
+        let path = [];
+
+        for (let edge = this.edgeTo[v]; edge != null; edge = this.edgeTo[edge.from()]) {
+            path.push(edge);
+        }
+
+        return path;
+    }
+
+    relax(e) {
+        let v = e.from(),
+            w = e.to();
+
+        if (this.distTo[w] > this.distTo[v] + e.weight()) {
+            this.distTo[w] = this.distTo[v] + e.weight();
+            this.edgeTo[w] = e;
+        }    
+    }
+}
