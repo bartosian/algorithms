@@ -543,6 +543,7 @@ class BellmanFord {
         this.start = start;
         this.graph = graph;
         this.vertices = this.graph.vertices;
+        this.changed = new Array(this.vertices).fill(true);
         this.distTo = Array.from({length: this.vertices}, vertex => {
             if (vertex === start) {
                 return 0;
@@ -559,7 +560,7 @@ class BellmanFord {
                 let adj = this.ghraph.adj(vertex);
 
                 for (let edge of adj) {
-                    this.relax(edge);
+                    this.changed[edge.to()] && this.relax(edge);
                 }
             }
             cycle--;
@@ -571,8 +572,48 @@ class BellmanFord {
             to = edge.to();
 
         if (this.distTo[to] > this.distTo[from] + edge.weight) {
-            this.diustTo[to] = this.distTo[from] + edge.weight;
+            this.distTo[to] = this.distTo[from] + edge.weight;
             this.edgeTo[to] = edge;
+        } else {
+            this.changed[to] = false;
         }    
+    }
+}
+
+class KeyIndexedCounting {
+    constructor(arr, R) {
+        this.R = R;
+        this.arr = arr;
+        this.length = arr.length;
+        this.aux = new Array(this.length).fill(0);
+        this.count = new Array(this.R + 1).fill(0);
+
+        this.sort();
+    }
+
+    sort() {
+        // count frequences
+        for (let i = 0; i < this.length; i++) {
+            this.count[this.arr[i]++] += 1;
+        }
+
+        // compute cumulates
+        for (let i = 0; i < this.R; i++) {
+            this.count[i + 1] += this.count[i];
+        }
+
+        // move items
+        for (let i = 0; i < this.length; i++) {
+            this.aux[this.count[this.arr[i]]++] = this.arr[i];
+        }
+
+        // copy back
+        for (let i = 0; i < this.length; i++) {
+            this.arr[i] = this.aux[i];
+        }
+    }
+
+    getResult() {
+        return this.arr;
     }
 }
