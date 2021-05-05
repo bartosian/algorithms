@@ -617,3 +617,38 @@ class KeyIndexedCounting {
         return this.arr;
     }
 }
+
+class LSD {
+    R=256
+
+    constructor(arr, w) {
+        this.arr = arr;
+        this.w = w;
+        this.length = arr.length;
+        this.aux = new Array(this.length).fill(0);
+
+        sort();
+    }
+
+    sort() {
+        let count = new Array(this.R + 1).fill(0);
+
+        for (let d = this.w - 1; d >= 0; d--) {
+            for (let i = 0; i < this.length; i++) {
+                this.count[this.arr[i][d] + 1]++;
+            }
+
+            for (let r = 0; r < this.R; r++) {
+                this.count[r + 1] += this.count[r];
+            }
+
+            for (let i = 0; i < this.length; i++) {
+                this.aux[this.count[this.arr[i][d]]++] = this.arr[i];
+            }
+
+            for (let i = 0; i < this.length; i++) {
+                this.arr[i] = this.aux[i];
+            }
+        }
+    }
+}
