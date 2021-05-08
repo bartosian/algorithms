@@ -696,3 +696,46 @@ class MSD {
         }
     }
 }
+
+class ThreeWayQUickSort {
+    constructor(arr) {
+        this.arr = arr;
+
+        this.sort(arr, 0, arr.length - 1, 0);
+    }
+
+    charAt(str, d) {
+        if (d < str.length) {
+            return str.charAt(d);
+        } else {
+            return -1;
+        }
+    }
+
+    sort(arr, lo, hi, digit) {
+        if (hi <= lo) return;
+
+        let lt = lo,
+            gt = hi,
+            pivot = this.charAt(arr[lo], digit),
+            i = lo + 1;
+
+        while (i <= gt) {
+            let currentChar = this.charAt(arr[i], digit);
+
+            if (currentChar < pivot) {
+                this.swap(arr, i++, lt++);
+            } else if (currentChar > pivot) {
+                this.swap(arr, i++, gt--);
+            } else {
+                i++;
+            }
+        }
+        
+        this.sort(arr, lo, lt - 1, digit);
+
+        if (pivot >= 0) this.sort(arr, lt, gt, d + 1);
+
+        this.sort(arr, gt + 1, hi, digit);
+    }
+}
