@@ -631,9 +631,9 @@ class LSD {
     }
 
     sort() {
-        let count = new Array(this.R + 1).fill(0);
-
         for (let d = this.w - 1; d >= 0; d--) {
+            let count = new Array(this.R + 1).fill(0);
+
             for (let i = 0; i < this.length; i++) {
                 this.count[this.arr[i][d] + 1]++;
             }
@@ -649,6 +649,50 @@ class LSD {
             for (let i = 0; i < this.length; i++) {
                 this.arr[i] = this.aux[i];
             }
+        }
+    }
+}
+
+class MSD {
+    R=256
+
+    constructor(arr) {
+        this.arr = arr;
+        this.length = arr.length;
+        this.aux = new Array(this.length).fill(0);
+
+        this.sort(this.arr, this.aux, 0, this.length - 1, 0);
+    }
+
+    charAt(str, d) {
+        if (d < str.length) {
+            return str.charAt(d);
+        } else {
+            return -1;
+        }
+    }
+
+    sort(arr, aux, lo, hi, digit) {
+        let count = new Array(this.R + 1).fill(0);
+
+        for (let i = lo; i <= hi; i++) {
+            count[this.charAt(arr[i], digit) + 2]++;
+        }
+
+        for (let r = 0; r < R + 1; r++) {
+            count[r + 1] += count[r];
+        }
+
+        for (let i = lo; i <= hi; i++) {
+            aux[count[this.charAt(arr[i], digit) + 1]++] = arr[i];
+        }
+
+        for (let i = lo; i <= hi; i++) {
+            arr[i] = aux[i - lo];
+        }
+
+        for (let r = 0; r < this.R; r++) {
+            this.sort(arr, aux, lo + count[r], lo + count[r + 1], d + 1);
         }
     }
 }
