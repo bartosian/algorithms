@@ -726,7 +726,7 @@ class ThreeWayQUickSort {
             if (currentChar < pivot) {
                 this.swap(arr, i++, lt++);
             } else if (currentChar > pivot) {
-                this.swap(arr, i++, gt--);
+                this.swap(arr, i, gt--);
             } else {
                 i++;
             }
@@ -737,5 +737,50 @@ class ThreeWayQUickSort {
         if (pivot >= 0) this.sort(arr, lt, gt, d + 1);
 
         this.sort(arr, gt + 1, hi, digit);
+    }
+}
+
+class LRS {
+    constructor(str) {
+        this.suffixArr = this.constructSuffixArr(str);
+        this.arrLen = thids.suffixArr.length;
+
+        this.suffixArr.sort(this.suffixArr);
+
+        this.lrs = this.findLRS();
+    }
+
+    constructSuffixArr(str) {
+        let arr = [];
+
+        for (let i = 0; i < str.length; i++) {
+            arr.push(str.substring(i));
+        }
+
+        return arr;
+    }
+
+    findLRS(arr) {
+        let lrs = "";
+
+        for (let i = 0; i < this.arrLen - 1; i++) {
+            let lrpLen = this.getLRP(arr[i], arr[i + 1]);
+
+            if (lrpLen > lrs.length) {
+                lrs = arr[i].substring(0, lrpLen);
+            }
+        }
+
+        return lrs;
+    }
+
+    getLRP(strA, strB) {
+        let i = 0;
+
+        while (strA[i] === strB[i]) {
+            i++;
+        }
+
+        return i + 1;
     }
 }
