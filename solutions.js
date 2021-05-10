@@ -775,12 +775,72 @@ class LRS {
     }
 
     getLRP(strA, strB) {
-        let i = 0;
+        let len = Math.min(strA.length, strB.length),
+            i = 0;
 
-        while (strA[i] === strB[i]) {
+        while (strA[i] === strB[i] && i < len) {
             i++;
         }
 
         return i + 1;
     }
+}
+
+class Node {
+    constructor(radix, value=null) {
+        this.value = value;
+        this.next = new Array(radix);
+    }
+}
+
+class Trie {
+    R = 256
+
+    constructor() {
+        this.root = new Node(this.R);    
+    }
+
+    put(key, value) {
+        this.root = this.put_helper(this.root, key, value, digit);
+    }
+
+    put_helper(node, key, value, digit) {
+        if (!node) node = new Node();
+
+        if (digit === key.length) {
+            node.value = value;
+            return node;
+        }
+
+        let char = key.charAt(digit);
+        node.next[char] = this.put(node.next[char], key, value, digit + 1);
+
+        return node;
+    }
+
+    contains(key) {
+        return !!this.get(key);
+    }
+
+    get(key) {
+        let node = this.get_helper(this.root, key, 0);
+
+        if (node) {
+            return node.value;
+        } else {
+            return null;
+        }
+    }
+
+    get_helper(node, key, digit) {
+        if (!node) return null;
+
+        if (key.length === digit) {
+            return node;
+        }
+
+        let char = key.charAt(digit);
+
+        return this.get_helper(node[char], key, digit + 1);
+     }
 }
