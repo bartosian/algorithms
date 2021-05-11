@@ -844,3 +844,72 @@ class Trie {
         return this.get_helper(node[char], key, digit + 1);
      }
 }
+
+class NodeTST {
+    constructor(val=null, char=null) {
+        this.value = val;
+        this.char = char;
+        this.left = null;
+        this.middle = null;
+        this.right = null;
+    }
+}
+
+class TST {
+    constructor() {
+        this.root = null;
+    }
+
+    put(key, value) {
+        this.put_helper(this.root, key, value, 0);
+    }
+
+    put_helper(node, key, value, digit) {
+        let char = key.charAt(digit);
+
+        if (!node) {
+            node = new NodeTST();
+            node.char = char;
+        }
+
+        if (char < node.char) {
+            node.left = this.put_helper(node.left, key, value, digit);
+        } else if (char > node.char) {
+            node.right = this.put_helper(node.right, key, valaue, digit);
+        } else if (digit < key.length - 1) {
+            node.middle = this.put_helper(node.middle, key, value, digit + 1);
+        } else {
+            node.value = value;
+        }
+
+        return node;
+    }
+
+    contains(key) {
+        return this.get(key) !== null;
+    }
+
+    get(key) {
+        let node = this.get_helper(this.root, key, 0);
+
+        if (!node) return null;
+
+        return node.value;
+    }
+
+    get_helper(node, key, digit) {
+        if (!node) return null;
+
+        let char = key.charAt(digit);
+
+        if (char < node.char) {
+            return this.get_helper(node.left, key, digit);
+        } else if (char > node.char) {
+            return this.get_helper(node.right, key, digit);
+        } else if (digit < key.length - 1) {
+            return this.get_helper(node.middle, key, digit + 1);
+        } else {
+            return node;
+        }
+    }
+}

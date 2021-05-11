@@ -222,3 +222,4 @@ function orangesRotting(grid) {
 
   return fresh == 0 ? minutes : -1;
 }
+
