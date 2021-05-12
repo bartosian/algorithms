@@ -843,6 +843,53 @@ class Trie {
 
         return this.get_helper(node[char], key, digit + 1);
      }
+
+     keys() {
+         let queue = [];
+
+         this.collect(this.root, "", queue);
+
+         return queue;
+     }
+
+     collect(node, prefix, queue) {
+        if (!node) return null;
+
+        if (node.value) queue.unshift(prefix);
+
+        for (let char = 0; char < this.R; char++) {
+            this.collect(node[char], prefix + String.fromCharCode(97 + char), queue);
+        }
+     }
+
+     keysWithPrefix(prefix) {
+        let prefixNode = this.get_helper(this.root, prefix, 0);
+
+        if (!prefixNode) return null;
+
+        let queue = [];
+
+        this.collect(prefixNode, prefix, queue);
+
+        return queue;
+     }
+
+     longestPrefixOf(query) {
+        let length = this.search(this.root, query, 0, 0);
+
+        return query.substring(0, length);
+     }
+
+     search(node, query, digit, length) {
+        if (!node) return length;
+
+        if (node.value) length = digit;
+        if (digit === query.length) return length;
+
+        let char = query.charAt(digit);
+
+        return this.search(node.next[char], query, digit + 1, length);
+     }
 }
 
 class NodeTST {
@@ -913,3 +960,4 @@ class TST {
         }
     }
 }
+
