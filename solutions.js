@@ -961,3 +961,21 @@ class TST {
     }
 }
 
+function  stringSearch(text, pat) {
+    let textLen = text.length,
+        patLen = pat.length;
+
+    for (let i = 0; i < textLen - patLen; i++) {
+        let j;
+
+        for (j = 0; j < patLen; j++) {
+            if (text.charAt(i + j) !== pat.charAt(j)) {
+                break;
+            }
+        }
+
+        if (j === patLen) return i;
+    }
+    
+    return textLen;
+}
