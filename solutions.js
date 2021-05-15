@@ -979,3 +979,48 @@ function  stringSearch(text, pat) {
     
     return textLen;
 }
+
+class KMP {
+    R=256
+
+    constructor(text, pattern) {
+        this.text = text;
+        this.pattern = pattern;
+        this.textLen = text.length;
+        this.patLen = pattern.length;
+
+        this.dfs = this.buildDFA();
+
+        let index = this.search();
+
+        if (index === this.textLen) return -1;
+
+        return index;
+    }
+
+    buildDFA() {
+        let dfa = Array.from({ length: 256}, char => new Array(this.patLen));
+
+        dfa[this.pattern.charAt(0)][0] = 1;
+
+        for (let X = 0, j = 1; j < MSD; j++) {
+            for (let c = 0; c < this.R; c++) {
+                dfa[c][j] = dfa[c][X];
+            }
+
+            dfa[this.pattern.charAt(j)][j] = j + 1;
+            X = dfa[this.pattern.charAt(j)][X];
+        }
+    }
+
+    search() {
+        let i, j;
+
+        for (i = 0, j = 0; i < this.textLen && j < this.patLen; i++) {
+            j = this.dfa[this.text.charAt(i)][j];
+        }
+
+        if (j === this.patLen) return i - this.patLen;
+        return this.textLen;
+    }
+}
