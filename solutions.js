@@ -1029,10 +1029,45 @@ class NFA {
     constructor(regexp) {
         this.statesNum = regexp.length;
         this.re = regexp.split("");
-        this.grap = this.buildEpsilonTransitionDigraph();
+        this.graph = this.buildEpsilonTransitionDigraph();
     }
 
     buildEpsilonTransitionDigraph() {}
 
-    recognizes(txt) {}
+    recognizes(txt) {
+        let pc = [],
+            dfs = new DirectedDFS(this.graph, 0);
+
+        for (let v = 0; v < this.graph.vertices; v++) {
+            if (dfs.marked(v)) {
+                pc.push(v);
+            }
+        }
+        
+        for (let i = 0; i < txt.length; i++) {
+            let match = [];
+
+            for (let v of pc) {
+                if (v === this.statesNum) continue;
+                if ((this.re[v] == txt.charAt(i)) || this.re[v] == ".") {
+                    match.push(v + 1);
+                }
+            }
+
+            dfs = new DirectedDFS(this.graph, match);
+            pc = [];
+
+            for (let v = 0; v < this.graph.vertices; v++) {
+                if (dfs.marked(v)) {
+                    pc.push(v);
+                }
+            }
+        }
+
+        for (let v of pc) {
+            if (v === this.statesNum) return true;
+        }
+
+        return false;
+    }
 }
