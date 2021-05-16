@@ -1024,3 +1024,15 @@ class KMP {
         return this.textLen;
     }
 }
+
+class NFA {
+    constructor(regexp) {
+        this.statesNum = regexp.length;
+        this.re = regexp.split("");
+        this.grap = this.buildEpsilonTransitionDigraph();
+    }
+
+    buildEpsilonTransitionDigraph() {}
+
+    recognizes(txt) {}
+}
