@@ -1071,3 +1071,28 @@ class NFA {
         return false;
     }
 }
+
+class RunLength {
+    R = 256
+    lgR = 8
+
+    constructor() {}
+
+    compress() {}
+
+    expand() {
+        let bit = false;
+
+        while (!BinaryStdIn.isEmpty()) {
+            let run = BinaryStdIn.readInt(this.lgR);
+
+            for (let i = 0; i < run; i++) {
+                BinarySTdOut.write(bit);
+            }
+
+            bit = !bit;
+        }
+
+        BinaryStdOut.close();
+    }
+}
