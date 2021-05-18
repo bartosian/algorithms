@@ -1096,3 +1096,89 @@ class RunLength {
         BinaryStdOut.close();
     }
 }
+
+class NodeHuffman {
+    constructor(char, freq=0, left=null, right=null) {
+        this.char = char;
+        this.freq = freq;
+        this.left = left;
+        this.right = right;
+    }
+
+    isLeaf() {
+        return !this.left && !this.right;
+    }
+
+    compareTo(node) {
+        return this.freq - node.freq;
+    }
+}
+
+class HufmanCompression {
+    constructor() {}
+
+    buildTrie(freq) {
+        let pq = new MinPQ();
+
+        for (let i = 0; i < R; i++) {
+            if (freq[i]) {
+                pq.insert(new NodeHuffman(i, freq[i], null, null));
+            }
+        }
+
+        while (pq.size()) {
+            let leftNode = pq.extract(),
+                rightNode = pq.extract(),
+                parent = new Node('\0', x.freq + yield.freq, x, y);
+                pq.insert(parent);
+        }
+
+        return pq.extract();
+    }
+
+    expand() {
+        let root = this.readTrie(),
+            num = BinaryStdIn.readInt();
+
+        for (let i = 0; i < num; i++) {
+            let node = root;
+
+            while (!node.isleaf()) {
+                if (!BinaryStdIn.readBoolean()) {
+                    node = node.left;
+                } else {
+                    node = node.right;
+                }
+            }
+
+            BinaryStdOut.write(node.char, 8);
+        }
+        
+        BinaryStdOut.close();
+    }
+
+    writeTrie(node) {
+        if (node.isLeaf()) {
+            BinaryStdOut.write(true);
+            BinaryStdOut.write(node.char, 8);
+            return;
+        }
+
+        BinaryStdOut.write(false);
+        this.writeTrie(node.left);
+        this.writeTrie(node.right);
+    }
+
+    readTrie() {
+        if (BinaryStdIn.readBoolean()) {
+            let char = BinaryStdIn.readChar(8);
+            return new Node(char, 0, null, null);
+        }
+
+        let leftChild = this.readTrie(),
+            rightChild = this.readTrie();
+
+        return new Node('\0', 0, leftChild, rightChild);    
+    }
+
+}
