@@ -1182,3 +1182,36 @@ class HufmanCompression {
     }
 
 }
+
+class LZW {
+    R = 256
+
+    compress() {
+        let input = BinaryStdIn.readSting();
+
+        let tst = new TST();
+
+        for (let i = 0; i < R; i++) {
+            tst.put("" + i, i);
+        }
+
+        code = this.R + 1;
+
+        while (input.length()) {
+            let s = tst.longestPrefixOf(input);
+
+            BinaryStdOut.write(tst.get(s), W);
+
+            let t = s.length;
+
+            if (t < input.length() && code < L) {
+                tst.put(input.substring(0, t + 1), code++);
+            }
+
+            input = input.substring(t);
+        }
+
+        BinaryStdOut.write(R, W);
+        BinaryStdOut.close();
+    }
+}
