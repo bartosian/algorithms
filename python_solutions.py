@@ -1,52 +1,49 @@
-def insert(self, val):
-    if self.root == None:
-        self.root = Node(val)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        map = {}
 
-    root = self.root
-    while True:
-        if val > root.info:
-            if root.right:
-                root = root.right
+        for i, val in enumerate(nums):
+            required_value = map.get(target - val)
+
+            if required_value is not None:
+                return [required_value, i]
+
+            map[val] = i
+
+    def addTwoNumbers(
+        self, l1: Optional[ListNode], l2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        carry = 0
+        dummy = current = ListNode(0)
+
+        while l1 or l2 or carry:
+            v1 = v2 = 0
+
+            if l1:
+                v1 = l1.val
+                l1 = l1.next
+            if l2:
+                v2 = l2.val
+                l2 = l2.next
+
+            carry, val = divmod(v1 + v2 + carry, 10)
+
+            current.next = ListNode(val)
+            current = current.next
+
+        return dummy.next
+
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        seen = {}
+        left = 0
+        output = 0
+
+        for i, val in enumerate(s):
+            if val not in seen or seen[val] < left:
+                output = max(output, i - left + 1)
             else:
-                root.right = Node(val)
-                break
-        elif val < root.info:
-            if root.left:
-                root = root.left
-            else:
-                root.left = Node(val)
-                break
-        else:
-            break                 
+                left = seen[val] + 1
 
-def lca(root, v1, v2):
-    if root is None:
-        return None
+            seen[val] = i
 
-    data = root.info
-
-    if v1 > data and v2 > data:
-        return lca(root.right, v1, v2)
-    if v1 < data and v2 < data:
-        return lca(root.left, v1, v2)
-    return root            
-
-
-def arrayManipulation(n, queries):
-    array = [0] * (n + 1)
-    
-    for query in queries: 
-        a = query[0] - 1
-        b = query[1]
-        k = query[2]
-        array[a] += k
-        array[b] -= k
-        
-    max_value = 0
-    running_count = 0
-    for i in array:
-        running_count += i
-        if running_count > max_value:
-            max_value = running_count
-            
-    return max_value
+        return output
