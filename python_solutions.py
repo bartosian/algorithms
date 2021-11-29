@@ -167,3 +167,30 @@ class LRUCache:
 
         memo = {}
         return dp(len(cost))
+
+    def tribonacci_memo(self, n: int) -> int:
+        def dp(i):
+            if i == 0:
+                return 0
+            if i <= 2:
+                return 1
+            if i not in memo:
+                memo[i] = dp(i - 1) + dp(i - 2) + dp(i - 3)
+
+            return memo[i]
+
+        memo = {}
+        return dp(n)
+
+    def tribonacci_tab(self, n: int) -> int:
+        if n == 0:
+            return 0
+        if n <= 2:
+            return 1
+
+        dp = [0, 1, 1] + [0] * (n - 2)
+
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1]
+
+        return dp[n]
