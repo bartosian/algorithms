@@ -143,9 +143,8 @@ class LRUCache:
         return dp(len(nums) - 1)
 
     def rob_tab(self, nums: List[int]) -> int:
-        if len(nums) == 1;
+        if len(nums) == 1:
             return nums[0]
-
 
         dp = [0] * len(nums)
         dp[0] = nums[0]
@@ -154,4 +153,17 @@ class LRUCache:
         for i in range(2, len(nums)):
             dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
 
-        return dp[-1]    
+        return dp[-1]
+
+    def minCostClimbingStairs(self, cost: List[int]) -> int:
+        def dp(i):
+            if i <= 1:
+                return 0
+
+            if i not in memo:
+                memo[i] = min(dp(i - 1) + cost[i - 1], dp(i - 2) + cost[i - 2])
+
+            return memo[i]
+
+        memo = {}
+        return dp(len(cost))
