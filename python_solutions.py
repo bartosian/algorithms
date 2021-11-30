@@ -1,4 +1,5 @@
 from functools import lru_cache
+from random import randint
 
 
 class Solution:
@@ -343,3 +344,21 @@ class LRUCache:
         mid = len(arr) // 2
 
         return merge(self.mergesort(arr[:mid]), self.mergesort(arr[mid:]))
+
+    def quicksort(self, arr):
+        if len(arr) < 2:
+            return arr
+
+        pivot = arr[randint(0, len(arr) - 1)]
+
+        low, same, high = [], [], []
+
+        for item in arr:
+            if item < arr[pivot]:
+                low.append(item)
+            elif item > arr[pivot]:
+                high.append(item)
+            else:
+                same.append(item)
+
+        return self.quicksort(low) + same + self.quicksort(high)
