@@ -272,7 +272,7 @@ class LRUCache:
 
         return max_side ** 2
 
-    def bubble_sort(arr):
+    def bubble_sort(self, arr):
         if not arr or len(arr) == 0:
             return
 
@@ -292,7 +292,7 @@ class LRUCache:
 
         return arr
 
-    def insertion_sort(arr):
+    def insertion_sort(self, arr):
         n = len(arr)
 
         for i in range(1, n):
@@ -306,3 +306,40 @@ class LRUCache:
             arr[j + 1] = item
 
         return arr
+
+    def merge(self, arrA, arrB):
+        if len(arrA) == 0:
+            return arrB
+
+        if len(arrB) == 0:
+            return arrA
+
+        result = []
+        indexA = indexB = 0
+
+        while len(result) < len(arrA) + len(arrB):
+            if arrA[indexA] <= arrB[indexB]:
+                result.append(arrA[indexA])
+                indexA += 1
+
+            else:
+                result.append(arrB[indexB])
+                indexB += 1
+
+            if indexA == len(arrA):
+                result += arrB[indexB:]
+                break
+
+            if indexB == len(arrB):
+                result += arrA[indexA:]
+                break
+
+        return result
+
+    def mergesort(self, arr):
+        if len(arr) < 2:
+            return arr
+
+        mid = len(arr) // 2
+
+        return merge(self.mergesort(arr[:mid]), self.mergesort(arr[mid:]))
