@@ -1,3 +1,6 @@
+from functools import lru_cache
+
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         map = {}
@@ -194,3 +197,47 @@ class LRUCache:
             dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1]
 
         return dp[n]
+
+    def binary_search(self, arr, left, right, el):
+        if right >= left:
+            mid = (left + right) // 2
+
+            if arr[mid] == el:
+                return mid
+            elif arr[mid] > el:
+                return self.binary_search(arr, left, mid - 1, el)
+            else:
+                return self.binary_search(arr, mid + 1, right, el)
+        else:
+            return -1
+
+    def maximumScore(self, nums: List[int], multipliers: List[int]) -> int:
+        @lru_cache(2000)
+        def dp(i, left):
+            if i == m:
+                return 0
+
+            right = n - 1 - (i - left)
+            mult = multipliers[i]
+
+            return max(
+                mult * nums[left] + dp(i + 1, left + 1),
+                mult * nums[right] + dp(i + 1, left),
+            )
+
+        n, m = len(nums), len(multipliers)
+        return dp(0, 0)
+
+    def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        @lru_cache(100000)
+        def dp(i, j):
+            if i < 0 or j < 0:
+                return 0
+
+            if text1[i] == text2[j]:
+                return 1 + dp(i - 1, j - 1)
+            else:
+                return max(dp(i - 1, j), dp(i, j - 1))
+
+        n, m = len(text1), len(text2)
+        return dp(n - 1, m - 1)
