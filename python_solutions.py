@@ -271,3 +271,23 @@ class LRUCache:
                     max_side = max(max_side, dp[i + 1][j + 1])
 
         return max_side ** 2
+
+    def bubble_sort(arr):
+        if not arr or len(arr) == 0:
+            return
+
+        n = len(arr)
+
+        for i in range(n):
+            is_sorted = True
+
+            for j in range(n - i - 1):
+                if arr[j] > arr[j + 1]:
+                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+                    is_sorted = False
+
+            if is_sorted:
+                break
+
+        return arr
