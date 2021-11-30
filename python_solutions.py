@@ -253,3 +253,21 @@ class LRUCache:
                 else:
                     dp[i][j] = max(dp[i + 1][j], dp[i][j + 1])
         return dp[0][0]
+
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
+        if not matrix or len(matrix) < 1:
+            return 0
+
+        rows, columns = len(matrix), len(matrix[0])
+
+        dp = [[0] * (columns + 1) for _ in range(rows + 1)]
+
+        max_side = 0
+
+        for i in range(rows):
+            for j in range(columns):
+                if matrix[i][j] == "1":
+                    dp[i + 1][j + 1] = 1 + min(dp[i][j], dp[i + 1][j], dp[i][j + 1])
+                    max_side = max(max_side, dp[i + 1][j + 1])
+
+        return max_side ** 2
