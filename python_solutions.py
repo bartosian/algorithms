@@ -419,3 +419,21 @@ class LRUCache:
             max_profit = max(max_profit, profit)
             
         return max_profit        
+
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if len(intervals) == 1: 
+            return 1
+        
+        starts = sorted(intervals, key= lambda i: i[0])
+        ends = sorted(intervals, key= lambda i: i[1])
+        end_i = 0
+        count = 0
+        
+        
+        for i in range(len(starts)):
+            if starts[i][0] >= ends[end_i][1]:
+                end_i += 1
+            else:
+                count += 1
+                
+        return count        
