@@ -387,3 +387,25 @@ class LRUCache:
 
             if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == "1":
                 self.dfs(grid, i, j)
+
+    def reverse(self, x: int) -> int:
+        rev = int(str(abs(rev))[::-1])
+
+        return (-rev ix x < 0 else rev) if rev.bit_length() < 32 else 0
+
+    def isValid(self, s: str) -> bool:     
+        pars_map = {
+            "(": ")",
+            "{": "}",
+            "[": "]"
+        }
+        
+        s_result = []
+        
+        for ch in s:
+            if ch in pars_map:
+                s_result.append(ch)
+            elif len(s_result) == 0 or pars_map[s_result.pop()] != ch:
+                return False
+            
+        return len(s_result) == 0        
