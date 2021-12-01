@@ -362,3 +362,28 @@ class LRUCache:
                 same.append(item)
 
         return self.quicksort(low) + same + self.quicksort(high)
+
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid:
+            return 0
+
+        count = 0
+
+        for row in range(len(grid)):
+            for col in range(len(grid[0])):
+                if grid[row][col] == "1":
+                    self.dfs(grid, row, col)
+
+                    count += 1
+
+        return count
+
+    def dfs(self, grid, row, col):
+        grid[row][col] = 0
+
+        for dr, dc in (0, 1), (1, 0), (-1, 0), (0, -1):
+            i = row + dr
+            j = col + dc
+
+            if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == "1":
+                self.dfs(grid, i, j)
