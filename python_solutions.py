@@ -447,3 +447,36 @@ class LRUCache:
             dp[i] = max(dp[i - 1] + nums[i], nums[i])
 
         return max(dp)
+
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if not len(strs): return ""
+        
+        if len(strs) == 1:
+            return strs[0]
+        
+        index = 0
+        
+        for i, chars in enumerate(zip(*strs)):
+            if len(set(chars)) == 1: index += 1
+            else: break
+                
+                
+        return strs[0][:index]
+        
+    def longestPalindrome(self, s: str) -> str:
+        p = ""
+        
+        for i in range(len(s)):
+            p1 = self.get_palindrome(s, i, i)
+            p2 = self.get_palindrome(s, i, i + 1)
+            
+            p = max([p, p1, p2], key=lambda x: len(x))
+            
+        return p
+            
+    def get_palindrome(self, s, l, r):
+        while l >= 0 and r < len(s) and s[l] == s[r]:
+            l -= 1
+            r += 1
+            
+        return s[l + 1:r]                
