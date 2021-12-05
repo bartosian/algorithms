@@ -480,3 +480,23 @@ class LRUCache:
             r += 1
             
         return s[l + 1:r]                
+
+
+    def generateParenthesis(self, n: int) -> List[str]:
+        def parens(left, right, cur, res):
+            if left == 0 and right == 0:
+                res.append(cur)
+                return
+            
+            
+            if left > 0:
+                parens(left - 1, right, cur + "(", res)
+                
+            if right > left:
+                parens(left, right - 1, cur + ")", res)
+                
+            return res    
+        
+        res = parens(n, n, "", [])
+        
+        return res        
