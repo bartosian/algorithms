@@ -500,3 +500,6 @@ class LRUCache:
         res = parens(n, n, "", [])
         
         return res        
+
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k, nums)[-1]        
