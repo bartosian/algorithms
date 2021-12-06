@@ -528,4 +528,14 @@ class LRUCache:
             if (index - l > k - 1):
                 return kthsmallest(arr, l, index - 1, k)
 
-            return kthsmallest(arr, index + 1, r, k - index + l - 1)                                
+            return kthsmallest(arr, index + 1, r, k - index + l - 1)
+
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans = defdict(list)
+        
+        for s in strs:
+            ans[tuple(sorted(s))].append(s)
+            
+        
+        return ans.values()
