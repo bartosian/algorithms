@@ -563,3 +563,42 @@ class LRUCache:
             return prep_s[:mid] == prep_s[mid:][::-1]
         else:
             return prep_s[:mid] == prep_s[mid + 1:][::-1]                
+
+
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        result = [-1, -1]
+        
+        self.findStartingIndex(nums, 0, len(nums) - 1, target, result)
+        self.findEndingIndex(nums, 0, len(nums) - 1, target, result)
+        
+        return result
+        
+    def findStartingIndex(self, nums, left, right, target, result):        
+        if right >= left:
+            mid = (left + right) // 2
+            
+            if nums[mid] == target:
+                result[0] = mid
+                
+                self.findStartingIndex(nums, left, mid - 1, target, result)
+            
+            elif nums[mid] > target:
+                self.findStartingIndex(nums, left, mid - 1, target, result)
+            else:
+                self.findStartingIndex(nums, mid + 1, right, target, result)
+                
+                
+    def findEndingIndex(self, nums, left, right, target, result):
+        print(result)
+        if right >= left:
+            mid = (left + right) // 2
+            
+            if nums[mid] == target:
+                result[1] = mid
+                
+                self.findEndingIndex(nums, mid + 1, right, target, result)
+            
+            elif nums[mid] > target:
+                self.findEndingIndex(nums, left, mid - 1, target, result)
+            else:
+                self.findEndingIndex(nums, mid + 1, right, target, result)            
