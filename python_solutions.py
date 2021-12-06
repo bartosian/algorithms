@@ -539,3 +539,27 @@ class LRUCache:
             
         
         return ans.values()
+
+    def firstUniqChar(self, s: str) -> int:
+        if len(s) == 1: return 0
+        
+        count = defaultdict(list)
+        
+        for i, ch in enumerate(s):
+            count[ch].append(i)   
+            
+        for val in count.values():
+            if len(val) == 1: return val[0]
+            
+        return -1
+
+    def isPalindrome(self, s: str) -> bool:
+        prep_s = re.sub(r'[\W_]+', "", s).lower()
+        
+        n = len(prep_s)
+        mid = n // 2
+        
+        if n % 2 == 0:   
+            return prep_s[:mid] == prep_s[mid:][::-1]
+        else:
+            return prep_s[:mid] == prep_s[mid + 1:][::-1]                
